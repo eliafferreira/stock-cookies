@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Stock Cookies">
+<title>Stock Cookies</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F2ED;--surface:#FFF;--surface2:#EFECE7;--brown:#3D2B1F;--brown-mid:#7A5C4A;--accent:#C17B3A;--accent-light:#F5E6D0;--green:#3B6B3A;--green-light:#E8F3E8;--red:#A63228;--red-light:#FBEDED;--warn:#8A6000;--warn-light:#FDF3DC;--text:#1A0F0A;--text-mid:#6B5245;--text-muted:#A08878;--border:#E0D8CF;--shadow:rgba(61,43,31,.08);--radius:16px;--radius-sm:10px;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.setup-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center}
+.setup-logo{font-size:48px;margin-bottom:1rem}
+.setup-screen h1{font-size:26px;font-weight:600;color:var(--brown);margin-bottom:.5rem}
+.setup-screen>p{font-size:15px;color:var(--text-mid);line-height:1.6;margin-bottom:2rem;max-width:320px}
+.setup-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;width:100%;max-width:380px;text-align:left}
+.setup-card h2{font-size:14px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem}
+.step{display:flex;gap:12px;margin-bottom:1rem;align-items:flex-start}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step p{font-size:13px;color:var(--text-mid);line-height:1.5}
+.step a{color:var(--accent);text-decoration:none;font-weight:500}
+.setup-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-family:var(--mono);font-size:12px;color:var(--text);margin:1rem 0 .5rem;outline:none}
+.setup-input:focus{border-color:var(--accent)}
+.setup-hint{font-size:11px;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.5}
+.btn-primary{width:100%;background:var(--brown);color:#fff;border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font);font-size:15px;font-weight:500;cursor:pointer}
+.btn-primary:active{background:var(--brown-mid)}
+.app{display:none;flex-direction:column;min-height:100vh}
+.tab-nav{background:var(--surface);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;display:flex;z-index:20;padding-bottom:env(safe-area-inset-bottom,0)}
+.tab-btn{flex:1;padding:10px 0 8px;border:none;background:none;cursor:pointer;font-family:var(--font);display:flex;flex-direction:column;align-items:center;gap:3px}
+.tab-icon{font-size:20px}
+.tab-label{font-size:10px;font-weight:500;color:var(--text-muted)}
+.tab-btn.active .tab-label{color:var(--accent)}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 1.25rem .875rem;position:sticky;top:0;z-index:10}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.header-title{display:flex;align-items:center;gap:10px}
+.header-title span{font-size:20px}
+.header-title h1{font-size:18px;font-weight:600;color:var(--brown)}
+.sync-pill{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--text-muted);cursor:pointer}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted)}
+.sync-dot.ok{background:var(--green)}.sync-dot.err{background:var(--red)}.sync-dot.spin{background:var(--accent);animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.total-row{display:flex;align-items:center;justify-content:space-between;background:var(--accent-light);border-radius:var(--radius-sm);padding:10px 14px}
+.total-label{font-size:12px;color:var(--accent);font-weight:500}
+.total-val{font-size:18px;font-weight:600;color:var(--brown);font-variant-numeric:tabular-nums}
+.page{display:none;flex:1;overflow-y:auto;padding:1rem 1.25rem 5rem}
+.page.active{display:block}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.action-card{border-radius:var(--radius);padding:1rem;cursor:pointer;border:none;font-family:var(--font);text-align:left;transition:transform .1s;display:flex;flex-direction:column;gap:4px}
+.action-card:active{transform:scale(.97)}
+.action-card.entrada{background:var(--green-light);border:1px solid #B8D8B8}
+.action-card.saida{background:var(--red-light);border:1px solid #EBBBB8}
+.action-icon{font-size:22px;margin-bottom:4px}
+.action-label{font-size:13px;font-weight:600}
+.action-card.entrada .action-label{color:var(--green)}
+.action-card.saida .action-label{color:var(--red)}
+.action-sub{font-size:11px;color:var(--text-muted)}
+.section-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.cookie-list{display:flex;flex-direction:column;gap:8px}
+.cookie-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px}
+.cookie-card.low{border-color:#D4AA50;background:var(--warn-light)}
+.cookie-card.empty{border-color:#D4756E;background:var(--red-light)}
+.cookie-emoji{font-size:24px;flex-shrink:0}
+.cookie-info{flex:1;min-width:0}
+.cookie-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cookie-status{font-size:11px;margin-top:2px}
+.status-ok{color:var(--green)}.status-low{color:var(--warn)}.status-empty{color:var(--red)}
+.stock-num{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--brown);min-width:44px;text-align:center}
+.cookie-card.empty .stock-num{color:var(--red)}.cookie-card.low .stock-num{color:var(--warn)}
+.history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.history-title{font-size:16px;font-weight:600;color:var(--brown)}
+.filter-row{display:flex;gap:6px;margin-bottom:1rem;overflow-x:auto;padding-bottom:4px}
+.filter-chip{padding:5px 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;color:var(--text-mid);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.filter-chip.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.export-btn{padding:8px 14px;border-radius:var(--radius-sm);border:1px solid var(--accent);background:var(--accent-light);color:var(--accent);font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer}
+.movement-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:8px}
+.movement-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.movement-type{font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px}
+.movement-type.entrada{background:var(--green-light);color:var(--green)}
+.movement-type.saida{background:var(--red-light);color:var(--red)}
+.movement-date{font-size:11px;color:var(--text-muted);font-family:var(--mono)}
+.movement-items{font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:2px}
+.movement-note{font-size:12px;color:var(--text-muted);background:var(--surface2);border-radius:6px;padding:6px 10px;margin-top:6px;font-style:italic;border-left:3px solid var(--accent-light)}
+.movement-total{font-size:12px;font-weight:600;color:var(--brown)}
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--text-muted)}
+.empty-state .icon{font-size:40px;margin-bottom:.75rem}
+.empty-state p{font-size:14px}
+.flavor-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
+.flavor-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px}
+.flavor-emoji-big{font-size:24px}
+.flavor-name{flex:1;font-size:14px;font-weight:500}
+.flavor-stock-badge{font-family:var(--mono);font-size:13px;color:var(--text-muted);margin-right:6px}
+.btn-remove{width:30px;height:30px;border-radius:50%;border:1px solid #EBBBB8;background:var(--red-light);color:var(--red);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.add-flavor-card{background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--radius);padding:1rem 1.25rem}
+.add-flavor-card h3{font-size:14px;font-weight:600;color:var(--brown);margin-bottom:.75rem}
+.add-flavor-row{display:flex;gap:8px;margin-bottom:.75rem}
+.add-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font);font-size:14px;color:var(--text);outline:none}
+.add-input:focus{border-color:var(--accent)}
+.emoji-input{width:54px;text-align:center;font-size:20px;flex:none}
+.btn-add{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 16px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+.flavor-hint{font-size:11px;color:var(--text-muted);line-height:1.5}
+.modal-backdrop{position:fixed;inset:0;background:rgba(26,15,10,.5);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .2s;pointer-events:none}
+.modal-backdrop.open{opacity:1;pointer-events:all}
+.modal-sheet{background:var(--surface);border-radius:24px 24px 0 0;width:100%;max-width:480px;padding:0 0 env(safe-area-inset-bottom,16px);transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);max-height:92vh;display:flex;flex-direction:column}
+.modal-backdrop.open .modal-sheet{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--border);margin:12px auto 0;flex-shrink:0}
+.modal-header{padding:16px 20px 12px;flex-shrink:0}
+.modal-title{font-size:17px;font-weight:600;color:var(--brown)}
+.modal-subtitle{font-size:13px;color:var(--text-muted);margin-top:2px}
+.modal-body{overflow-y:auto;padding:0 16px;flex:1}
+.modal-cookie-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.modal-cookie-item:last-of-type{border-bottom:none}
+.modal-cookie-emoji{font-size:20px;flex-shrink:0}
+.modal-cookie-info{flex:1;min-width:0}
+.modal-cookie-name{font-size:13px;font-weight:500}
+.modal-cookie-stock{font-size:11px;color:var(--text-muted);margin-top:1px}
+.modal-cookie-ctrl{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ctrl-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);background:var(--surface2);font-size:18px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ctrl-btn:active{transform:scale(.93)}
+.ctrl-btn.plus{border-color:var(--green);color:var(--green)}
+.ctrl-btn.minus{border-color:var(--red);color:var(--red)}
+.ctrl-val{font-family:var(--mono);font-size:18px;font-weight:500;min-width:28px;text-align:center;color:var(--brown)}
+.ctrl-val.active{color:var(--accent)}
+.note-section{padding:12px 0 2px;border-top:1px solid var(--border);margin-top:6px}
+.note-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.note-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font);font-size:13px;color:var(--text);resize:none;outline:none;line-height:1.5}
+.note-textarea:focus{border-color:var(--accent)}
+.modal-footer{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
+.btn-cancel{flex:1;padding:13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--font);font-size:14px;color:var(--text-mid);cursor:pointer}
+.btn-confirm{flex:2;padding:13px;border:none;border-radius:var(--radius-sm);font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer}
+.btn-confirm.entrada{background:var(--green);color:#fff}
+.btn-confirm.saida{background:var(--red);color:#fff}
+.btn-confirm:disabled{background:var(--border);color:var(--text-muted);cursor:default}
+.toast{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);background:var(--brown);color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;z-index:300;box-shadow:0 4px 20px var(--shadow)}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="setup-screen" id="setup">
+  <div class="setup-logo">🍪</div>
+  <h1>Stock Cookies</h1>
+  <p>Liga ao Google Sheets para sincronizar entre iPhone, iPad e Windows.</p>
+  <div class="setup-card">
+    <h2>Configuração</h2>
+    <div class="step"><div class="step-num">1</div><p>Vai a <a href="https://sheets.new" target="_blank">sheets.new</a> e cria uma folha nova.</p></div>
+    <div class="step"><div class="step-num">2</div><p>Vai a <strong>Extensões → Apps Script</strong>, apaga tudo e cola o script abaixo. Depois <strong>Implementar → Nova implementação</strong> como App Web, acesso para <strong>Qualquer pessoa</strong>. Copia o URL gerado.</p></div>
+    <div class="step"><div class="step-num">3</div><p>Cola o URL aqui:</p></div>
+    <input class="setup-input" id="scriptUrl" type="url" placeholder="https://script.google.com/macros/s/...">
+    <p class="setup-hint">Este URL é privado. Não partilhes.</p>
+    <button class="btn-primary" onclick="saveConfig()">Ligar e começar →</button>
+  </div>
+  <details style="margin-top:1.5rem;max-width:380px;width:100%">
+    <summary style="font-size:13px;color:var(--text-mid);cursor:pointer;padding:.5rem 0">Ver script do Apps Script</summary>
+    <pre id="scriptCode" style="margin-top:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;font-size:11px;color:var(--text-mid);overflow-x:auto;line-height:1.7;white-space:pre-wrap;font-family:var(--mono)"></pre>
+  </details>
+</div>
+
+<div class="app" id="appMain">
+  <header>
+    <div class="header-top">
+      <div class="header-title"><span>🍪</span><h1>Stock Cookies</h1></div>
+      <div class="sync-pill" onclick="syncFromSheet()" id="syncPill">
+        <div class="sync-dot" id="syncDot"></div>
+        <span id="syncLabel">Sincronizar</span>
+      </div>
+    </div>
+    <div class="total-row">
+      <span class="total-label">Total em stock</span>
+      <span class="total-val" id="grandTotal">0 unidades</span>
+    </div>
+  </header>
+
+  <div class="page active" id="pageStock">
+    <div class="actions">
+      <button class="action-card entrada" onclick="openModal('entrada')">
+        <div class="action-icon">📦</div>
+        <div class="action-label">Entrada</div>
+        <div class="action-sub">Produção / compra</div>
+      </button>
+      <button class="action-card saida" onclick="openModal('saida')">
+        <div class="action-icon">🛍️</div>
+        <div class="action-label">Saída</div>
+        <div class="action-sub">Encomenda / venda</div>
+      </button>
+    </div>
+    <div class="section-label">Stock atual</div>
+    <div class="cookie-list" id="cookieList"></div>
+  </div>
+
+  <div class="page" id="pageHistory">
+    <div class="history-header">
+      <div class="history-title">Registo</div>
+      <button class="export-btn" onclick="exportCSV()">⬇ Exportar CSV</button>
+    </div>
+    <div class="filter-row">
+      <button class="filter-chip active" onclick="setFilter('all',this)">Todos</button>
+      <button class="filter-chip" onclick="setFilter('saida',this)">Saídas</button>
+      <button class="filter-chip" onclick="setFilter('entrada',this)">Entradas</button>
+    </div>
+    <div id="historyList"></div>
+  </div>
+
+  <div class="page" id="pageFlavors">
+    <div class="section-label" style="margin-bottom:1rem">Sabores ativos</div>
+    <div class="flavor-list" id="flavorList"></div>
+    <div class="add-flavor-card">
+      <h3>Adicionar novo sabor</h3>
+      <div class="add-flavor-row">
+        <input class="add-input emoji-input" id="newEmoji" type="text" placeholder="🍪" maxlength="2">
+        <input class="add-input" id="newName" type="text" placeholder="Nome do sabor" onkeydown="if(event.key==='Enter')addFlavor()">
+        <button class="btn-add" onclick="addFlavor()">+ Adicionar</button>
+      </div>
+      <p class="flavor-hint">Ao remover um sabor, o histórico de movimentos é preservado. O stock desse sabor será apagado.</p>
+    </div>
+  </div>
+
+  <div class="page" id="pageConfig">
+    <div class="section-label" style="margin-bottom:1rem">Configurações</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem">
+      <p style="font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem">Google Sheets</p>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem" id="configUrlDisplay"></p>
+      <button class="btn-primary" style="background:var(--red)" onclick="resetConfig()">Desligar e reconfigurar</button>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
+      <p style="font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem">Stock mínimo de alerta</p>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:.75rem">Alerta "Stock baixo" quando abaixo de:</p>
+      <div style="display:flex;align-items:center;gap:10px">
+        <input type="number" id="minInput" min="0" max="999" style="width:80px;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--mono);font-size:16px;color:var(--brown);outline:none">
+        <span style="font-size:13px;color:var(--text-muted)">unidades</span>
+        <button onclick="saveMin()" style="padding:8px 14px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;cursor:pointer">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="tab-nav">
+    <button class="tab-btn active" id="tabStock" onclick="switchTab('Stock')"><span class="tab-icon">🏠</span><span class="tab-label">Stock</span></button>
+    <button class="tab-btn" id="tabHistory" onclick="switchTab('History')"><span class="tab-icon">📋</span><span class="tab-label">Registo</span></button>
+    <button class="tab-btn" id="tabFlavors" onclick="switchTab('Flavors')"><span class="tab-icon">✏️</span><span class="tab-label">Sabores</span></button>
+    <button class="tab-btn" id="tabConfig" onclick="switchTab('Config')"><span class="tab-icon">⚙️</span><span class="tab-label">Config</span></button>
+  </nav>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModalOutside(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-subtitle" id="modalSubtitle"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" id="btnConfirm" onclick="applyModal()" disabled>Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT_COOKIES=[{name:"Chocolate Chip",emoji:"🍫"},{name:"Double Chocolate",emoji:"🍫"},{name:"Manteiga de Amendoim",emoji:"🥜"},{name:"Baunilha",emoji:"🍦"},{name:"Oreo",emoji:"⚫"},{name:"Limão",emoji:"🍋"},{name:"Caramelo Salgado",emoji:"🧂"},{name:"Red Velvet",emoji:"❤️"},{name:"Aveia & Passas",emoji:"🌾"}];
+const CFG_KEY="cookie_cfg_v1",STOCK_KEY="cookie_stock_v4",FLAV_KEY="cookie_flavors_v4",HIST_KEY="cookie_history_v4",MIN_KEY="cookie_min_v1";
+
+let scriptUrl=localStorage.getItem(CFG_KEY)||"";
+let flavors=JSON.parse(localStorage.getItem(FLAV_KEY)||"null")||DEFAULT_COOKIES;
+let stock=JSON.parse(localStorage.getItem(STOCK_KEY)||"{}");
+let history=JSON.parse(localStorage.getItem(HIST_KEY)||"[]");
+let minStock=parseInt(localStorage.getItem(MIN_KEY)||"12");
+let modalMode=null,modalSel={},histFilter="all";
+
+flavors.forEach(c=>{if(!(c.name in stock))stock[c.name]=0;});
+
+// Script text (avoid heredoc issues)
+document.getElementById("scriptCode").textContent=`function doGet(e) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const stockSheet = ss.getSheetByName("Stock") || ss.getSheets()[0];
+  const data = stockSheet.getDataRange().getValues();
+  const stock = {};
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0]) stock[data[i][0]] = data[i][1] || 0;
+  }
+  return ContentService
+    .createTextOutput(JSON.stringify({stock}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const payload = JSON.parse(e.postData.contents);
+
+  if (payload.stock) {
+    let sh = ss.getSheetByName("Stock");
+    if (!sh) { sh = ss.insertSheet("Stock"); sh.appendRow(["Sabor","Stock","Atualizado"]); }
+    const rows = sh.getDataRange().getValues();
+    const map = {};
+    for (let i=1;i<rows.length;i++) map[rows[i][0]]=i+1;
+    const now = new Date().toLocaleString("pt-PT");
+    for (const [name,qty] of Object.entries(payload.stock)) {
+      if (map[name]) { sh.getRange(map[name],2).setValue(qty); sh.getRange(map[name],3).setValue(now); }
+      else sh.appendRow([name,qty,now]);
+    }
+  }
+
+  if (payload.movement) {
+    let sh = ss.getSheetByName("Historico");
+    if (!sh) {
+      sh = ss.insertSheet("Historico");
+      sh.appendRow(["Data","Tipo","Sabores","Quantidades","Total","Nota","ID"]);
+      sh.setFrozenRows(1);
+    }
+    const m = payload.movement;
+    const sabores = Object.keys(m.items).join(", ");
+    const qtds = Object.values(m.items).join(", ");
+    const total = Object.values(m.items).reduce((s,v)=>s+v,0);
+    sh.appendRow([m.date, m.type==="saida"?"Saida":"Entrada", sabores, qtds, total, m.note||"", m.id]);
+  }
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ok:true}))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+function saveLocal(){localStorage.setItem(STOCK_KEY,JSON.stringify(stock));localStorage.setItem(FLAV_KEY,JSON.stringify(flavors));localStorage.setItem(HIST_KEY,JSON.stringify(history));}
+
+function init(){
+  if(scriptUrl){
+    document.getElementById("setup").style.display="none";
+    document.getElementById("appMain").style.display="flex";
+    document.getElementById("minInput").value=minStock;
+    document.getElementById("configUrlDisplay").textContent=scriptUrl.length>60?scriptUrl.slice(0,60)+"…":scriptUrl;
+    render();renderHistory();renderFlavors();
+    syncFromSheet();
+  }
+}
+
+function saveConfig(){
+  const url=document.getElementById("scriptUrl").value.trim();
+  if(!url.includes("script.google.com")){toast("URL inválido");return;}
+  scriptUrl=url;localStorage.setItem(CFG_KEY,scriptUrl);
+  document.getElementById("setup").style.display="none";
+  document.getElementById("appMain").style.display="flex";
+  document.getElementById("minInput").value=minStock;
+  document.getElementById("configUrlDisplay").textContent=scriptUrl.length>60?scriptUrl.slice(0,60)+"…":scriptUrl;
+  render();renderHistory();renderFlavors();syncFromSheet();
+}
+
+function resetConfig(){
+  if(!confirm("Desligar do Google Sheets e reconfigurar?"))return;
+  localStorage.removeItem(CFG_KEY);scriptUrl="";
+  document.getElementById("setup").style.display="flex";
+  document.getElementById("appMain").style.display="none";
+}
+
+function saveMin(){
+  const v=parseInt(document.getElementById("minInput").value)||12;
+  minStock=v;localStorage.setItem(MIN_KEY,String(v));
+  render();toast("Mínimo definido: "+v+" unidades");
+}
+
+function switchTab(tab){
+  ["Stock","History","Flavors","Config"].forEach(t=>{
+    document.getElementById("page"+t).classList.toggle("active",t===tab);
+    document.getElementById("tab"+t).classList.toggle("active",t===tab);
+  });
+}
+
+function statusOf(n){
+  if(n===0)return{cls:"empty",label:"Sem stock",lCls:"status-empty"};
+  if(n<minStock)return{cls:"low",label:"Stock baixo",lCls:"status-low"};
+  return{cls:"",label:"Disponível",lCls:"status-ok"};
+}
+
+function render(){
+  let total=0;flavors.forEach(c=>total+=(stock[c.name]||0));
+  document.getElementById("grandTotal").textContent=total+" unidades";
+  const list=document.getElementById("cookieList");list.innerHTML="";
+  flavors.forEach(c=>{
+    const n=stock[c.name]||0,s=statusOf(n),div=document.createElement("div");
+    div.className="cookie-card "+s.cls;
+    div.innerHTML=`<div class="cookie-emoji">${c.emoji}</div><div class="cookie-info"><div class="cookie-name">${c.name}</div><div class="cookie-status ${s.lCls}">${s.label}</div></div><div class="stock-num">${n}</div>`;
+    list.appendChild(div);
+  });
+}
+
+function setFilter(f,el){
+  histFilter=f;
+  document.querySelectorAll(".filter-chip").forEach(c=>c.classList.remove("active"));
+  el.classList.add("active");renderHistory();
+}
+
+function renderHistory(){
+  const list=document.getElementById("historyList");
+  const filtered=histFilter==="all"?history:history.filter(m=>m.type===histFilter);
+  const sorted=[...filtered].reverse();
+  if(!sorted.length){list.innerHTML='<div class="empty-state"><div class="icon">📭</div><p>Ainda não há movimentos registados.</p></div>';return;}
+  list.innerHTML=sorted.map(m=>{
+    const items=Object.entries(m.items).map(([k,v])=>`${k}: <strong>${v}</strong>`).join("<br>");
+    const total=Object.values(m.items).reduce((s,v)=>s+v,0);
+    const noteHtml=m.note?`<div class="movement-note">📝 ${m.note}</div>`:"";
+    return`<div class="movement-card">
+      <div class="movement-top">
+        <span class="movement-type ${m.type}">${m.type==="entrada"?"📦 Entrada":"🛍️ Saída"}</span>
+        <span class="movement-date">${m.date}</span>
+      </div>
+      <div class="movement-items">${items}</div>
+      <div class="movement-total">Total: ${total} un.</div>
+      ${noteHtml}
+    </div>`;
+  }).join("");
+}
+
+function renderFlavors(){
+  document.getElementById("flavorList").innerHTML=flavors.map((c,i)=>`
+    <div class="flavor-row">
+      <div class="flavor-emoji-big">${c.emoji}</div>
+      <div class="flavor-name">${c.name}</div>
+      <div class="flavor-stock-badge">${stock[c.name]||0} un.</div>
+      <button class="btn-remove" onclick="removeFlavor(${i})">✕</button>
+    </div>`).join("");
+}
+
+function addFlavor(){
+  const emoji=document.getElementById("newEmoji").value.trim()||"🍪";
+  const name=document.getElementById("newName").value.trim();
+  if(!name){toast("Escreve o nome do sabor");return;}
+  if(flavors.find(c=>c.name.toLowerCase()===name.toLowerCase())){toast("Esse sabor já existe");return;}
+  flavors.push({name,emoji});stock[name]=0;
+  saveLocal();render();renderFlavors();
+  document.getElementById("newEmoji").value="";document.getElementById("newName").value="";
+  toast("Sabor adicionado: "+name);pushToSheet();
+}
+
+function removeFlavor(i){
+  const c=flavors[i];
+  if(!confirm(`Remover "${c.name}"?`))return;
+  flavors.splice(i,1);delete stock[c.name];
+  saveLocal();render();renderFlavors();
+  toast(c.name+" removido");pushToSheet();
+}
+
+function setSyncState(s){
+  const dot=document.getElementById("syncDot"),lbl=document.getElementById("syncLabel");
+  dot.className="sync-dot";
+  if(s==="ok"){dot.classList.add("ok");lbl.textContent="Sincronizado";}
+  if(s==="err"){dot.classList.add("err");lbl.textContent="Erro";}
+  if(s==="spin"){dot.classList.add("spin");lbl.textContent="A sincronizar...";}
+}
+
+async function syncFromSheet(){
+  if(!scriptUrl)return;setSyncState("spin");
+  try{
+    const r=await fetch(scriptUrl+"?t="+Date.now());
+    const data=await r.json();
+    if(data.stock)flavors.forEach(c=>{if(c.name in data.stock)stock[c.name]=Number(data.stock[c.name])||0;});
+    saveLocal();render();renderHistory();setSyncState("ok");toast("Stock atualizado");
+  }catch(e){setSyncState("err");toast("Erro a ligar ao Google Sheets");}
+}
+
+async function pushToSheet(movement){
+  if(!scriptUrl)return;setSyncState("spin");
+  try{
+    const body={stock};if(movement)body.movement=movement;
+    await fetch(scriptUrl,{method:"POST",body:JSON.stringify(body),headers:{"Content-Type":"text/plain"}});
+    setSyncState("ok");
+  }catch(e){setSyncState("err");toast("Não foi possível guardar no Sheets");}
+}
+
+function openModal(mode){
+  modalMode=mode;modalSel={};
+  const isE=mode==="entrada";
+  document.getElementById("modalTitle").textContent=isE?"📦 Entrada — produção":"🛍️ Saída — encomenda";
+  document.getElementById("modalSubtitle").textContent=isE?"Quantas cookies entram em stock?":"Quantas cookies saem para entrega?";
+  const btn=document.getElementById("btnConfirm");
+  btn.className="btn-confirm "+mode;btn.disabled=true;
+  renderModalBody();
+  document.getElementById("modalBackdrop").classList.add("open");
+}
+
+function renderModalBody(){
+  const isSaida=modalMode==="saida";
+  const rows=flavors.map(c=>{
+    const q=modalSel[c.name]||0;
+    return`<div class="modal-cookie-item">
+      <div class="modal-cookie-emoji">${c.emoji}</div>
+      <div class="modal-cookie-info">
+        <div class="modal-cookie-name">${c.name}</div>
+        <div class="modal-cookie-stock">Stock: ${stock[c.name]||0} un.</div>
+      </div>
+      <div class="modal-cookie-ctrl">
+        <button class="ctrl-btn minus" onclick="mAdj('${c.name}',-1)">−</button>
+        <div class="ctrl-val ${q>0?'active':''}" id="cv_${c.name.replace(/\W/g,'_')}">${q}</div>
+        <button class="ctrl-btn plus" onclick="mAdj('${c.name}',+1)">+</button>
+      </div>
+    </div>`;
+  }).join("");
+
+  const noteSection=isSaida?`<div class="note-section">
+    <div class="note-label">📝 Nota da venda (opcional)</div>
+    <textarea class="note-textarea" id="saleNote" rows="3" placeholder="Ex: Maria Santos — aniversário, 2 de cada, pagar na entrega"></textarea>
+  </div>`:"";
+
+  document.getElementById("modalBody").innerHTML=rows+noteSection;
+}
+
+function mAdj(name,delta){
+  const next=(modalSel[name]||0)+delta;
+  if(next<0)return;
+  if(modalMode==="saida"&&next>(stock[name]||0)){toast("Stock insuficiente para "+name);return;}
+  modalSel[name]=next;
+  const id="cv_"+name.replace(/\W/g,"_");
+  const el=document.getElementById(id);
+  if(el){el.textContent=next;el.className="ctrl-val"+(next>0?" active":"");}
+  document.getElementById("btnConfirm").disabled=!Object.values(modalSel).some(v=>v>0);
+}
+
+function closeModal(){document.getElementById("modalBackdrop").classList.remove("open");}
+function closeModalOutside(e){if(e.target===document.getElementById("modalBackdrop"))closeModal();}
+
+function applyModal(){
+  const noteEl=document.getElementById("saleNote");
+  const note=noteEl?noteEl.value.trim():"";
+  const items={};let count=0;
+  flavors.forEach(c=>{
+    const q=modalSel[c.name]||0;if(!q)return;
+    if(modalMode==="saida")stock[c.name]=Math.max(0,(stock[c.name]||0)-q);
+    else stock[c.name]=(stock[c.name]||0)+q;
+    items[c.name]=q;count+=q;
+  });
+  const now=new Date();
+  const dateStr=now.toLocaleDateString("pt-PT")+" "+now.toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"});
+  const movement={id:Date.now(),date:dateStr,type:modalMode,items,note};
+  history.push(movement);
+  saveLocal();closeModal();render();renderHistory();
+  pushToSheet(movement);
+  toast(modalMode==="saida"?count+" cookies removidas do stock":count+" cookies adicionadas");
+}
+
+function exportCSV(){
+  if(!history.length){toast("Não há movimentos para exportar");return;}
+  const rows=[["Data","Tipo","Sabor","Quantidade","Total da venda","Nota"]];
+  history.forEach(m=>{
+    const total=Object.values(m.items).reduce((s,v)=>s+v,0);
+    const sabores=Object.keys(m.items);
+    sabores.forEach((sabor,i)=>{
+      rows.push([i===0?m.date:"",i===0?(m.type==="saida"?"Saída":"Entrada"):"",sabor,m.items[sabor],i===0?total:"",i===0?(m.note||""):""]);
+    });
+  });
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");a.href=url;
+  a.download="vendas_cookies_"+new Date().toISOString().slice(0,10)+".csv";
+  a.click();URL.revokeObjectURL(url);
+  toast("CSV exportado com "+history.filter(m=>m.type==="saida").length+" vendas");
+}
+
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2700);
+}
+
+init();
+</script>
+</body>
+</html>
