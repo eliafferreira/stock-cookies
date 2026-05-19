@@ -142,20 +142,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 <div class="setup-screen" id="setup">
   <div class="setup-logo">🍪</div>
   <h1>Stock Cookies</h1>
-  <p>Liga ao Google Sheets para sincronizar entre iPhone, iPad e Windows.</p>
+  <p>Cola o URL do teu Google Apps Script para ligar.</p>
   <div class="setup-card">
-    <h2>Configuração</h2>
-    <div class="step"><div class="step-num">1</div><p>Vai a <a href="https://sheets.new" target="_blank">sheets.new</a> e cria uma folha nova.</p></div>
-    <div class="step"><div class="step-num">2</div><p>Vai a <strong>Extensões → Apps Script</strong>, apaga tudo e cola o script abaixo. Depois <strong>Implementar → Nova implementação</strong> como App Web, acesso para <strong>Qualquer pessoa</strong>. Copia o URL gerado.</p></div>
-    <div class="step"><div class="step-num">3</div><p>Cola o URL aqui:</p></div>
     <input class="setup-input" id="scriptUrl" type="url" placeholder="https://script.google.com/macros/s/...">
-    <p class="setup-hint">Este URL é privado. Não partilhes.</p>
-    <button class="btn-primary" onclick="saveConfig()">Ligar e começar →</button>
+    <p class="setup-hint">O URL começa com script.google.com e termina em /exec</p>
+    <button class="btn-primary" id="btnLigar" onclick="saveConfig()">Ligar →</button>
   </div>
-  <details style="margin-top:1.5rem;max-width:380px;width:100%">
-    <summary style="font-size:13px;color:var(--text-mid);cursor:pointer;padding:.5rem 0">Ver script do Apps Script</summary>
-    <pre id="scriptCode" style="margin-top:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;font-size:11px;color:var(--text-mid);overflow-x:auto;line-height:1.7;white-space:pre-wrap;font-family:var(--mono)"></pre>
-  </details>
 </div>
 
 <div class="app" id="appMain">
@@ -274,8 +266,7 @@ let modalMode=null,modalSel={},histFilter="all";
 flavors.forEach(c=>{if(!(c.name in stock))stock[c.name]=0;});
 
 // Script text (avoid heredoc issues)
-document.getElementById("scriptCode").textContent='function doGet(e) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+// script display removed
   
   // Handle POST-via-GET fallback (when browser sends data as URL param)
   if (e.parameter && e.parameter.data) {
@@ -354,7 +345,10 @@ function init(){
 
 function saveConfig(){
   const url=document.getElementById("scriptUrl").value.trim();
-  if(!url.includes("script.google.com")){toast("URL inválido");return;}
+  if(!url.includes("script.google.com")){toast("URL inválido — deve conter script.google.com");return;}
+  if(!url.includes("/exec")){toast("URL inválido — deve terminar em /exec");return;}
+  const btn=document.getElementById("btnLigar");
+  btn.textContent="A ligar...";btn.disabled=true;
   scriptUrl=url;localStorage.setItem(CFG_KEY,scriptUrl);
   document.getElementById("setup").style.display="none";
   document.getElementById("appMain").style.display="flex";
