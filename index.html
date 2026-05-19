@@ -274,8 +274,15 @@ let modalMode=null,modalSel={},histFilter="all";
 flavors.forEach(c=>{if(!(c.name in stock))stock[c.name]=0;});
 
 // Script text (avoid heredoc issues)
-document.getElementById("scriptCode").textContent=`function doGet(e) {
+document.getElementById("scriptCode").textContent='function doGet(e) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
+  
+  // Handle POST-via-GET fallback (when browser sends data as URL param)
+  if (e.parameter && e.parameter.data) {
+    return handleData(ss, JSON.parse(e.parameter.data));
+  }
+  
+  // Normal GET: return current stock
   const stockSheet = ss.getSheetByName("Stock") || ss.getSheets()[0];
   const data = stockSheet.getDataRange().getValues();
   const stock = {};
@@ -289,18 +296,27 @@ document.getElementById("scriptCode").textContent=`function doGet(e) {
 
 function doPost(e) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const payload = JSON.parse(e.postData.contents);
+  return handleData(ss, JSON.parse(e.postData.contents));
+}
 
+function handleData(ss, payload) {
   if (payload.stock) {
     let sh = ss.getSheetByName("Stock");
-    if (!sh) { sh = ss.insertSheet("Stock"); sh.appendRow(["Sabor","Stock","Atualizado"]); }
+    if (!sh) {
+      sh = ss.insertSheet("Stock");
+      sh.appendRow(["Sabor", "Stock", "Atualizado"]);
+    }
     const rows = sh.getDataRange().getValues();
     const map = {};
-    for (let i=1;i<rows.length;i++) map[rows[i][0]]=i+1;
+    for (let i = 1; i < rows.length; i++) map[rows[i][0]] = i + 1;
     const now = new Date().toLocaleString("pt-PT");
-    for (const [name,qty] of Object.entries(payload.stock)) {
-      if (map[name]) { sh.getRange(map[name],2).setValue(qty); sh.getRange(map[name],3).setValue(now); }
-      else sh.appendRow([name,qty,now]);
+    for (const [name, qty] of Object.entries(payload.stock)) {
+      if (map[name]) {
+        sh.getRange(map[name], 2).setValue(qty);
+        sh.getRange(map[name], 3).setValue(now);
+      } else {
+        sh.appendRow([name, qty, now]);
+      }
     }
   }
 
@@ -308,20 +324,20 @@ function doPost(e) {
     let sh = ss.getSheetByName("Historico");
     if (!sh) {
       sh = ss.insertSheet("Historico");
-      sh.appendRow(["Data","Tipo","Sabores","Quantidades","Total","Nota","ID"]);
+      sh.appendRow(["Data", "Tipo", "Sabores", "Quantidades", "Total", "Nota", "ID"]);
       sh.setFrozenRows(1);
     }
     const m = payload.movement;
     const sabores = Object.keys(m.items).join(", ");
     const qtds = Object.values(m.items).join(", ");
-    const total = Object.values(m.items).reduce((s,v)=>s+v,0);
-    sh.appendRow([m.date, m.type==="saida"?"Saida":"Entrada", sabores, qtds, total, m.note||"", m.id]);
+    const total = Object.values(m.items).reduce((s, v) => s + v, 0);
+    sh.appendRow([m.date, m.type === "saida" ? "Saída" : "Entrada", sabores, qtds, total, m.note || "", m.id]);
   }
 
   return ContentService
-    .createTextOutput(JSON.stringify({ok:true}))
+    .createTextOutput(JSON.stringify({ok: true}))
     .setMimeType(ContentService.MimeType.JSON);
-}`;
+}';
 
 function saveLocal(){localStorage.setItem(STOCK_KEY,JSON.stringify(stock));localStorage.setItem(FLAV_KEY,JSON.stringify(flavors));localStorage.setItem(HIST_KEY,JSON.stringify(history));}
 
@@ -452,19 +468,45 @@ function setSyncState(s){
 async function syncFromSheet(){
   if(!scriptUrl)return;setSyncState("spin");
   try{
-    const r=await fetch(scriptUrl+"?t="+Date.now());
-    const data=await r.json();
+    // Use a script tag / JSONP approach via iframe to bypass CORS on Safari
+    const url=scriptUrl+"?t="+Date.now();
+    const r=await fetch(url, {method:"GET", redirect:"follow"});
+    const text=await r.text();
+    // GAS may return HTML redirect page - try to extract JSON
+    let data;
+    try{ data=JSON.parse(text); }
+    catch(e){
+      // Try to extract JSON from redirect response
+      const match=text.match(/\{.*\}/s);
+      if(match) data=JSON.parse(match[0]);
+      else throw new Error("No JSON found");
+    }
     if(data.stock)flavors.forEach(c=>{if(c.name in data.stock)stock[c.name]=Number(data.stock[c.name])||0;});
     saveLocal();render();renderHistory();setSyncState("ok");toast("Stock atualizado");
-  }catch(e){setSyncState("err");toast("Erro a ligar ao Google Sheets");}
+  }catch(e){
+    // Fallback: try no-cors (won't get data but confirms connectivity)
+    setSyncState("err");toast("Erro: abre o link do script no Safari primeiro para autorizar");
+    // Open the script URL in a new tab to trigger auth
+    console.error("Sync error:",e);
+  }
 }
 
 async function pushToSheet(movement){
   if(!scriptUrl)return;setSyncState("spin");
   try{
     const body={stock};if(movement)body.movement=movement;
-    await fetch(scriptUrl,{method:"POST",body:JSON.stringify(body),headers:{"Content-Type":"text/plain"}});
-    setSyncState("ok");
+    // Encode as URL param for GET to avoid CORS preflight
+    const encoded=encodeURIComponent(JSON.stringify(body));
+    // Try POST first
+    try{
+      const r=await fetch(scriptUrl, {method:"POST", body:JSON.stringify(body), headers:{"Content-Type":"text/plain"}, redirect:"follow"});
+      const text=await r.text();
+      setSyncState("ok");
+    }catch(postErr){
+      // Fallback: GET with data param
+      await fetch(scriptUrl+"?data="+encoded+"&t="+Date.now(), {redirect:"follow"});
+      setSyncState("ok");
+    }
   }catch(e){setSyncState("err");toast("Não foi possível guardar no Sheets");}
 }
 
