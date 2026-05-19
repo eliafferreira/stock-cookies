@@ -12,21 +12,21 @@
 :root{--bg:#F5F2ED;--surface:#FFF;--surface2:#EFECE7;--brown:#3D2B1F;--brown-mid:#7A5C4A;--accent:#C17B3A;--accent-light:#F5E6D0;--green:#3B6B3A;--green-light:#E8F3E8;--red:#A63228;--red-light:#FBEDED;--warn:#8A6000;--warn-light:#FDF3DC;--text:#1A0F0A;--text-mid:#6B5245;--text-muted:#A08878;--border:#E0D8CF;--shadow:rgba(61,43,31,.08);--radius:16px;--radius-sm:10px;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* SETUP */
 .setup-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center}
-.setup-logo{font-size:48px;margin-bottom:1rem}
+.setup-logo{font-size:56px;margin-bottom:1rem}
 .setup-screen h1{font-size:26px;font-weight:600;color:var(--brown);margin-bottom:.5rem}
-.setup-screen>p{font-size:15px;color:var(--text-mid);line-height:1.6;margin-bottom:2rem;max-width:320px}
-.setup-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;width:100%;max-width:380px;text-align:left}
-.setup-card h2{font-size:14px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem}
-.step{display:flex;gap:12px;margin-bottom:1rem;align-items:flex-start}
-.step-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.step p{font-size:13px;color:var(--text-mid);line-height:1.5}
-.step a{color:var(--accent);text-decoration:none;font-weight:500}
-.setup-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-family:var(--mono);font-size:12px;color:var(--text);margin:1rem 0 .5rem;outline:none}
+.setup-screen>p{font-size:15px;color:var(--text-mid);line-height:1.6;margin-bottom:2rem;max-width:300px}
+.setup-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;width:100%;max-width:360px;text-align:left}
+.setup-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-family:var(--mono);font-size:12px;color:var(--text);margin-bottom:.75rem;outline:none;display:block}
 .setup-input:focus{border-color:var(--accent)}
 .setup-hint{font-size:11px;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.5}
-.btn-primary{width:100%;background:var(--brown);color:#fff;border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font);font-size:15px;font-weight:500;cursor:pointer}
+.btn-primary{width:100%;background:var(--brown);color:#fff;border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font);font-size:15px;font-weight:500;cursor:pointer;display:block}
 .btn-primary:active{background:var(--brown-mid)}
+.btn-primary:disabled{background:var(--border);color:var(--text-muted);cursor:default}
+
+/* APP */
 .app{display:none;flex-direction:column;min-height:100vh}
 .tab-nav{background:var(--surface);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;display:flex;z-index:20;padding-bottom:env(safe-area-inset-bottom,0)}
 .tab-btn{flex:1;padding:10px 0 8px;border:none;background:none;cursor:pointer;font-family:var(--font);display:flex;flex-direction:column;align-items:center;gap:3px}
@@ -38,7 +38,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .header-title{display:flex;align-items:center;gap:10px}
 .header-title span{font-size:20px}
 .header-title h1{font-size:18px;font-weight:600;color:var(--brown)}
-.sync-pill{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--text-muted);cursor:pointer}
+.sync-pill{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--text-muted);cursor:pointer;flex-shrink:0}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted)}
 .sync-dot.ok{background:var(--green)}.sync-dot.err{background:var(--red)}.sync-dot.spin{background:var(--accent);animation:pulse .8s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
@@ -47,6 +47,8 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .total-val{font-size:18px;font-weight:600;color:var(--brown);font-variant-numeric:tabular-nums}
 .page{display:none;flex:1;overflow-y:auto;padding:1rem 1.25rem 5rem}
 .page.active{display:block}
+
+/* STOCK */
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
 .action-card{border-radius:var(--radius);padding:1rem;cursor:pointer;border:none;font-family:var(--font);text-align:left;transition:transform .1s;display:flex;flex-direction:column;gap:4px}
 .action-card:active{transform:scale(.97)}
@@ -69,6 +71,8 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .status-ok{color:var(--green)}.status-low{color:var(--warn)}.status-empty{color:var(--red)}
 .stock-num{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--brown);min-width:44px;text-align:center}
 .cookie-card.empty .stock-num{color:var(--red)}.cookie-card.low .stock-num{color:var(--warn)}
+
+/* HISTORY */
 .history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
 .history-title{font-size:16px;font-weight:600;color:var(--brown)}
 .filter-row{display:flex;gap:6px;margin-bottom:1rem;overflow-x:auto;padding-bottom:4px}
@@ -87,6 +91,8 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--text-muted)}
 .empty-state .icon{font-size:40px;margin-bottom:.75rem}
 .empty-state p{font-size:14px}
+
+/* FLAVORS */
 .flavor-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
 .flavor-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px}
 .flavor-emoji-big{font-size:24px}
@@ -101,6 +107,8 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .emoji-input{width:54px;text-align:center;font-size:20px;flex:none}
 .btn-add{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 16px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
 .flavor-hint{font-size:11px;color:var(--text-muted);line-height:1.5}
+
+/* MODAL */
 .modal-backdrop{position:fixed;inset:0;background:rgba(26,15,10,.5);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .2s;pointer-events:none}
 .modal-backdrop.open{opacity:1;pointer-events:all}
 .modal-sheet{background:var(--surface);border-radius:24px 24px 0 0;width:100%;max-width:480px;padding:0 0 env(safe-area-inset-bottom,16px);transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);max-height:92vh;display:flex;flex-direction:column}
@@ -124,7 +132,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .ctrl-val{font-family:var(--mono);font-size:18px;font-weight:500;min-width:28px;text-align:center;color:var(--brown)}
 .ctrl-val.active{color:var(--accent)}
 .note-section{padding:12px 0 2px;border-top:1px solid var(--border);margin-top:6px}
-.note-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.note-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
 .note-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font);font-size:13px;color:var(--text);resize:none;outline:none;line-height:1.5}
 .note-textarea:focus{border-color:var(--accent)}
 .modal-footer{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
@@ -139,17 +147,19 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 </head>
 <body>
 
+<!-- SETUP -->
 <div class="setup-screen" id="setup">
   <div class="setup-logo">🍪</div>
   <h1>Stock Cookies</h1>
   <p>Cola o URL do teu Google Apps Script para ligar.</p>
   <div class="setup-card">
     <input class="setup-input" id="scriptUrl" type="url" placeholder="https://script.google.com/macros/s/...">
-    <p class="setup-hint">O URL começa com script.google.com e termina em /exec</p>
+    <p class="setup-hint">O URL deve terminar em /exec</p>
     <button class="btn-primary" id="btnLigar" onclick="saveConfig()">Ligar →</button>
   </div>
 </div>
 
+<!-- APP -->
 <div class="app" id="appMain">
   <header>
     <div class="header-top">
@@ -205,24 +215,24 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <input class="add-input" id="newName" type="text" placeholder="Nome do sabor" onkeydown="if(event.key==='Enter')addFlavor()">
         <button class="btn-add" onclick="addFlavor()">+ Adicionar</button>
       </div>
-      <p class="flavor-hint">Ao remover um sabor, o histórico de movimentos é preservado. O stock desse sabor será apagado.</p>
+      <p class="flavor-hint">Ao remover um sabor, o histórico é preservado mas o stock é apagado.</p>
     </div>
   </div>
 
   <div class="page" id="pageConfig">
     <div class="section-label" style="margin-bottom:1rem">Configurações</div>
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem">
-      <p style="font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem">Google Sheets</p>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem" id="configUrlDisplay"></p>
+      <p style="font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem">Ligação ao Google Sheets</p>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;word-break:break-all;font-family:var(--mono)" id="configUrlDisplay"></p>
       <button class="btn-primary" style="background:var(--red)" onclick="resetConfig()">Desligar e reconfigurar</button>
     </div>
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
-      <p style="font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem">Stock mínimo de alerta</p>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:.75rem">Alerta "Stock baixo" quando abaixo de:</p>
+      <p style="font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem">Alerta de stock mínimo</p>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:.75rem">Mostra aviso quando stock desce abaixo de:</p>
       <div style="display:flex;align-items:center;gap:10px">
-        <input type="number" id="minInput" min="0" max="999" style="width:80px;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--mono);font-size:16px;color:var(--brown);outline:none">
+        <input type="number" id="minInput" min="0" max="999" style="width:70px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--mono);font-size:16px;color:var(--brown);outline:none;text-align:center">
         <span style="font-size:13px;color:var(--text-muted)">unidades</span>
-        <button onclick="saveMin()" style="padding:8px 14px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;cursor:pointer">Guardar</button>
+        <button onclick="saveMin()" style="padding:8px 16px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer">Guardar</button>
       </div>
     </div>
   </div>
@@ -235,6 +245,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
   </nav>
 </div>
 
+<!-- MODAL -->
 <div class="modal-backdrop" id="modalBackdrop" onclick="closeModalOutside(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -253,8 +264,18 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 <div class="toast" id="toast"></div>
 
 <script>
-const DEFAULT_COOKIES=[{name:"Chocolate Chip",emoji:"🍫"},{name:"Double Chocolate",emoji:"🍫"},{name:"Manteiga de Amendoim",emoji:"🥜"},{name:"Baunilha",emoji:"🍦"},{name:"Oreo",emoji:"⚫"},{name:"Limão",emoji:"🍋"},{name:"Caramelo Salgado",emoji:"🧂"},{name:"Red Velvet",emoji:"❤️"},{name:"Aveia & Passas",emoji:"🌾"}];
-const CFG_KEY="cookie_cfg_v1",STOCK_KEY="cookie_stock_v4",FLAV_KEY="cookie_flavors_v4",HIST_KEY="cookie_history_v4",MIN_KEY="cookie_min_v1";
+const DEFAULT_COOKIES=[
+  {name:"Chocolate Chip",emoji:"🍫"},{name:"Double Chocolate",emoji:"🍫"},
+  {name:"Manteiga de Amendoim",emoji:"🥜"},{name:"Baunilha",emoji:"🍦"},
+  {name:"Oreo",emoji:"⚫"},{name:"Limão",emoji:"🍋"},
+  {name:"Caramelo Salgado",emoji:"🧂"},{name:"Red Velvet",emoji:"❤️"},
+  {name:"Aveia & Passas",emoji:"🌾"}
+];
+const CFG_KEY="cookie_cfg_v1";
+const STOCK_KEY="cookie_stock_v4";
+const FLAV_KEY="cookie_flavors_v4";
+const HIST_KEY="cookie_history_v4";
+const MIN_KEY="cookie_min_v1";
 
 let scriptUrl=localStorage.getItem(CFG_KEY)||"";
 let flavors=JSON.parse(localStorage.getItem(FLAV_KEY)||"null")||DEFAULT_COOKIES;
@@ -265,79 +286,18 @@ let modalMode=null,modalSel={},histFilter="all";
 
 flavors.forEach(c=>{if(!(c.name in stock))stock[c.name]=0;});
 
-// Script text (avoid heredoc issues)
-// script display removed
-  
-  // Handle POST-via-GET fallback (when browser sends data as URL param)
-  if (e.parameter && e.parameter.data) {
-    return handleData(ss, JSON.parse(e.parameter.data));
-  }
-  
-  // Normal GET: return current stock
-  const stockSheet = ss.getSheetByName("Stock") || ss.getSheets()[0];
-  const data = stockSheet.getDataRange().getValues();
-  const stock = {};
-  for (let i = 1; i < data.length; i++) {
-    if (data[i][0]) stock[data[i][0]] = data[i][1] || 0;
-  }
-  return ContentService
-    .createTextOutput(JSON.stringify({stock}))
-    .setMimeType(ContentService.MimeType.JSON);
+function saveLocal(){
+  localStorage.setItem(STOCK_KEY,JSON.stringify(stock));
+  localStorage.setItem(FLAV_KEY,JSON.stringify(flavors));
+  localStorage.setItem(HIST_KEY,JSON.stringify(history));
 }
-
-function doPost(e) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  return handleData(ss, JSON.parse(e.postData.contents));
-}
-
-function handleData(ss, payload) {
-  if (payload.stock) {
-    let sh = ss.getSheetByName("Stock");
-    if (!sh) {
-      sh = ss.insertSheet("Stock");
-      sh.appendRow(["Sabor", "Stock", "Atualizado"]);
-    }
-    const rows = sh.getDataRange().getValues();
-    const map = {};
-    for (let i = 1; i < rows.length; i++) map[rows[i][0]] = i + 1;
-    const now = new Date().toLocaleString("pt-PT");
-    for (const [name, qty] of Object.entries(payload.stock)) {
-      if (map[name]) {
-        sh.getRange(map[name], 2).setValue(qty);
-        sh.getRange(map[name], 3).setValue(now);
-      } else {
-        sh.appendRow([name, qty, now]);
-      }
-    }
-  }
-
-  if (payload.movement) {
-    let sh = ss.getSheetByName("Historico");
-    if (!sh) {
-      sh = ss.insertSheet("Historico");
-      sh.appendRow(["Data", "Tipo", "Sabores", "Quantidades", "Total", "Nota", "ID"]);
-      sh.setFrozenRows(1);
-    }
-    const m = payload.movement;
-    const sabores = Object.keys(m.items).join(", ");
-    const qtds = Object.values(m.items).join(", ");
-    const total = Object.values(m.items).reduce((s, v) => s + v, 0);
-    sh.appendRow([m.date, m.type === "saida" ? "Saída" : "Entrada", sabores, qtds, total, m.note || "", m.id]);
-  }
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ok: true}))
-    .setMimeType(ContentService.MimeType.JSON);
-}';
-
-function saveLocal(){localStorage.setItem(STOCK_KEY,JSON.stringify(stock));localStorage.setItem(FLAV_KEY,JSON.stringify(flavors));localStorage.setItem(HIST_KEY,JSON.stringify(history));}
 
 function init(){
   if(scriptUrl){
     document.getElementById("setup").style.display="none";
     document.getElementById("appMain").style.display="flex";
     document.getElementById("minInput").value=minStock;
-    document.getElementById("configUrlDisplay").textContent=scriptUrl.length>60?scriptUrl.slice(0,60)+"…":scriptUrl;
+    document.getElementById("configUrlDisplay").textContent=scriptUrl;
     render();renderHistory();renderFlavors();
     syncFromSheet();
   }
@@ -345,16 +305,18 @@ function init(){
 
 function saveConfig(){
   const url=document.getElementById("scriptUrl").value.trim();
-  if(!url.includes("script.google.com")){toast("URL inválido — deve conter script.google.com");return;}
-  if(!url.includes("/exec")){toast("URL inválido — deve terminar em /exec");return;}
-  const btn=document.getElementById("btnLigar");
-  btn.textContent="A ligar...";btn.disabled=true;
-  scriptUrl=url;localStorage.setItem(CFG_KEY,scriptUrl);
+  if(!url.includes("script.google.com")||!url.includes("/exec")){
+    toast("URL inválido — deve terminar em /exec");
+    return;
+  }
+  scriptUrl=url;
+  localStorage.setItem(CFG_KEY,scriptUrl);
   document.getElementById("setup").style.display="none";
   document.getElementById("appMain").style.display="flex";
   document.getElementById("minInput").value=minStock;
-  document.getElementById("configUrlDisplay").textContent=scriptUrl.length>60?scriptUrl.slice(0,60)+"…":scriptUrl;
-  render();renderHistory();renderFlavors();syncFromSheet();
+  document.getElementById("configUrlDisplay").textContent=scriptUrl;
+  render();renderHistory();renderFlavors();
+  syncFromSheet();
 }
 
 function resetConfig(){
@@ -367,7 +329,7 @@ function resetConfig(){
 function saveMin(){
   const v=parseInt(document.getElementById("minInput").value)||12;
   minStock=v;localStorage.setItem(MIN_KEY,String(v));
-  render();toast("Mínimo definido: "+v+" unidades");
+  render();toast("Mínimo: "+v+" unidades");
 }
 
 function switchTab(tab){
@@ -390,7 +352,7 @@ function render(){
   flavors.forEach(c=>{
     const n=stock[c.name]||0,s=statusOf(n),div=document.createElement("div");
     div.className="cookie-card "+s.cls;
-    div.innerHTML=`<div class="cookie-emoji">${c.emoji}</div><div class="cookie-info"><div class="cookie-name">${c.name}</div><div class="cookie-status ${s.lCls}">${s.label}</div></div><div class="stock-num">${n}</div>`;
+    div.innerHTML='<div class="cookie-emoji">'+c.emoji+'</div><div class="cookie-info"><div class="cookie-name">'+c.name+'</div><div class="cookie-status '+s.lCls+'">'+s.label+'</div></div><div class="stock-num">'+n+'</div>';
     list.appendChild(div);
   });
 }
@@ -405,47 +367,41 @@ function renderHistory(){
   const list=document.getElementById("historyList");
   const filtered=histFilter==="all"?history:history.filter(m=>m.type===histFilter);
   const sorted=[...filtered].reverse();
-  if(!sorted.length){list.innerHTML='<div class="empty-state"><div class="icon">📭</div><p>Ainda não há movimentos registados.</p></div>';return;}
+  if(!sorted.length){
+    list.innerHTML='<div class="empty-state"><div class="icon">📭</div><p>Ainda não há movimentos registados.</p></div>';
+    return;
+  }
   list.innerHTML=sorted.map(m=>{
-    const items=Object.entries(m.items).map(([k,v])=>`${k}: <strong>${v}</strong>`).join("<br>");
-    const total=Object.values(m.items).reduce((s,v)=>s+v,0);
-    const noteHtml=m.note?`<div class="movement-note">📝 ${m.note}</div>`:"";
-    return`<div class="movement-card">
-      <div class="movement-top">
-        <span class="movement-type ${m.type}">${m.type==="entrada"?"📦 Entrada":"🛍️ Saída"}</span>
-        <span class="movement-date">${m.date}</span>
-      </div>
-      <div class="movement-items">${items}</div>
-      <div class="movement-total">Total: ${total} un.</div>
-      ${noteHtml}
-    </div>`;
+    const items=Object.entries(m.items).map(function(e){return e[0]+": <strong>"+e[1]+"</strong>";}).join("<br>");
+    const total=Object.values(m.items).reduce(function(s,v){return s+v;},0);
+    const noteHtml=m.note?'<div class="movement-note">📝 '+m.note+'</div>':"";
+    return '<div class="movement-card"><div class="movement-top"><span class="movement-type '+m.type+'">'+(m.type==="entrada"?"📦 Entrada":"🛍️ Saída")+'</span><span class="movement-date">'+m.date+'</span></div><div class="movement-items">'+items+'</div><div class="movement-total">Total: '+total+' un.</div>'+noteHtml+'</div>';
   }).join("");
 }
 
 function renderFlavors(){
-  document.getElementById("flavorList").innerHTML=flavors.map((c,i)=>`
-    <div class="flavor-row">
-      <div class="flavor-emoji-big">${c.emoji}</div>
-      <div class="flavor-name">${c.name}</div>
-      <div class="flavor-stock-badge">${stock[c.name]||0} un.</div>
-      <button class="btn-remove" onclick="removeFlavor(${i})">✕</button>
-    </div>`).join("");
+  document.getElementById("flavorList").innerHTML=flavors.map(function(c,i){
+    return '<div class="flavor-row"><div class="flavor-emoji-big">'+c.emoji+'</div><div class="flavor-name">'+c.name+'</div><div class="flavor-stock-badge">'+(stock[c.name]||0)+' un.</div><button class="btn-remove" onclick="removeFlavor('+i+')">✕</button></div>';
+  }).join("");
 }
 
 function addFlavor(){
   const emoji=document.getElementById("newEmoji").value.trim()||"🍪";
   const name=document.getElementById("newName").value.trim();
   if(!name){toast("Escreve o nome do sabor");return;}
-  if(flavors.find(c=>c.name.toLowerCase()===name.toLowerCase())){toast("Esse sabor já existe");return;}
-  flavors.push({name,emoji});stock[name]=0;
+  if(flavors.find(function(c){return c.name.toLowerCase()===name.toLowerCase();})){toast("Esse sabor já existe");return;}
+  flavors.push({name:name,emoji:emoji});
+  stock[name]=0;
   saveLocal();render();renderFlavors();
-  document.getElementById("newEmoji").value="";document.getElementById("newName").value="";
-  toast("Sabor adicionado: "+name);pushToSheet();
+  document.getElementById("newEmoji").value="";
+  document.getElementById("newName").value="";
+  toast("Sabor adicionado: "+name);
+  pushToSheet();
 }
 
 function removeFlavor(i){
   const c=flavors[i];
-  if(!confirm(`Remover "${c.name}"?`))return;
+  if(!confirm("Remover \""+c.name+"\"?"))return;
   flavors.splice(i,1);delete stock[c.name];
   saveLocal();render();renderFlavors();
   toast(c.name+" removido");pushToSheet();
@@ -460,48 +416,39 @@ function setSyncState(s){
 }
 
 async function syncFromSheet(){
-  if(!scriptUrl)return;setSyncState("spin");
+  if(!scriptUrl)return;
+  setSyncState("spin");
   try{
-    // Use a script tag / JSONP approach via iframe to bypass CORS on Safari
-    const url=scriptUrl+"?t="+Date.now();
-    const r=await fetch(url, {method:"GET", redirect:"follow"});
-    const text=await r.text();
-    // GAS may return HTML redirect page - try to extract JSON
-    let data;
-    try{ data=JSON.parse(text); }
-    catch(e){
-      // Try to extract JSON from redirect response
-      const match=text.match(/\{.*\}/s);
-      if(match) data=JSON.parse(match[0]);
-      else throw new Error("No JSON found");
+    const r=await fetch(scriptUrl+"?t="+Date.now());
+    const data=await r.json();
+    if(data.stock){
+      flavors.forEach(function(c){
+        if(c.name in data.stock)stock[c.name]=Number(data.stock[c.name])||0;
+      });
     }
-    if(data.stock)flavors.forEach(c=>{if(c.name in data.stock)stock[c.name]=Number(data.stock[c.name])||0;});
-    saveLocal();render();renderHistory();setSyncState("ok");toast("Stock atualizado");
+    saveLocal();render();renderHistory();
+    setSyncState("ok");toast("Stock atualizado");
   }catch(e){
-    // Fallback: try no-cors (won't get data but confirms connectivity)
-    setSyncState("err");toast("Erro: abre o link do script no Safari primeiro para autorizar");
-    // Open the script URL in a new tab to trigger auth
-    console.error("Sync error:",e);
+    setSyncState("err");toast("Erro a ligar ao Google Sheets");
   }
 }
 
 async function pushToSheet(movement){
-  if(!scriptUrl)return;setSyncState("spin");
+  if(!scriptUrl)return;
+  setSyncState("spin");
   try{
-    const body={stock};if(movement)body.movement=movement;
-    // Encode as URL param for GET to avoid CORS preflight
-    const encoded=encodeURIComponent(JSON.stringify(body));
-    // Try POST first
-    try{
-      const r=await fetch(scriptUrl, {method:"POST", body:JSON.stringify(body), headers:{"Content-Type":"text/plain"}, redirect:"follow"});
-      const text=await r.text();
-      setSyncState("ok");
-    }catch(postErr){
-      // Fallback: GET with data param
-      await fetch(scriptUrl+"?data="+encoded+"&t="+Date.now(), {redirect:"follow"});
-      setSyncState("ok");
-    }
-  }catch(e){setSyncState("err");toast("Não foi possível guardar no Sheets");}
+    const body={stock:stock};
+    if(movement)body.movement=movement;
+    await fetch(scriptUrl,{
+      method:"POST",
+      body:JSON.stringify(body),
+      headers:{"Content-Type":"text/plain"},
+      mode:"no-cors"
+    });
+    setSyncState("ok");
+  }catch(e){
+    setSyncState("err");toast("Não foi possível guardar no Sheets");
+  }
 }
 
 function openModal(mode){
@@ -517,27 +464,12 @@ function openModal(mode){
 
 function renderModalBody(){
   const isSaida=modalMode==="saida";
-  const rows=flavors.map(c=>{
+  const rows=flavors.map(function(c){
     const q=modalSel[c.name]||0;
-    return`<div class="modal-cookie-item">
-      <div class="modal-cookie-emoji">${c.emoji}</div>
-      <div class="modal-cookie-info">
-        <div class="modal-cookie-name">${c.name}</div>
-        <div class="modal-cookie-stock">Stock: ${stock[c.name]||0} un.</div>
-      </div>
-      <div class="modal-cookie-ctrl">
-        <button class="ctrl-btn minus" onclick="mAdj('${c.name}',-1)">−</button>
-        <div class="ctrl-val ${q>0?'active':''}" id="cv_${c.name.replace(/\W/g,'_')}">${q}</div>
-        <button class="ctrl-btn plus" onclick="mAdj('${c.name}',+1)">+</button>
-      </div>
-    </div>`;
+    const id="cv_"+c.name.replace(/\W/g,"_");
+    return '<div class="modal-cookie-item"><div class="modal-cookie-emoji">'+c.emoji+'</div><div class="modal-cookie-info"><div class="modal-cookie-name">'+c.name+'</div><div class="modal-cookie-stock">Stock: '+(stock[c.name]||0)+' un.</div></div><div class="modal-cookie-ctrl"><button class="ctrl-btn minus" onclick="mAdj(\''+c.name+'\',-1)">−</button><div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div><button class="ctrl-btn plus" onclick="mAdj(\''+c.name+'\',+1)">+</button></div></div>';
   }).join("");
-
-  const noteSection=isSaida?`<div class="note-section">
-    <div class="note-label">📝 Nota da venda (opcional)</div>
-    <textarea class="note-textarea" id="saleNote" rows="3" placeholder="Ex: Maria Santos — aniversário, 2 de cada, pagar na entrega"></textarea>
-  </div>`:"";
-
+  const noteSection=isSaida?'<div class="note-section"><div class="note-label">📝 Nota da venda (opcional)</div><textarea class="note-textarea" id="saleNote" rows="3" placeholder="Ex: Maria Santos — encomenda de aniversário"></textarea></div>':"";
   document.getElementById("modalBody").innerHTML=rows+noteSection;
 }
 
@@ -546,10 +478,9 @@ function mAdj(name,delta){
   if(next<0)return;
   if(modalMode==="saida"&&next>(stock[name]||0)){toast("Stock insuficiente para "+name);return;}
   modalSel[name]=next;
-  const id="cv_"+name.replace(/\W/g,"_");
-  const el=document.getElementById(id);
+  const el=document.getElementById("cv_"+name.replace(/\W/g,"_"));
   if(el){el.textContent=next;el.className="ctrl-val"+(next>0?" active":"");}
-  document.getElementById("btnConfirm").disabled=!Object.values(modalSel).some(v=>v>0);
+  document.getElementById("btnConfirm").disabled=!Object.values(modalSel).some(function(v){return v>0;});
 }
 
 function closeModal(){document.getElementById("modalBackdrop").classList.remove("open");}
@@ -559,7 +490,7 @@ function applyModal(){
   const noteEl=document.getElementById("saleNote");
   const note=noteEl?noteEl.value.trim():"";
   const items={};let count=0;
-  flavors.forEach(c=>{
+  flavors.forEach(function(c){
     const q=modalSel[c.name]||0;if(!q)return;
     if(modalMode==="saida")stock[c.name]=Math.max(0,(stock[c.name]||0)-q);
     else stock[c.name]=(stock[c.name]||0)+q;
@@ -567,36 +498,38 @@ function applyModal(){
   });
   const now=new Date();
   const dateStr=now.toLocaleDateString("pt-PT")+" "+now.toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"});
-  const movement={id:Date.now(),date:dateStr,type:modalMode,items,note};
+  const movement={id:Date.now(),date:dateStr,type:modalMode,items:items,note:note};
   history.push(movement);
   saveLocal();closeModal();render();renderHistory();
   pushToSheet(movement);
-  toast(modalMode==="saida"?count+" cookies removidas do stock":count+" cookies adicionadas");
+  toast(modalMode==="saida"?count+" cookies removidas":count+" cookies adicionadas");
 }
 
 function exportCSV(){
   if(!history.length){toast("Não há movimentos para exportar");return;}
   const rows=[["Data","Tipo","Sabor","Quantidade","Total da venda","Nota"]];
-  history.forEach(m=>{
-    const total=Object.values(m.items).reduce((s,v)=>s+v,0);
+  history.forEach(function(m){
+    const total=Object.values(m.items).reduce(function(s,v){return s+v;},0);
     const sabores=Object.keys(m.items);
-    sabores.forEach((sabor,i)=>{
+    sabores.forEach(function(sabor,i){
       rows.push([i===0?m.date:"",i===0?(m.type==="saida"?"Saída":"Entrada"):"",sabor,m.items[sabor],i===0?total:"",i===0?(m.note||""):""]);
     });
   });
-  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const csv=rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
   const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
   const url=URL.createObjectURL(blob);
   const a=document.createElement("a");a.href=url;
   a.download="vendas_cookies_"+new Date().toISOString().slice(0,10)+".csv";
   a.click();URL.revokeObjectURL(url);
-  toast("CSV exportado com "+history.filter(m=>m.type==="saida").length+" vendas");
+  toast("CSV exportado");
 }
 
 let toastTimer;
 function toast(msg){
-  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
-  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2700);
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.classList.remove("show");},2700);
 }
 
 init();
