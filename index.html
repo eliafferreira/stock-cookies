@@ -13,7 +13,12 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-
+/* LOADING */
+.loading-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.loading-screen .logo{font-size:52px}
+.loading-screen p{font-size:14px;color:var(--text-muted)}
+.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* APP */
 .app{display:none;flex-direction:column;min-height:100vh}
@@ -22,22 +27,24 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .tab-icon{font-size:20px}
 .tab-label{font-size:10px;font-weight:500;color:var(--text-muted)}
 .tab-btn.active .tab-label{color:var(--accent)}
+
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 1.25rem .875rem;position:sticky;top:0;z-index:10}
 .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
 .header-title{display:flex;align-items:center;gap:10px}
 .header-title span{font-size:20px}
 .header-title h1{font-size:18px;font-weight:600;color:var(--brown)}
-.sync-pill{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--text-muted);cursor:pointer;flex-shrink:0}
+.sync-pill{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--text-muted);flex-shrink:0}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted)}
-.sync-dot.ok{background:var(--green)}.sync-dot.err{background:var(--red)}.sync-dot.spin{background:var(--accent);animation:pulse .8s infinite}
+.sync-dot.ok{background:var(--green)}.sync-dot.err{background:var(--red)}.sync-dot.live{background:var(--green);animation:pulse .8s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .total-row{display:flex;align-items:center;justify-content:space-between;background:var(--accent-light);border-radius:var(--radius-sm);padding:10px 14px}
 .total-label{font-size:12px;color:var(--accent);font-weight:500}
 .total-val{font-size:18px;font-weight:600;color:var(--brown);font-variant-numeric:tabular-nums}
+
 .page{display:none;flex:1;overflow-y:auto;padding:1rem 1.25rem 5rem}
 .page.active{display:block}
 
-/* STOCK */
+/* STOCK PAGE */
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
 .action-card{border-radius:var(--radius);padding:1rem;cursor:pointer;border:none;font-family:var(--font);text-align:left;transition:transform .1s;display:flex;flex-direction:column;gap:4px}
 .action-card:active{transform:scale(.97)}
@@ -50,7 +57,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .action-sub{font-size:11px;color:var(--text-muted)}
 .section-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
 .cookie-list{display:flex;flex-direction:column;gap:8px}
-.cookie-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px}
+.cookie-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .3s,background .3s}
 .cookie-card.low{border-color:#D4AA50;background:var(--warn-light)}
 .cookie-card.empty{border-color:#D4756E;background:var(--red-light)}
 .cookie-emoji{font-size:24px;flex-shrink:0}
@@ -58,10 +65,10 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .cookie-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cookie-status{font-size:11px;margin-top:2px}
 .status-ok{color:var(--green)}.status-low{color:var(--warn)}.status-empty{color:var(--red)}
-.stock-num{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--brown);min-width:44px;text-align:center}
+.stock-num{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--brown);min-width:44px;text-align:center;transition:color .3s}
 .cookie-card.empty .stock-num{color:var(--red)}.cookie-card.low .stock-num{color:var(--warn)}
 
-/* HISTORY */
+/* HISTORY PAGE */
 .history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
 .history-title{font-size:16px;font-weight:600;color:var(--brown)}
 .filter-row{display:flex;gap:6px;margin-bottom:1rem;overflow-x:auto;padding-bottom:4px}
@@ -81,7 +88,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .empty-state .icon{font-size:40px;margin-bottom:.75rem}
 .empty-state p{font-size:14px}
 
-/* FLAVORS */
+/* FLAVORS PAGE */
 .flavor-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
 .flavor-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px}
 .flavor-emoji-big{font-size:24px}
@@ -96,6 +103,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .emoji-input{width:54px;text-align:center;font-size:20px;flex:none}
 .btn-add{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 16px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
 .flavor-hint{font-size:11px;color:var(--text-muted);line-height:1.5}
+
+/* CONFIG PAGE */
+.config-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem}
+.config-card h3{font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem}
+.config-card p{font-size:13px;color:var(--text-muted);margin-bottom:.75rem;line-height:1.5}
+.btn-danger{width:100%;background:var(--red);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer}
 
 /* MODAL */
 .modal-backdrop{position:fixed;inset:0;background:rgba(26,15,10,.5);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .2s;pointer-events:none}
@@ -130,25 +143,43 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .btn-confirm.entrada{background:var(--green);color:#fff}
 .btn-confirm.saida{background:var(--red);color:#fff}
 .btn-confirm:disabled{background:var(--border);color:var(--text-muted);cursor:default}
+
 .toast{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);background:var(--brown);color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;z-index:300;box-shadow:0 4px 20px var(--shadow)}
 .toast.show{opacity:1}
+
+/* NOTIFICATION BANNER */
+.notif-banner{position:fixed;top:0;left:0;right:0;z-index:400;padding:14px 20px;display:flex;align-items:center;gap:12px;transform:translateY(-100%);transition:transform .35s cubic-bezier(.32,.72,0,1);box-shadow:0 4px 20px var(--shadow)}
+.notif-banner.show{transform:translateY(0)}
+.notif-banner.flavour{background:#3D2B1F;color:#fff}
+.notif-banner.stock-update{background:#1A3A1A;color:#fff}
+.notif-icon{font-size:20px;flex-shrink:0}
+.notif-text{flex:1;font-size:13px;line-height:1.4}
+.notif-text strong{display:block;font-size:14px;margin-bottom:2px}
+.notif-close{font-size:18px;cursor:pointer;opacity:.7;flex-shrink:0;background:none;border:none;color:inherit;padding:0}
 </style>
 </head>
 <body>
+
+<!-- LOADING -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="logo">🍪</div>
+  <div class="spinner"></div>
+  <p>A ligar ao stock...</p>
+</div>
 
 <!-- APP -->
 <div class="app" id="appMain">
   <header>
     <div class="header-top">
       <div class="header-title"><span>🍪</span><h1>Stock Cookies</h1></div>
-      <div class="sync-pill" onclick="syncFromSheet()" id="syncPill">
-        <div class="sync-dot" id="syncDot"></div>
-        <span id="syncLabel">Sincronizar</span>
+      <div class="sync-pill" id="syncPill">
+        <div class="sync-dot live" id="syncDot"></div>
+        <span id="syncLabel">Em direto</span>
       </div>
     </div>
     <div class="total-row">
       <span class="total-label">Total em stock</span>
-      <span class="total-val" id="grandTotal">0 unidades</span>
+      <span class="total-val" id="grandTotal">— unidades</span>
     </div>
   </header>
 
@@ -192,25 +223,24 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <input class="add-input" id="newName" type="text" placeholder="Nome do sabor" onkeydown="if(event.key==='Enter')addFlavor()">
         <button class="btn-add" onclick="addFlavor()">+ Adicionar</button>
       </div>
-      <p class="flavor-hint">Ao remover um sabor, o histórico é preservado mas o stock é apagado.</p>
+      <p class="flavor-hint">O histórico é preservado ao remover um sabor.</p>
     </div>
   </div>
 
   <div class="page" id="pageConfig">
     <div class="section-label" style="margin-bottom:1rem">Configurações</div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem">
-      <p style="font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem">Ligação ao Google Sheets</p>
-      <p style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;word-break:break-all;font-family:var(--mono)" id="configUrlDisplay"></p>
-      <p style="font-size:12px;color:var(--text-muted)">Script ligado e configurado.</p>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
-      <p style="font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem">Alerta de stock mínimo</p>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:.75rem">Mostra aviso quando stock desce abaixo de:</p>
+    <div class="config-card">
+      <h3>Alerta de stock mínimo</h3>
+      <p>Mostra aviso quando o stock desce abaixo de:</p>
       <div style="display:flex;align-items:center;gap:10px">
         <input type="number" id="minInput" min="0" max="999" style="width:70px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--mono);font-size:16px;color:var(--brown);outline:none;text-align:center">
         <span style="font-size:13px;color:var(--text-muted)">unidades</span>
         <button onclick="saveMin()" style="padding:8px 16px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer">Guardar</button>
       </div>
+    </div>
+    <div class="config-card">
+      <h3>Estado da ligação</h3>
+      <p id="configStatus">Firebase ligado em tempo real. Todas as alterações sincronizam automaticamente entre dispositivos.</p>
     </div>
   </div>
 
@@ -240,259 +270,407 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
 <div class="toast" id="toast"></div>
 
-<script>
-const DEFAULT_COOKIES=[
+<!-- NOTIFICATION BANNER -->
+<div class="notif-banner" id="notifBanner">
+  <div class="notif-icon" id="notifIcon"></div>
+  <div class="notif-text"><strong id="notifTitle"></strong><span id="notifMsg"></span></div>
+  <button class="notif-close" onclick="closeNotif()">✕</button>
+</div>
+
+<!-- FIREBASE SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, get, push, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAmGQXfoCmUbEw0xYVW--HEXrPfGl3riGo",
+  authDomain: "stock-cookies-dc5b3.firebaseapp.com",
+  databaseURL: "https://stock-cookies-dc5b3-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "stock-cookies-dc5b3",
+  storageBucket: "stock-cookies-dc5b3.firebasestorage.app",
+  messagingSenderId: "700842927438",
+  appId: "1:700842927438:web:1479fa49a9910e3f15ea1f"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const DEFAULT_FLAVORS = [
   {name:"Chocolate Chip",emoji:"🍫"},{name:"Double Chocolate",emoji:"🍫"},
   {name:"Manteiga de Amendoim",emoji:"🥜"},{name:"Baunilha",emoji:"🍦"},
   {name:"Oreo",emoji:"⚫"},{name:"Limão",emoji:"🍋"},
   {name:"Caramelo Salgado",emoji:"🧂"},{name:"Red Velvet",emoji:"❤️"},
   {name:"Aveia & Passas",emoji:"🌾"}
 ];
-const CFG_KEY="cookie_cfg_v1";
-const STOCK_KEY="cookie_stock_v4";
-const FLAV_KEY="cookie_flavors_v4";
-const HIST_KEY="cookie_history_v4";
-const MIN_KEY="cookie_min_v1";
 
-let scriptUrl="https://script.google.com/macros/s/AKfycbw8oFcB9N6Nyj_TOOGhuLQ_6SEWMNt4sEBoyjyKvvuu6ONGz86U0iUOtcA_t0h2YQSpQA/exec";
-let flavors=JSON.parse(localStorage.getItem(FLAV_KEY)||"null")||DEFAULT_COOKIES;
-let stock=JSON.parse(localStorage.getItem(STOCK_KEY)||"{}");
-let history=JSON.parse(localStorage.getItem(HIST_KEY)||"[]");
-let minStock=parseInt(localStorage.getItem(MIN_KEY)||"12");
-let modalMode=null,modalSel={},histFilter="all";
+const MIN_KEY = "cookie_min_v1";
+let minStock = parseInt(localStorage.getItem(MIN_KEY) || "12");
+let flavors = [];
+let stock = {};
+let history = [];
+let modalMode = null;
+let modalSel = {};
+let histFilter = "all";
 
-flavors.forEach(c=>{if(!(c.name in stock))stock[c.name]=0;});
+// ── FIREBASE LISTENERS ────────────────────────────────────────────────────────
 
-function saveLocal(){
-  localStorage.setItem(STOCK_KEY,JSON.stringify(stock));
-  localStorage.setItem(FLAV_KEY,JSON.stringify(flavors));
-  localStorage.setItem(HIST_KEY,JSON.stringify(history));
+// Listen to flavors in real time
+onValue(ref(db, "flavors"), snap => {
+  const data = snap.val();
+  if (data) {
+    flavors = Object.values(data);
+  } else {
+    // First time: write defaults
+    flavors = DEFAULT_FLAVORS;
+    set(ref(db, "flavors"), Object.fromEntries(DEFAULT_FLAVORS.map((f,i) => [i, f])));
+  }
+  renderFlavors();
+  render();
+});
+
+// Listen to stock in real time — updates UI instantly on any device
+onValue(ref(db, "stock"), snap => {
+  const data = snap.val() || {};
+  stock = data;
+  render();
+  document.getElementById("loadingScreen").style.display = "none";
+  document.getElementById("appMain").style.display = "flex";
+  document.getElementById("minInput").value = minStock;
+  setSyncState("live");
+});
+
+// Listen to history in real time
+onValue(ref(db, "history"), snap => {
+  const data = snap.val();
+  if (data) {
+    history = Object.values(data).sort((a,b) => a.id - b.id);
+  } else {
+    history = [];
+  }
+  renderHistory();
+});
+
+// ── SYNC STATE ────────────────────────────────────────────────────────────────
+function setSyncState(s) {
+  const dot = document.getElementById("syncDot");
+  const lbl = document.getElementById("syncLabel");
+  dot.className = "sync-dot";
+  if (s === "live") { dot.classList.add("live"); lbl.textContent = "Em direto"; }
+  if (s === "err")  { dot.classList.add("err");  lbl.textContent = "Sem ligação"; }
 }
 
-function init(){
-  document.getElementById("appMain").style.display="flex";
-  document.getElementById("minInput").value=minStock;
-  document.getElementById("configUrlDisplay").textContent="Script configurado ✓";
-  render();renderHistory();renderFlavors();
-  syncFromSheet();
-}
-
-
-
-function resetConfig(){
-  if(!confirm("Desligar do Google Sheets e reconfigurar?"))return;
-  localStorage.removeItem(CFG_KEY);scriptUrl="";
-  document.getElementById("setup").style.display="flex";
-  document.getElementById("appMain").style.display="none";
-}
-
-function saveMin(){
-  const v=parseInt(document.getElementById("minInput").value)||12;
-  minStock=v;localStorage.setItem(MIN_KEY,String(v));
-  render();toast("Mínimo: "+v+" unidades");
-}
-
-function switchTab(tab){
-  ["Stock","History","Flavors","Config"].forEach(t=>{
-    document.getElementById("page"+t).classList.toggle("active",t===tab);
-    document.getElementById("tab"+t).classList.toggle("active",t===tab);
+// ── TABS ──────────────────────────────────────────────────────────────────────
+window.switchTab = function(tab) {
+  ["Stock","History","Flavors","Config"].forEach(t => {
+    document.getElementById("page"+t).classList.toggle("active", t===tab);
+    document.getElementById("tab"+t).classList.toggle("active", t===tab);
   });
+};
+
+// ── STATUS ────────────────────────────────────────────────────────────────────
+function statusOf(n) {
+  if (n === 0) return {cls:"empty", label:"Sem stock", lCls:"status-empty"};
+  if (n < minStock) return {cls:"low", label:"Stock baixo", lCls:"status-low"};
+  return {cls:"", label:"Disponível", lCls:"status-ok"};
 }
 
-function statusOf(n){
-  if(n===0)return{cls:"empty",label:"Sem stock",lCls:"status-empty"};
-  if(n<minStock)return{cls:"low",label:"Stock baixo",lCls:"status-low"};
-  return{cls:"",label:"Disponível",lCls:"status-ok"};
-}
-
-function render(){
-  let total=0;flavors.forEach(c=>total+=(stock[c.name]||0));
-  document.getElementById("grandTotal").textContent=total+" unidades";
-  const list=document.getElementById("cookieList");list.innerHTML="";
-  flavors.forEach(c=>{
-    const n=stock[c.name]||0,s=statusOf(n),div=document.createElement("div");
-    div.className="cookie-card "+s.cls;
-    div.innerHTML='<div class="cookie-emoji">'+c.emoji+'</div><div class="cookie-info"><div class="cookie-name">'+c.name+'</div><div class="cookie-status '+s.lCls+'">'+s.label+'</div></div><div class="stock-num">'+n+'</div>';
+// ── RENDER STOCK ──────────────────────────────────────────────────────────────
+function render() {
+  let total = 0;
+  flavors.forEach(c => total += (stock[c.name] || 0));
+  document.getElementById("grandTotal").textContent = total + " unidades";
+  const list = document.getElementById("cookieList");
+  list.innerHTML = "";
+  flavors.forEach(c => {
+    const n = stock[c.name] || 0;
+    const s = statusOf(n);
+    const div = document.createElement("div");
+    div.className = "cookie-card " + s.cls;
+    div.innerHTML = '<div class="cookie-emoji">'+c.emoji+'</div>'
+      +'<div class="cookie-info"><div class="cookie-name">'+c.name+'</div>'
+      +'<div class="cookie-status '+s.lCls+'">'+s.label+'</div></div>'
+      +'<div class="stock-num">'+n+'</div>';
     list.appendChild(div);
   });
 }
 
-function setFilter(f,el){
-  histFilter=f;
-  document.querySelectorAll(".filter-chip").forEach(c=>c.classList.remove("active"));
-  el.classList.add("active");renderHistory();
-}
+// ── RENDER HISTORY ────────────────────────────────────────────────────────────
+window.setFilter = function(f, el) {
+  histFilter = f;
+  document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+  el.classList.add("active");
+  renderHistory();
+};
 
-function renderHistory(){
-  const list=document.getElementById("historyList");
-  const filtered=histFilter==="all"?history:history.filter(m=>m.type===histFilter);
-  const sorted=[...filtered].reverse();
-  if(!sorted.length){
-    list.innerHTML='<div class="empty-state"><div class="icon">📭</div><p>Ainda não há movimentos registados.</p></div>';
+function renderHistory() {
+  const list = document.getElementById("historyList");
+  const filtered = histFilter === "all" ? history : history.filter(m => m.type === histFilter);
+  const sorted = [...filtered].reverse();
+  if (!sorted.length) {
+    list.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>Ainda não há movimentos registados.</p></div>';
     return;
   }
-  list.innerHTML=sorted.map(m=>{
-    const items=Object.entries(m.items).map(function(e){return e[0]+": <strong>"+e[1]+"</strong>";}).join("<br>");
-    const total=Object.values(m.items).reduce(function(s,v){return s+v;},0);
-    const noteHtml=m.note?'<div class="movement-note">📝 '+m.note+'</div>':"";
-    return '<div class="movement-card"><div class="movement-top"><span class="movement-type '+m.type+'">'+(m.type==="entrada"?"📦 Entrada":"🛍️ Saída")+'</span><span class="movement-date">'+m.date+'</span></div><div class="movement-items">'+items+'</div><div class="movement-total">Total: '+total+' un.</div>'+noteHtml+'</div>';
+  list.innerHTML = sorted.map(m => {
+    const items = Object.entries(m.items).map(([k,v]) => k+": <strong>"+v+"</strong>").join("<br>");
+    const total = Object.values(m.items).reduce((s,v) => s+v, 0);
+    const noteHtml = m.note ? '<div class="movement-note">📝 '+m.note+'</div>' : "";
+    return '<div class="movement-card">'
+      +'<div class="movement-top">'
+      +'<span class="movement-type '+m.type+'">'+(m.type==="entrada"?"📦 Entrada":"🛍️ Saída")+'</span>'
+      +'<span class="movement-date">'+m.date+'</span></div>'
+      +'<div class="movement-items">'+items+'</div>'
+      +'<div class="movement-total">Total: '+total+' un.</div>'
+      +noteHtml+'</div>';
   }).join("");
 }
 
-function renderFlavors(){
-  document.getElementById("flavorList").innerHTML=flavors.map(function(c,i){
-    return '<div class="flavor-row"><div class="flavor-emoji-big">'+c.emoji+'</div><div class="flavor-name">'+c.name+'</div><div class="flavor-stock-badge">'+(stock[c.name]||0)+' un.</div><button class="btn-remove" onclick="removeFlavor('+i+')">✕</button></div>';
-  }).join("");
+// ── RENDER FLAVORS ────────────────────────────────────────────────────────────
+function renderFlavors() {
+  document.getElementById("flavorList").innerHTML = flavors.map((c,i) =>
+    '<div class="flavor-row">'
+    +'<div class="flavor-emoji-big">'+c.emoji+'</div>'
+    +'<div class="flavor-name">'+c.name+'</div>'
+    +'<div class="flavor-stock-badge">'+(stock[c.name]||0)+' un.</div>'
+    +'<button class="btn-remove" onclick="removeFlavor('+i+')">✕</button>'
+    +'</div>'
+  ).join("");
 }
 
-function addFlavor(){
-  const emoji=document.getElementById("newEmoji").value.trim()||"🍪";
-  const name=document.getElementById("newName").value.trim();
-  if(!name){toast("Escreve o nome do sabor");return;}
-  if(flavors.find(function(c){return c.name.toLowerCase()===name.toLowerCase();})){toast("Esse sabor já existe");return;}
-  flavors.push({name:name,emoji:emoji});
-  stock[name]=0;
-  saveLocal();render();renderFlavors();
-  document.getElementById("newEmoji").value="";
-  document.getElementById("newName").value="";
-  toast("Sabor adicionado: "+name);
-  pushToSheet();
-}
+window.addFlavor = async function() {
+  const emoji = document.getElementById("newEmoji").value.trim() || "🍪";
+  const name  = document.getElementById("newName").value.trim();
+  if (!name) { toast("Escreve o nome do sabor"); return; }
+  if (flavors.find(c => c.name.toLowerCase() === name.toLowerCase())) { toast("Esse sabor já existe"); return; }
+  const newFlavors = [...flavors, {name, emoji}];
+  await set(ref(db, "flavors"), Object.fromEntries(newFlavors.map((f,i) => [i,f])));
+  await set(ref(db, "stock/"+name), 0);
+  document.getElementById("newEmoji").value = "";
+  document.getElementById("newName").value = "";
+  toast("Sabor adicionado: " + name);
+};
 
-function removeFlavor(i){
-  const c=flavors[i];
-  if(!confirm("Remover \""+c.name+"\"?"))return;
-  flavors.splice(i,1);delete stock[c.name];
-  saveLocal();render();renderFlavors();
-  toast(c.name+" removido");pushToSheet();
-}
+window.removeFlavor = async function(i) {
+  const c = flavors[i];
+  if (!confirm("Remover \""+c.name+"\"? O histórico é preservado.")) return;
+  const newFlavors = flavors.filter((_,idx) => idx !== i);
+  await set(ref(db, "flavors"), Object.fromEntries(newFlavors.map((f,idx) => [idx,f])));
+  toast(c.name + " removido");
+};
 
-function setSyncState(s){
-  const dot=document.getElementById("syncDot"),lbl=document.getElementById("syncLabel");
-  dot.className="sync-dot";
-  if(s==="ok"){dot.classList.add("ok");lbl.textContent="Sincronizado";}
-  if(s==="err"){dot.classList.add("err");lbl.textContent="Erro";}
-  if(s==="spin"){dot.classList.add("spin");lbl.textContent="A sincronizar...";}
-}
-
-async function syncFromSheet(){
-  if(!scriptUrl)return;
-  setSyncState("spin");
-  try{
-    const r=await fetch(scriptUrl+"?t="+Date.now());
-    const data=await r.json();
-    if(data.stock){
-      flavors.forEach(function(c){
-        if(c.name in data.stock)stock[c.name]=Number(data.stock[c.name])||0;
-      });
-    }
-    saveLocal();render();renderHistory();
-    setSyncState("ok");toast("Stock atualizado");
-  }catch(e){
-    setSyncState("err");toast("Erro a ligar ao Google Sheets");
-  }
-}
-
-async function pushToSheet(movement){
-  if(!scriptUrl)return;
-  setSyncState("spin");
-  try{
-    const body={stock:stock};
-    if(movement)body.movement=movement;
-    await fetch(scriptUrl,{
-      method:"POST",
-      body:JSON.stringify(body),
-      headers:{"Content-Type":"text/plain"},
-      mode:"no-cors"
-    });
-    setSyncState("ok");
-  }catch(e){
-    setSyncState("err");toast("Não foi possível guardar no Sheets");
-  }
-}
-
-function openModal(mode){
-  modalMode=mode;modalSel={};
-  const isE=mode==="entrada";
-  document.getElementById("modalTitle").textContent=isE?"📦 Entrada — produção":"🛍️ Saída — encomenda";
-  document.getElementById("modalSubtitle").textContent=isE?"Quantas cookies entram em stock?":"Quantas cookies saem para entrega?";
-  const btn=document.getElementById("btnConfirm");
-  btn.className="btn-confirm "+mode;btn.disabled=true;
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+window.openModal = function(mode) {
+  modalMode = mode; modalSel = {};
+  const isE = mode === "entrada";
+  document.getElementById("modalTitle").textContent    = isE ? "📦 Entrada — produção" : "🛍️ Saída — encomenda";
+  document.getElementById("modalSubtitle").textContent = isE ? "Quantas cookies entram em stock?" : "Quantas cookies saem para entrega?";
+  const btn = document.getElementById("btnConfirm");
+  btn.className = "btn-confirm " + mode; btn.disabled = true;
   renderModalBody();
   document.getElementById("modalBackdrop").classList.add("open");
-}
+};
 
-function renderModalBody(){
-  const isSaida=modalMode==="saida";
-  const rows=flavors.map(function(c){
-    const q=modalSel[c.name]||0;
-    const id="cv_"+c.name.replace(/\W/g,"_");
-    return '<div class="modal-cookie-item"><div class="modal-cookie-emoji">'+c.emoji+'</div><div class="modal-cookie-info"><div class="modal-cookie-name">'+c.name+'</div><div class="modal-cookie-stock">Stock: '+(stock[c.name]||0)+' un.</div></div><div class="modal-cookie-ctrl"><button class="ctrl-btn minus" onclick="mAdj(\''+c.name+'\',-1)">−</button><div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div><button class="ctrl-btn plus" onclick="mAdj(\''+c.name+'\',+1)">+</button></div></div>';
+function renderModalBody() {
+  const isSaida = modalMode === "saida";
+  const rows = flavors.map(c => {
+    const q = modalSel[c.name] || 0;
+    const id = "cv_" + c.name.replace(/\W/g, "_");
+    return '<div class="modal-cookie-item">'
+      +'<div class="modal-cookie-emoji">'+c.emoji+'</div>'
+      +'<div class="modal-cookie-info">'
+      +'<div class="modal-cookie-name">'+c.name+'</div>'
+      +'<div class="modal-cookie-stock">Stock: '+(stock[c.name]||0)+' un.</div></div>'
+      +'<div class="modal-cookie-ctrl">'
+      +'<button class="ctrl-btn minus" onclick="mAdj(\''+c.name+'\',-1)">−</button>'
+      +'<div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div>'
+      +'<button class="ctrl-btn plus" onclick="mAdj(\''+c.name+'\',+1)">+</button>'
+      +'</div></div>';
   }).join("");
-  const noteSection=isSaida?'<div class="note-section"><div class="note-label">📝 Nota da venda (opcional)</div><textarea class="note-textarea" id="saleNote" rows="3" placeholder="Ex: Maria Santos — encomenda de aniversário"></textarea></div>':"";
-  document.getElementById("modalBody").innerHTML=rows+noteSection;
+  const noteSection = isSaida
+    ? '<div class="note-section"><div class="note-label">📝 Nota da venda (opcional)</div>'
+      +'<textarea class="note-textarea" id="saleNote" rows="3" placeholder="Ex: Maria Santos — encomenda de aniversário"></textarea></div>'
+    : "";
+  document.getElementById("modalBody").innerHTML = rows + noteSection;
 }
 
-function mAdj(name,delta){
-  const next=(modalSel[name]||0)+delta;
-  if(next<0)return;
-  if(modalMode==="saida"&&next>(stock[name]||0)){toast("Stock insuficiente para "+name);return;}
-  modalSel[name]=next;
-  const el=document.getElementById("cv_"+name.replace(/\W/g,"_"));
-  if(el){el.textContent=next;el.className="ctrl-val"+(next>0?" active":"");}
-  document.getElementById("btnConfirm").disabled=!Object.values(modalSel).some(function(v){return v>0;});
-}
+window.mAdj = function(name, delta) {
+  const next = (modalSel[name] || 0) + delta;
+  if (next < 0) return;
+  if (modalMode === "saida" && next > (stock[name] || 0)) { toast("Stock insuficiente para " + name); return; }
+  modalSel[name] = next;
+  const el = document.getElementById("cv_" + name.replace(/\W/g,"_"));
+  if (el) { el.textContent = next; el.className = "ctrl-val" + (next > 0 ? " active" : ""); }
+  document.getElementById("btnConfirm").disabled = !Object.values(modalSel).some(v => v > 0);
+};
 
-function closeModal(){document.getElementById("modalBackdrop").classList.remove("open");}
-function closeModalOutside(e){if(e.target===document.getElementById("modalBackdrop"))closeModal();}
+window.closeModal = function() { document.getElementById("modalBackdrop").classList.remove("open"); };
+window.closeModalOutside = function(e) { if (e.target === document.getElementById("modalBackdrop")) closeModal(); };
 
-function applyModal(){
-  const noteEl=document.getElementById("saleNote");
-  const note=noteEl?noteEl.value.trim():"";
-  const items={};let count=0;
-  flavors.forEach(function(c){
-    const q=modalSel[c.name]||0;if(!q)return;
-    if(modalMode==="saida")stock[c.name]=Math.max(0,(stock[c.name]||0)-q);
-    else stock[c.name]=(stock[c.name]||0)+q;
-    items[c.name]=q;count+=q;
-  });
-  const now=new Date();
-  const dateStr=now.toLocaleDateString("pt-PT")+" "+now.toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"});
-  const movement={id:Date.now(),date:dateStr,type:modalMode,items:items,note:note};
-  history.push(movement);
-  saveLocal();closeModal();render();renderHistory();
-  pushToSheet(movement);
-  toast(modalMode==="saida"?count+" cookies removidas":count+" cookies adicionadas");
-}
+window.applyModal = async function() {
+  const noteEl = document.getElementById("saleNote");
+  const note = noteEl ? noteEl.value.trim() : "";
+  const btn = document.getElementById("btnConfirm");
+  btn.disabled = true;
+  btn.textContent = "A guardar...";
 
-function exportCSV(){
-  if(!history.length){toast("Não há movimentos para exportar");return;}
-  const rows=[["Data","Tipo","Sabor","Quantidade","Total da venda","Nota"]];
-  history.forEach(function(m){
-    const total=Object.values(m.items).reduce(function(s,v){return s+v;},0);
-    const sabores=Object.keys(m.items);
-    sabores.forEach(function(sabor,i){
-      rows.push([i===0?m.date:"",i===0?(m.type==="saida"?"Saída":"Entrada"):"",sabor,m.items[sabor],i===0?total:"",i===0?(m.note||""):""]);
+  // Snapshot selections before closing modal
+  const selections = {...modalSel};
+  const mode = modalMode;
+
+  closeModal();
+
+  try {
+    // For each cookie with a quantity, use a transaction to atomically update
+    // This reads the LATEST value from Firebase at confirm time, preventing conflicts
+    for (const [name, qty] of Object.entries(selections)) {
+      if (!qty) continue;
+      await runTransaction(ref(db, "stock/" + name), current => {
+        const cur = current || 0;
+        if (mode === "saida") return Math.max(0, cur - qty);
+        else return cur + qty;
+      });
+    }
+
+    // Log movement to history
+    const now = new Date();
+    const dateStr = now.toLocaleDateString("pt-PT") + " " + now.toLocaleTimeString("pt-PT", {hour:"2-digit", minute:"2-digit"});
+    const movement = {
+      id: Date.now(),
+      date: dateStr,
+      type: mode,
+      items: Object.fromEntries(Object.entries(selections).filter(([,v]) => v > 0)),
+      note: note
+    };
+    await push(ref(db, "history"), movement);
+
+    const count = Object.values(selections).reduce((s,v) => s+v, 0);
+    toast(mode === "saida" ? count + " cookies removidas" : count + " cookies adicionadas");
+  } catch(e) {
+    toast("Erro ao guardar. Tenta novamente.");
+    console.error(e);
+  }
+};
+
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+window.saveMin = function() {
+  const v = parseInt(document.getElementById("minInput").value) || 12;
+  minStock = v;
+  localStorage.setItem(MIN_KEY, String(v));
+  render();
+  toast("Mínimo: " + v + " unidades");
+};
+
+// ── EXPORT CSV ────────────────────────────────────────────────────────────────
+window.exportCSV = function() {
+  if (!history.length) { toast("Não há movimentos para exportar"); return; }
+  const rows = [["Data","Tipo","Sabor","Quantidade","Total da venda","Nota"]];
+  history.forEach(m => {
+    const total = Object.values(m.items).reduce((s,v) => s+v, 0);
+    Object.keys(m.items).forEach((sabor, i) => {
+      rows.push([
+        i===0 ? m.date : "",
+        i===0 ? (m.type==="saida" ? "Saída" : "Entrada") : "",
+        sabor, m.items[sabor],
+        i===0 ? total : "",
+        i===0 ? (m.note||"") : ""
+      ]);
     });
   });
-  const csv=rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
-  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");a.href=url;
-  a.download="vendas_cookies_"+new Date().toISOString().slice(0,10)+".csv";
-  a.click();URL.revokeObjectURL(url);
+  const csv = rows.map(r => r.map(v => '"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\n");
+  const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "vendas_cookies_" + new Date().toISOString().slice(0,10) + ".csv";
+  a.click(); URL.revokeObjectURL(url);
   toast("CSV exportado");
+};
+
+// ── NOTIFICATIONS (real-time cross-device alerts) ────────────────────────────
+let notifTimer;
+let lastFlavourCount = null;
+let lastFlavourNames = null;
+let isFirstFlavourLoad = true;
+
+window.closeNotif = function() {
+  document.getElementById("notifBanner").classList.remove("show");
+  clearTimeout(notifTimer);
+};
+
+function showNotif(icon, title, msg, type, duration) {
+  const banner = document.getElementById("notifBanner");
+  document.getElementById("notifIcon").textContent = icon;
+  document.getElementById("notifTitle").textContent = title;
+  document.getElementById("notifMsg").textContent = msg;
+  banner.className = "notif-banner " + (type||"flavour") + " show";
+  clearTimeout(notifTimer);
+  notifTimer = setTimeout(() => banner.classList.remove("show"), duration || 6000);
 }
 
+// Watch for flavour changes from OTHER devices and notify
+onValue(ref(db, "flavors"), snap => {
+  const data = snap.val();
+  if (!data) return;
+  const names = Object.values(data).map(f => f.name);
+  const count = names.length;
+
+  if (isFirstFlavourLoad) {
+    // Just record the baseline, don't notify on first load
+    lastFlavourCount = count;
+    lastFlavourNames = names;
+    isFirstFlavourLoad = false;
+    return;
+  }
+
+  if (lastFlavourNames !== null) {
+    // Find added flavours
+    const added = names.filter(n => !lastFlavourNames.includes(n));
+    // Find removed flavours
+    const removed = lastFlavourNames.filter(n => !names.includes(n));
+
+    added.forEach(name => {
+      const f = Object.values(data).find(f => f.name === name);
+      showNotif(
+        f ? f.emoji : "🍪",
+        "Novo sabor adicionado",
+        name + " foi adicionado ao stock.",
+        "flavour",
+        7000
+      );
+    });
+
+    removed.forEach(name => {
+      showNotif("🗑️", "Sabor removido", name + " foi removido da lista.", "flavour", 7000);
+    });
+  }
+
+  lastFlavourCount = count;
+  lastFlavourNames = names;
+});
+
+// Watch for stock changes from OTHER devices — subtle update (no banner, just render)
+// The onValue on stock already handles this via the existing listener above.
+// We add a separate watcher only to detect large unexpected drops (e.g. concurrent sale)
+let lastStockSnapshot = null;
+onValue(ref(db, "stock"), snap => {
+  const data = snap.val() || {};
+  if (lastStockSnapshot !== null) {
+    // Check if any item hit zero that wasn't zero before
+    Object.entries(data).forEach(([name, qty]) => {
+      if (qty === 0 && lastStockSnapshot[name] > 0) {
+        showNotif("⚠️", "Stock esgotado", name + " chegou a zero.", "stock-update", 8000);
+      }
+    });
+  }
+  lastStockSnapshot = {...data};
+});
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
 let toastTimer;
-function toast(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg;t.classList.add("show");
+window.toast = function(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(function(){t.classList.remove("show");},2700);
-}
-
-init();
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2700);
+};
 </script>
 </body>
 </html>
