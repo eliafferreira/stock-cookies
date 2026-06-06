@@ -9,106 +9,138 @@
 <title>Stock Cookies</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F5F2ED;--surface:#FFF;--surface2:#EFECE7;--brown:#3D2B1F;--brown-mid:#7A5C4A;--accent:#C17B3A;--accent-light:#F5E6D0;--green:#3B6B3A;--green-light:#E8F3E8;--red:#A63228;--red-light:#FBEDED;--warn:#8A6000;--warn-light:#FDF3DC;--text:#1A0F0A;--text-mid:#6B5245;--text-muted:#A08878;--border:#E0D8CF;--shadow:rgba(61,43,31,.08);--radius:16px;--radius-sm:10px;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
+:root{--bg:#F5F2ED;--surface:#FFF;--surface2:#EFECE7;--brown:#3D2B1F;--brown-mid:#7A5C4A;--accent:#C17B3A;--accent-light:#F5E6D0;--green:#3B6B3A;--green-light:#E8F3E8;--red:#A63228;--red-light:#FBEDED;--warn:#8A6000;--warn-light:#FDF3DC;--blue:#1A4A7A;--blue-light:#E8F0FB;--purple:#5A2D82;--purple-light:#F0E8FB;--text:#1A0F0A;--text-mid:#6B5245;--text-muted:#A08878;--border:#E0D8CF;--shadow:rgba(61,43,31,.08);--radius:16px;--radius-sm:10px;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-
-/* LOADING */
 .loading-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
 .loading-screen .logo{font-size:52px}
 .loading-screen p{font-size:14px;color:var(--text-muted)}
 .spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* APP */
 .app{display:none;flex-direction:column;min-height:100vh}
 .tab-nav{background:var(--surface);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;display:flex;z-index:20;padding-bottom:env(safe-area-inset-bottom,0)}
-.tab-btn{flex:1;padding:10px 0 8px;border:none;background:none;cursor:pointer;font-family:var(--font);display:flex;flex-direction:column;align-items:center;gap:3px}
-.tab-icon{font-size:20px}
+.tab-btn{flex:1;padding:8px 0 6px;border:none;background:none;cursor:pointer;font-family:var(--font);display:flex;flex-direction:column;align-items:center;gap:2px}
+.tab-icon{font-size:18px}
 .tab-label{font-size:10px;font-weight:500;color:var(--text-muted)}
 .tab-btn.active .tab-label{color:var(--accent)}
-
-header{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 1.25rem .875rem;position:sticky;top:0;z-index:10}
-.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
-.header-title{display:flex;align-items:center;gap:10px}
-.header-title span{font-size:20px}
-.header-title h1{font-size:18px;font-weight:600;color:var(--brown)}
-.sync-pill{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--text-muted);flex-shrink:0}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:.875rem 1.25rem .75rem;position:sticky;top:0;z-index:10}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.625rem}
+.header-title{display:flex;align-items:center;gap:8px}
+.header-title span{font-size:18px}
+.header-title h1{font-size:17px;font-weight:600;color:var(--brown)}
+.sync-pill{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:3px 10px;font-size:11px;color:var(--text-muted);flex-shrink:0}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted)}
 .sync-dot.ok{background:var(--green)}.sync-dot.err{background:var(--red)}.sync-dot.live{background:var(--green);animation:pulse .8s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.total-row{display:flex;align-items:center;justify-content:space-between;background:var(--accent-light);border-radius:var(--radius-sm);padding:10px 14px}
+.total-row{display:flex;align-items:center;justify-content:space-between;background:var(--accent-light);border-radius:var(--radius-sm);padding:8px 14px}
 .total-label{font-size:12px;color:var(--accent);font-weight:500}
-.total-val{font-size:18px;font-weight:600;color:var(--brown);font-variant-numeric:tabular-nums}
-
-.page{display:none;flex:1;overflow-y:auto;padding:1rem 1.25rem 5rem}
+.total-val{font-size:17px;font-weight:600;color:var(--brown);font-variant-numeric:tabular-nums}
+.page{display:none;flex:1;overflow-y:auto;padding:1rem 1.25rem 5.5rem}
 .page.active{display:block}
 
 /* STOCK PAGE */
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
-.action-card{border-radius:var(--radius);padding:1rem;cursor:pointer;border:none;font-family:var(--font);text-align:left;transition:transform .1s;display:flex;flex-direction:column;gap:4px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:.75rem}
+.actions-bottom{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem}
+.action-card{border-radius:var(--radius);padding:.875rem;cursor:pointer;border:none;font-family:var(--font);text-align:left;transition:transform .1s;display:flex;flex-direction:column;gap:3px}
 .action-card:active{transform:scale(.97)}
 .action-card.entrada{background:var(--green-light);border:1px solid #B8D8B8}
 .action-card.saida{background:var(--red-light);border:1px solid #EBBBB8}
-.action-icon{font-size:22px;margin-bottom:4px}
+.action-card.caixa{background:var(--blue-light);border:1px solid #B8CFF0}
+.action-card.oferta{background:var(--purple-light);border:1px solid #D0B8F0}
+.action-icon{font-size:20px;margin-bottom:2px}
 .action-label{font-size:13px;font-weight:600}
 .action-card.entrada .action-label{color:var(--green)}
 .action-card.saida .action-label{color:var(--red)}
+.action-card.caixa .action-label{color:var(--blue)}
+.action-card.oferta .action-label{color:var(--purple)}
 .action-sub{font-size:11px;color:var(--text-muted)}
 .section-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
 .cookie-list{display:flex;flex-direction:column;gap:8px}
-.cookie-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .3s,background .3s}
+.cookie-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:12px;transition:border-color .3s,background .3s}
 .cookie-card.low{border-color:#D4AA50;background:var(--warn-light)}
 .cookie-card.empty{border-color:#D4756E;background:var(--red-light)}
-.cookie-emoji{font-size:24px;flex-shrink:0}
+.cookie-emoji{font-size:22px;flex-shrink:0}
 .cookie-info{flex:1;min-width:0}
 .cookie-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cookie-status{font-size:11px;margin-top:2px}
+.cookie-meta{font-size:11px;margin-top:2px;display:flex;gap:6px;align-items:center}
+.cookie-status{font-size:11px}
 .status-ok{color:var(--green)}.status-low{color:var(--warn)}.status-empty{color:var(--red)}
-.stock-num{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--brown);min-width:44px;text-align:center;transition:color .3s}
+.price-badge{font-size:10px;font-weight:600;padding:1px 6px;border-radius:99px;background:var(--accent-light);color:var(--accent)}
+.price-badge.especial{background:var(--purple-light);color:var(--purple)}
+.stock-num{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--brown);min-width:40px;text-align:center}
 .cookie-card.empty .stock-num{color:var(--red)}.cookie-card.low .stock-num{color:var(--warn)}
 
-/* HISTORY PAGE */
+/* HISTORY */
 .history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
 .history-title{font-size:16px;font-weight:600;color:var(--brown)}
-.filter-row{display:flex;gap:6px;margin-bottom:1rem;overflow-x:auto;padding-bottom:4px}
+.filter-row{display:flex;gap:6px;margin-bottom:1rem;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
 .filter-chip{padding:5px 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;color:var(--text-mid);cursor:pointer;white-space:nowrap;flex-shrink:0}
 .filter-chip.active{background:var(--brown);color:#fff;border-color:var(--brown)}
-.export-btn{padding:8px 14px;border-radius:var(--radius-sm);border:1px solid var(--accent);background:var(--accent-light);color:var(--accent);font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer}
+.export-btn{padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--accent);background:var(--accent-light);color:var(--accent);font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap}
 .movement-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:8px}
-.movement-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
-.movement-type{font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px}
+.movement-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;gap:8px}
+.movement-type{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap;flex-shrink:0}
 .movement-type.entrada{background:var(--green-light);color:var(--green)}
 .movement-type.saida{background:var(--red-light);color:var(--red)}
-.movement-date{font-size:11px;color:var(--text-muted);font-family:var(--mono)}
-.movement-items{font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:2px}
-.movement-note{font-size:12px;color:var(--text-muted);background:var(--surface2);border-radius:6px;padding:6px 10px;margin-top:6px;font-style:italic;border-left:3px solid var(--accent-light)}
+.movement-type.caixa{background:var(--blue-light);color:var(--blue)}
+.movement-type.oferta{background:var(--purple-light);color:var(--purple)}
+.movement-date{font-size:11px;color:var(--text-muted);font-family:var(--mono);text-align:right}
+.movement-items{font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:4px}
+.movement-footer{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
 .movement-total{font-size:12px;font-weight:600;color:var(--brown)}
+.movement-value{font-size:14px;font-weight:600;color:var(--green);font-family:var(--mono)}
+.movement-value.zero{color:var(--purple)}
+.movement-note{font-size:12px;color:var(--text-muted);background:var(--surface2);border-radius:6px;padding:6px 10px;margin-top:6px;font-style:italic;border-left:3px solid var(--accent-light)}
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--text-muted)}
 .empty-state .icon{font-size:40px;margin-bottom:.75rem}
 .empty-state p{font-size:14px}
 
-/* FLAVORS PAGE */
+/* FLAVORS */
 .flavor-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
-.flavor-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px}
-.flavor-emoji-big{font-size:24px}
-.flavor-name{flex:1;font-size:14px;font-weight:500}
-.flavor-stock-badge{font-family:var(--mono);font-size:13px;color:var(--text-muted);margin-right:6px}
-.btn-remove{width:30px;height:30px;border-radius:50%;border:1px solid #EBBBB8;background:var(--red-light);color:var(--red);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.add-flavor-card{background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--radius);padding:1rem 1.25rem}
+.flavor-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:grab;touch-action:none;user-select:none}
+.flavor-row.dragging{opacity:.5;border-style:dashed}
+.flavor-row.drag-over{border-color:var(--accent);background:var(--accent-light)}
+.drag-handle{font-size:16px;color:var(--text-muted);flex-shrink:0;cursor:grab;padding:0 4px}
+.flavor-emoji-big{font-size:22px;flex-shrink:0}
+.flavor-name{flex:1;font-size:14px;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flavor-cat-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;flex-shrink:0}
+.cat-simples{background:var(--accent-light);color:var(--accent)}
+.cat-recheada{background:var(--green-light);color:var(--green)}
+.cat-especial{background:var(--purple-light);color:var(--purple)}
+.flavor-stock-num{font-family:var(--mono);font-size:13px;color:var(--text-muted);min-width:32px;text-align:right;flex-shrink:0}
+.btn-remove{width:28px;height:28px;border-radius:50%;border:1px solid #EBBBB8;background:var(--red-light);color:var(--red);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.add-flavor-card{background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.25rem}
 .add-flavor-card h3{font-size:14px;font-weight:600;color:var(--brown);margin-bottom:.75rem}
-.add-flavor-row{display:flex;gap:8px;margin-bottom:.75rem}
-.add-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font);font-size:14px;color:var(--text);outline:none}
+.add-flavor-row{display:flex;gap:8px;margin-bottom:.75rem;flex-wrap:wrap}
+.add-input{flex:1;min-width:80px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:var(--font);font-size:14px;color:var(--text);outline:none}
 .add-input:focus{border-color:var(--accent)}
-.emoji-input{width:54px;text-align:center;font-size:20px;flex:none}
-.btn-add{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 16px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+.emoji-input{width:50px;min-width:50px;flex:none;text-align:center;font-size:20px}
+.cat-select{flex:1;min-width:100px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:var(--font);font-size:13px;color:var(--text);outline:none;appearance:none}
+.btn-add{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 14px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
 .flavor-hint{font-size:11px;color:var(--text-muted);line-height:1.5}
 
-/* CONFIG PAGE */
+/* BOXES CONFIG */
+.boxes-section{margin-top:1rem}
+.box-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem}
+.box-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:10px}
+.box-info{flex:1;min-width:0}
+.box-name{font-size:14px;font-weight:500;color:var(--text)}
+.box-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
+.add-box-card{background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--radius);padding:1rem 1.25rem}
+.add-box-card h3{font-size:14px;font-weight:600;color:var(--brown);margin-bottom:.75rem}
+.add-box-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:.75rem}
+.small-input{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 10px;font-family:var(--font);font-size:13px;color:var(--text);outline:none;width:100%;text-align:center}
+.small-input:focus{border-color:var(--accent)}
+.small-label{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.btn-add-box{width:100%;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer}
+
+/* CONFIG */
 .config-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem}
 .config-card h3{font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem}
 .config-card p{font-size:13px;color:var(--text-muted);margin-bottom:.75rem;line-height:1.5}
-.btn-danger{width:100%;background:var(--red);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer}
+.price-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.price-item{text-align:center}
+.price-item .small-label{display:block;margin-bottom:4px}
 
 /* MODAL */
 .modal-backdrop{position:fixed;inset:0;background:rgba(26,15,10,.5);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .2s;pointer-events:none}
@@ -116,38 +148,53 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .modal-sheet{background:var(--surface);border-radius:24px 24px 0 0;width:100%;max-width:480px;padding:0 0 env(safe-area-inset-bottom,16px);transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);max-height:92vh;display:flex;flex-direction:column}
 .modal-backdrop.open .modal-sheet{transform:translateY(0)}
 .modal-handle{width:36px;height:4px;border-radius:2px;background:var(--border);margin:12px auto 0;flex-shrink:0}
-.modal-header{padding:16px 20px 12px;flex-shrink:0}
+.modal-header{padding:14px 20px 10px;flex-shrink:0}
 .modal-title{font-size:17px;font-weight:600;color:var(--brown)}
 .modal-subtitle{font-size:13px;color:var(--text-muted);margin-top:2px}
-.modal-body{overflow-y:auto;padding:0 16px;flex:1}
-.modal-cookie-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.modal-body{overflow-y:auto;padding:0 16px;flex:1;-webkit-overflow-scrolling:touch}
+.modal-cookie-item{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
 .modal-cookie-item:last-of-type{border-bottom:none}
 .modal-cookie-emoji{font-size:20px;flex-shrink:0}
 .modal-cookie-info{flex:1;min-width:0}
-.modal-cookie-name{font-size:13px;font-weight:500}
-.modal-cookie-stock{font-size:11px;color:var(--text-muted);margin-top:1px}
+.modal-cookie-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modal-cookie-sub{font-size:11px;color:var(--text-muted);margin-top:1px}
 .modal-cookie-ctrl{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.ctrl-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);background:var(--surface2);font-size:18px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ctrl-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:var(--surface2);font-size:18px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ctrl-btn:active{transform:scale(.93)}
 .ctrl-btn.plus{border-color:var(--green);color:var(--green)}
 .ctrl-btn.minus{border-color:var(--red);color:var(--red)}
-.ctrl-val{font-family:var(--mono);font-size:18px;font-weight:500;min-width:28px;text-align:center;color:var(--brown)}
+.ctrl-val{font-family:var(--mono);font-size:17px;font-weight:500;min-width:26px;text-align:center;color:var(--brown)}
 .ctrl-val.active{color:var(--accent)}
-.note-section{padding:12px 0 2px;border-top:1px solid var(--border);margin-top:6px}
+.modal-total-bar{background:var(--accent-light);border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0 4px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.modal-total-label{font-size:12px;color:var(--accent);font-weight:500}
+.modal-total-val{font-size:18px;font-weight:600;color:var(--brown);font-family:var(--mono)}
+.note-section{padding:10px 0 2px;border-top:1px solid var(--border);margin-top:4px}
 .note-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-.note-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font);font-size:13px;color:var(--text);resize:none;outline:none;line-height:1.5}
+.note-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:var(--font);font-size:13px;color:var(--text);resize:none;outline:none;line-height:1.5}
 .note-textarea:focus{border-color:var(--accent)}
-.modal-footer{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
-.btn-cancel{flex:1;padding:13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--font);font-size:14px;color:var(--text-mid);cursor:pointer}
-.btn-confirm{flex:2;padding:13px;border:none;border-radius:var(--radius-sm);font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer}
+.modal-footer{padding:10px 16px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
+.btn-cancel{flex:1;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--font);font-size:14px;color:var(--text-mid);cursor:pointer}
+.btn-confirm{flex:2;padding:12px;border:none;border-radius:var(--radius-sm);font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer}
 .btn-confirm.entrada{background:var(--green);color:#fff}
 .btn-confirm.saida{background:var(--red);color:#fff}
+.btn-confirm.caixa{background:var(--blue);color:#fff}
+.btn-confirm.oferta{background:var(--purple);color:#fff}
 .btn-confirm:disabled{background:var(--border);color:var(--text-muted);cursor:default}
 
-.toast{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);background:var(--brown);color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;z-index:300;box-shadow:0 4px 20px var(--shadow)}
-.toast.show{opacity:1}
+/* BOX PICKER */
+.box-picker{padding:12px 0 4px}
+.box-picker-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.box-options{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.box-option{padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;background:var(--surface2);transition:border-color .15s,background .15s}
+.box-option.selected{border-color:var(--blue);background:var(--blue-light)}
+.box-option-name{font-size:13px;font-weight:500;color:var(--text)}
+.box-option-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
+.box-counter{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border-radius:var(--radius-sm);padding:8px 12px;margin-bottom:8px}
+.box-counter-label{font-size:13px;color:var(--text-mid)}
+.box-counter-val{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--brown)}
+.box-counter-val.full{color:var(--green)}.box-counter-val.over{color:var(--red)}
 
-/* NOTIFICATION BANNER */
+/* NOTIFICATION */
 .notif-banner{position:fixed;top:0;left:0;right:0;z-index:400;padding:14px 20px;display:flex;align-items:center;gap:12px;transform:translateY(-100%);transition:transform .35s cubic-bezier(.32,.72,0,1);box-shadow:0 4px 20px var(--shadow)}
 .notif-banner.show{transform:translateY(0)}
 .notif-banner.flavour{background:#3D2B1F;color:#fff}
@@ -156,23 +203,24 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .notif-text{flex:1;font-size:13px;line-height:1.4}
 .notif-text strong{display:block;font-size:14px;margin-bottom:2px}
 .notif-close{font-size:18px;cursor:pointer;opacity:.7;flex-shrink:0;background:none;border:none;color:inherit;padding:0}
+
+.toast{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);background:var(--brown);color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;z-index:300;box-shadow:0 4px 20px var(--shadow)}
+.toast.show{opacity:1}
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
 <div class="loading-screen" id="loadingScreen">
   <div class="logo">🍪</div>
   <div class="spinner"></div>
   <p>A ligar ao stock...</p>
 </div>
 
-<!-- APP -->
 <div class="app" id="appMain">
   <header>
     <div class="header-top">
       <div class="header-title"><span>🍪</span><h1>Stock Cookies</h1></div>
-      <div class="sync-pill" id="syncPill">
+      <div class="sync-pill">
         <div class="sync-dot live" id="syncDot"></div>
         <span id="syncLabel">Em direto</span>
       </div>
@@ -183,6 +231,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
     </div>
   </header>
 
+  <!-- STOCK PAGE -->
   <div class="page active" id="pageStock">
     <div class="actions">
       <button class="action-card entrada" onclick="openModal('entrada')">
@@ -193,45 +242,116 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       <button class="action-card saida" onclick="openModal('saida')">
         <div class="action-icon">🛍️</div>
         <div class="action-label">Saída</div>
-        <div class="action-sub">Encomenda / venda</div>
+        <div class="action-sub">Venda avulso</div>
+      </button>
+    </div>
+    <div class="actions-bottom">
+      <button class="action-card caixa" onclick="openModal('caixa')">
+        <div class="action-icon">🎁</div>
+        <div class="action-label">Caixa</div>
+        <div class="action-sub">Venda de caixa</div>
+      </button>
+      <button class="action-card oferta" onclick="openModal('oferta')">
+        <div class="action-icon">🎀</div>
+        <div class="action-label">Oferta</div>
+        <div class="action-sub">Cookie gratuita</div>
       </button>
     </div>
     <div class="section-label">Stock atual</div>
     <div class="cookie-list" id="cookieList"></div>
   </div>
 
+  <!-- HISTORY PAGE -->
   <div class="page" id="pageHistory">
     <div class="history-header">
       <div class="history-title">Registo</div>
-      <button class="export-btn" onclick="exportCSV()">⬇ Exportar CSV</button>
+      <button class="export-btn" onclick="exportCSV()">⬇ CSV</button>
     </div>
     <div class="filter-row">
       <button class="filter-chip active" onclick="setFilter('all',this)">Todos</button>
-      <button class="filter-chip" onclick="setFilter('saida',this)">Saídas</button>
+      <button class="filter-chip" onclick="setFilter('saida',this)">Vendas</button>
+      <button class="filter-chip" onclick="setFilter('caixa',this)">Caixas</button>
       <button class="filter-chip" onclick="setFilter('entrada',this)">Entradas</button>
+      <button class="filter-chip" onclick="setFilter('oferta',this)">Ofertas</button>
     </div>
     <div id="historyList"></div>
   </div>
 
+  <!-- FLAVORS PAGE -->
   <div class="page" id="pageFlavors">
-    <div class="section-label" style="margin-bottom:1rem">Sabores ativos</div>
+    <div class="section-label" style="margin-bottom:1rem">Sabores — arrasta para reordenar</div>
     <div class="flavor-list" id="flavorList"></div>
     <div class="add-flavor-card">
-      <h3>Adicionar novo sabor</h3>
+      <h3>Adicionar sabor</h3>
       <div class="add-flavor-row">
         <input class="add-input emoji-input" id="newEmoji" type="text" placeholder="🍪" maxlength="2">
-        <input class="add-input" id="newName" type="text" placeholder="Nome do sabor" onkeydown="if(event.key==='Enter')addFlavor()">
-        <button class="btn-add" onclick="addFlavor()">+ Adicionar</button>
+        <input class="add-input" id="newName" type="text" placeholder="Nome">
+        <select class="cat-select" id="newCat">
+          <option value="simples">Simples 1,50€</option>
+          <option value="recheada">Recheada 1,80€</option>
+          <option value="especial">Especial 2,30€</option>
+        </select>
+        <button class="btn-add" onclick="addFlavor()">+</button>
       </div>
       <p class="flavor-hint">O histórico é preservado ao remover um sabor.</p>
     </div>
+
+    <div class="boxes-section">
+      <div class="section-label" style="margin-bottom:1rem">Caixas configuradas</div>
+      <div class="box-list" id="boxList"></div>
+      <div class="add-box-card">
+        <h3>Adicionar caixa</h3>
+        <div class="add-box-row">
+          <div>
+            <div class="small-label">Nome</div>
+            <input class="small-input" id="boxName" type="text" placeholder="Caixa 6">
+          </div>
+          <div>
+            <div class="small-label">Nº cookies</div>
+            <input class="small-input" id="boxSize" type="number" min="1" placeholder="6">
+          </div>
+          <div>
+            <div class="small-label">Preço base</div>
+            <input class="small-input" id="boxPrice" type="number" step="0.01" min="0" placeholder="10.00">
+          </div>
+        </div>
+        <div style="margin-bottom:.75rem">
+          <div class="small-label" style="margin-bottom:4px">Acréscimo por especial (€)</div>
+          <input class="small-input" id="boxSpecialExtra" type="number" step="0.01" min="0" placeholder="0.50" style="width:100%">
+        </div>
+        <button class="btn-add-box" onclick="addBox()">+ Adicionar caixa</button>
+      </div>
+    </div>
   </div>
 
+  <!-- CONFIG PAGE -->
   <div class="page" id="pageConfig">
     <div class="section-label" style="margin-bottom:1rem">Configurações</div>
     <div class="config-card">
+      <h3>Preços por categoria</h3>
+      <p>Editáveis aqui. Aplicam-se a todas as vendas futuras.</p>
+      <div class="price-grid">
+        <div class="price-item">
+          <span class="small-label">Simples</span>
+          <input class="small-input" id="priceSimples" type="number" step="0.01" min="0" placeholder="1.50">
+          <div style="font-size:10px;color:var(--text-muted);margin-top:3px">€ / cookie</div>
+        </div>
+        <div class="price-item">
+          <span class="small-label">Recheada</span>
+          <input class="small-input" id="priceRecheada" type="number" step="0.01" min="0" placeholder="1.80">
+          <div style="font-size:10px;color:var(--text-muted);margin-top:3px">€ / cookie</div>
+        </div>
+        <div class="price-item">
+          <span class="small-label">Especial</span>
+          <input class="small-input" id="priceEspecial" type="number" step="0.01" min="0" placeholder="2.30">
+          <div style="font-size:10px;color:var(--text-muted);margin-top:3px">€ / cookie</div>
+        </div>
+      </div>
+      <button onclick="savePrices()" style="margin-top:1rem;width:100%;padding:10px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer">Guardar preços</button>
+    </div>
+    <div class="config-card">
       <h3>Alerta de stock mínimo</h3>
-      <p>Mostra aviso quando o stock desce abaixo de:</p>
+      <p>Aviso quando o stock desce abaixo de:</p>
       <div style="display:flex;align-items:center;gap:10px">
         <input type="number" id="minInput" min="0" max="999" style="width:70px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--mono);font-size:16px;color:var(--brown);outline:none;text-align:center">
         <span style="font-size:13px;color:var(--text-muted)">unidades</span>
@@ -240,7 +360,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
     </div>
     <div class="config-card">
       <h3>Estado da ligação</h3>
-      <p id="configStatus">Firebase ligado em tempo real. Todas as alterações sincronizam automaticamente entre dispositivos.</p>
+      <p>Firebase ligado em tempo real. Todas as alterações sincronizam automaticamente.</p>
     </div>
   </div>
 
@@ -261,6 +381,10 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       <div class="modal-subtitle" id="modalSubtitle"></div>
     </div>
     <div class="modal-body" id="modalBody"></div>
+    <div class="modal-total-bar" id="modalTotalBar" style="margin:0 16px;display:none">
+      <span class="modal-total-label">Total da venda</span>
+      <span class="modal-total-val" id="modalTotalVal">0,00 €</span>
+    </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
       <button class="btn-confirm" id="btnConfirm" onclick="applyModal()" disabled>Confirmar</button>
@@ -268,16 +392,13 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
-
-<!-- NOTIFICATION BANNER -->
 <div class="notif-banner" id="notifBanner">
   <div class="notif-icon" id="notifIcon"></div>
   <div class="notif-text"><strong id="notifTitle"></strong><span id="notifMsg"></span></div>
   <button class="notif-close" onclick="closeNotif()">✕</button>
 </div>
+<div class="toast" id="toast"></div>
 
-<!-- FIREBASE SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set, get, push, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -292,115 +413,177 @@ const firebaseConfig = {
   appId: "1:700842927438:web:1479fa49a9910e3f15ea1f"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const fbApp = initializeApp(firebaseConfig);
+const db = getDatabase(fbApp);
 
+// ── DEFAULT DATA ──────────────────────────────────────────────────────────────
 const DEFAULT_FLAVORS = [
-  {name:"Chocolate Chip",emoji:"🍫"},{name:"Double Chocolate",emoji:"🍫"},
-  {name:"Manteiga de Amendoim",emoji:"🥜"},{name:"Baunilha",emoji:"🍦"},
-  {name:"Oreo",emoji:"⚫"},{name:"Limão",emoji:"🍋"},
-  {name:"Caramelo Salgado",emoji:"🧂"},{name:"Red Velvet",emoji:"❤️"},
-  {name:"Aveia & Passas",emoji:"🌾"}
+  {name:"Chocolate Chip",emoji:"🍫",cat:"recheada"},
+  {name:"Double Chocolate",emoji:"🍫",cat:"recheada"},
+  {name:"Manteiga de Amendoim",emoji:"🥜",cat:"recheada"},
+  {name:"Baunilha",emoji:"🍦",cat:"simples"},
+  {name:"Oreo",emoji:"⚫",cat:"recheada"},
+  {name:"Limão",emoji:"🍋",cat:"simples"},
+  {name:"Caramelo Salgado",emoji:"🧂",cat:"recheada"},
+  {name:"Red Velvet",emoji:"❤️",cat:"recheada"},
+  {name:"Aveia & Passas",emoji:"🌾",cat:"simples"}
+];
+const DEFAULT_PRICES = {simples:1.50, recheada:1.80, especial:2.30};
+const DEFAULT_BOXES = [
+  {name:"Caixa 6",size:6,price:10.00,specialExtra:0.50},
+  {name:"Caixa 12",size:12,price:18.00,specialExtra:0.50}
 ];
 
-const MIN_KEY = "cookie_min_v1";
-let minStock = parseInt(localStorage.getItem(MIN_KEY) || "12");
+// ── STATE ─────────────────────────────────────────────────────────────────────
 let flavors = [];
 let stock = {};
 let history = [];
+let boxes = [];
+let prices = {...DEFAULT_PRICES};
+let minStock = parseInt(localStorage.getItem("cookie_min_v1") || "12");
 let modalMode = null;
 let modalSel = {};
+let modalBox = null; // selected box for caixa mode
 let histFilter = "all";
+let isFirstFlavourLoad = true;
+let lastFlavourNames = null;
+let lastStockSnapshot = null;
+let notifTimer;
 
 // ── FIREBASE LISTENERS ────────────────────────────────────────────────────────
-
-// Listen to flavors in real time
-onValue(ref(db, "flavors"), snap => {
+onValue(ref(db,"flavors"), snap => {
   const data = snap.val();
   if (data) {
-    flavors = Object.values(data);
+    flavors = Array.isArray(data) ? data : Object.values(data);
   } else {
-    // First time: write defaults
     flavors = DEFAULT_FLAVORS;
-    set(ref(db, "flavors"), Object.fromEntries(DEFAULT_FLAVORS.map((f,i) => [i, f])));
+    set(ref(db,"flavors"), DEFAULT_FLAVORS);
   }
   renderFlavors();
   render();
+
+  // Cross-device notifications for flavour changes
+  const names = flavors.map(f => f.name);
+  if (!isFirstFlavourLoad && lastFlavourNames) {
+    const added = names.filter(n => !lastFlavourNames.includes(n));
+    const removed = lastFlavourNames.filter(n => !names.includes(n));
+    added.forEach(n => {
+      const f = flavors.find(f => f.name === n);
+      showNotif(f ? f.emoji : "🍪", "Novo sabor adicionado", n + " foi adicionado ao stock.", "flavour");
+    });
+    removed.forEach(n => showNotif("🗑️","Sabor removido", n + " foi removido.", "flavour"));
+  }
+  isFirstFlavourLoad = false;
+  lastFlavourNames = names;
 });
 
-// Listen to stock in real time — updates UI instantly on any device
-onValue(ref(db, "stock"), snap => {
+onValue(ref(db,"stock"), snap => {
   const data = snap.val() || {};
   stock = data;
   render();
   document.getElementById("loadingScreen").style.display = "none";
   document.getElementById("appMain").style.display = "flex";
   document.getElementById("minInput").value = minStock;
-  setSyncState("live");
+
+  // Alert when a flavour hits zero
+  if (lastStockSnapshot) {
+    Object.entries(data).forEach(([name, qty]) => {
+      if (qty === 0 && (lastStockSnapshot[name] || 0) > 0) {
+        showNotif("⚠️","Stock esgotado", name + " chegou a zero.", "stock-update");
+      }
+    });
+  }
+  lastStockSnapshot = {...data};
 });
 
-// Listen to history in real time
-onValue(ref(db, "history"), snap => {
+onValue(ref(db,"history"), snap => {
   const data = snap.val();
-  if (data) {
-    history = Object.values(data).sort((a,b) => a.id - b.id);
-  } else {
-    history = [];
-  }
+  history = data ? Object.values(data).sort((a,b) => a.id - b.id) : [];
   renderHistory();
 });
 
-// ── SYNC STATE ────────────────────────────────────────────────────────────────
-function setSyncState(s) {
-  const dot = document.getElementById("syncDot");
-  const lbl = document.getElementById("syncLabel");
-  dot.className = "sync-dot";
-  if (s === "live") { dot.classList.add("live"); lbl.textContent = "Em direto"; }
-  if (s === "err")  { dot.classList.add("err");  lbl.textContent = "Sem ligação"; }
+onValue(ref(db,"boxes"), snap => {
+  const data = snap.val();
+  if (data) {
+    boxes = Array.isArray(data) ? data : Object.values(data);
+  } else {
+    boxes = DEFAULT_BOXES;
+    set(ref(db,"boxes"), DEFAULT_BOXES);
+  }
+  renderBoxList();
+});
+
+onValue(ref(db,"prices"), snap => {
+  const data = snap.val();
+  prices = data ? {...DEFAULT_PRICES, ...data} : DEFAULT_PRICES;
+  document.getElementById("priceSimples").value = prices.simples.toFixed(2);
+  document.getElementById("priceRecheada").value = prices.recheada.toFixed(2);
+  document.getElementById("priceEspecial").value = prices.especial.toFixed(2);
+  render();
+});
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function catLabel(cat) {
+  return {simples:"Simples",recheada:"Recheada",especial:"Especial"}[cat] || cat;
+}
+function catPrice(cat) {
+  return prices[cat] || prices.simples;
+}
+function fmt(v) {
+  return v.toFixed(2).replace(".",",") + " €";
+}
+function statusOf(n) {
+  if (n === 0) return {cls:"empty",label:"Sem stock",lCls:"status-empty"};
+  if (n < minStock) return {cls:"low",label:"Stock baixo",lCls:"status-low"};
+  return {cls:"",label:"Disponível",lCls:"status-ok"};
 }
 
 // ── TABS ──────────────────────────────────────────────────────────────────────
-window.switchTab = function(tab) {
-  ["Stock","History","Flavors","Config"].forEach(t => {
-    document.getElementById("page"+t).classList.toggle("active", t===tab);
-    document.getElementById("tab"+t).classList.toggle("active", t===tab);
+window.switchTab = t => {
+  ["Stock","History","Flavors","Config"].forEach(p => {
+    document.getElementById("page"+p).classList.toggle("active", p===t);
+    document.getElementById("tab"+t) && document.getElementById("tab"+p).classList.toggle("active", p===t);
   });
 };
-
-// ── STATUS ────────────────────────────────────────────────────────────────────
-function statusOf(n) {
-  if (n === 0) return {cls:"empty", label:"Sem stock", lCls:"status-empty"};
-  if (n < minStock) return {cls:"low", label:"Stock baixo", lCls:"status-low"};
-  return {cls:"", label:"Disponível", lCls:"status-ok"};
-}
 
 // ── RENDER STOCK ──────────────────────────────────────────────────────────────
 function render() {
   let total = 0;
-  flavors.forEach(c => total += (stock[c.name] || 0));
+  flavors.forEach(c => total += (stock[c.name]||0));
   document.getElementById("grandTotal").textContent = total + " unidades";
   const list = document.getElementById("cookieList");
   list.innerHTML = "";
   flavors.forEach(c => {
-    const n = stock[c.name] || 0;
+    const n = stock[c.name]||0;
     const s = statusOf(n);
+    const isSpecial = c.cat === "especial";
     const div = document.createElement("div");
     div.className = "cookie-card " + s.cls;
-    div.innerHTML = '<div class="cookie-emoji">'+c.emoji+'</div>'
-      +'<div class="cookie-info"><div class="cookie-name">'+c.name+'</div>'
-      +'<div class="cookie-status '+s.lCls+'">'+s.label+'</div></div>'
+    div.innerHTML =
+      '<div class="cookie-emoji">'+c.emoji+'</div>'
+      +'<div class="cookie-info">'
+        +'<div class="cookie-name">'+c.name+'</div>'
+        +'<div class="cookie-meta">'
+          +'<span class="cookie-status '+s.lCls+'">'+s.label+'</span>'
+          +'<span class="price-badge'+(isSpecial?" especial":"")+'">'+fmt(catPrice(c.cat))+'</span>'
+        +'</div>'
+      +'</div>'
       +'<div class="stock-num">'+n+'</div>';
     list.appendChild(div);
   });
 }
 
 // ── RENDER HISTORY ────────────────────────────────────────────────────────────
-window.setFilter = function(f, el) {
+window.setFilter = (f, el) => {
   histFilter = f;
   document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
   el.classList.add("active");
   renderHistory();
 };
+
+function typeLabel(t) {
+  return {entrada:"📦 Entrada",saida:"🛍️ Venda",caixa:"🎁 Caixa",oferta:"🎀 Oferta"}[t] || t;
+}
 
 function renderHistory() {
   const list = document.getElementById("historyList");
@@ -411,265 +594,436 @@ function renderHistory() {
     return;
   }
   list.innerHTML = sorted.map(m => {
-    const items = Object.entries(m.items).map(([k,v]) => k+": <strong>"+v+"</strong>").join("<br>");
-    const total = Object.values(m.items).reduce((s,v) => s+v, 0);
+    const items = Object.entries(m.items||{}).map(([k,v]) => k+": <strong>"+v+"</strong>").join("<br>");
+    const total = Object.values(m.items||{}).reduce((s,v)=>s+v,0);
+    const val = m.value != null ? m.value : 0;
+    const isOferta = m.type === "oferta";
     const noteHtml = m.note ? '<div class="movement-note">📝 '+m.note+'</div>' : "";
+    const boxHtml = m.boxName ? '<div style="font-size:11px;color:var(--blue);margin-bottom:2px">🎁 '+m.boxName+'</div>' : "";
     return '<div class="movement-card">'
       +'<div class="movement-top">'
-      +'<span class="movement-type '+m.type+'">'+(m.type==="entrada"?"📦 Entrada":"🛍️ Saída")+'</span>'
-      +'<span class="movement-date">'+m.date+'</span></div>'
+        +'<span class="movement-type '+m.type+'">'+typeLabel(m.type)+'</span>'
+        +'<span class="movement-date">'+m.date+'</span>'
+      +'</div>'
+      +boxHtml
       +'<div class="movement-items">'+items+'</div>'
-      +'<div class="movement-total">Total: '+total+' un.</div>'
-      +noteHtml+'</div>';
+      +'<div class="movement-footer">'
+        +'<span class="movement-total">'+total+' un.</span>'
+        +(m.type !== "entrada" ? '<span class="movement-value'+(isOferta?" zero":"")+'">'+( isOferta?"Oferta":fmt(val))+'</span>' : '')
+      +'</div>'
+      +noteHtml
+      +'</div>';
   }).join("");
 }
 
-// ── RENDER FLAVORS ────────────────────────────────────────────────────────────
+// ── RENDER FLAVORS (with drag to reorder) ─────────────────────────────────────
+let dragSrcIdx = null;
+
 function renderFlavors() {
-  document.getElementById("flavorList").innerHTML = flavors.map((c,i) =>
-    '<div class="flavor-row">'
-    +'<div class="flavor-emoji-big">'+c.emoji+'</div>'
-    +'<div class="flavor-name">'+c.name+'</div>'
-    +'<div class="flavor-stock-badge">'+(stock[c.name]||0)+' un.</div>'
-    +'<button class="btn-remove" onclick="removeFlavor('+i+')">✕</button>'
+  const list = document.getElementById("flavorList");
+  list.innerHTML = "";
+  flavors.forEach((c,i) => {
+    const row = document.createElement("div");
+    row.className = "flavor-row";
+    row.draggable = true;
+    row.dataset.idx = i;
+    row.innerHTML =
+      '<div class="drag-handle">⠿</div>'
+      +'<div class="flavor-emoji-big">'+c.emoji+'</div>'
+      +'<div class="flavor-name">'+c.name+'</div>'
+      +'<span class="flavor-cat-badge cat-'+c.cat+'">'+catLabel(c.cat)+'</span>'
+      +'<div class="flavor-stock-num">'+(stock[c.name]||0)+' un.</div>'
+      +'<button class="btn-remove" onclick="removeFlavor('+i+')">✕</button>';
+
+    row.addEventListener("dragstart", e => { dragSrcIdx = i; row.classList.add("dragging"); e.dataTransfer.effectAllowed="move"; });
+    row.addEventListener("dragend", () => { row.classList.remove("dragging"); document.querySelectorAll(".flavor-row").forEach(r=>r.classList.remove("drag-over")); });
+    row.addEventListener("dragover", e => { e.preventDefault(); row.classList.add("drag-over"); });
+    row.addEventListener("dragleave", () => row.classList.remove("drag-over"));
+    row.addEventListener("drop", e => {
+      e.preventDefault();
+      if (dragSrcIdx === null || dragSrcIdx === i) return;
+      const newFlavors = [...flavors];
+      const [moved] = newFlavors.splice(dragSrcIdx, 1);
+      newFlavors.splice(i, 0, moved);
+      set(ref(db,"flavors"), newFlavors);
+      dragSrcIdx = null;
+    });
+
+    // Touch drag support
+    let touchStartY = 0, touchStartIdx = 0;
+    row.addEventListener("touchstart", e => { touchStartY = e.touches[0].clientY; touchStartIdx = i; }, {passive:true});
+    row.addEventListener("touchend", e => {
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dy) < 10) return;
+      const rows = [...document.querySelectorAll(".flavor-row")];
+      const targetRow = rows.find(r => {
+        const rect = r.getBoundingClientRect();
+        return e.changedTouches[0].clientY >= rect.top && e.changedTouches[0].clientY <= rect.bottom;
+      });
+      if (targetRow && targetRow !== row) {
+        const targetIdx = parseInt(targetRow.dataset.idx);
+        const newFlavors = [...flavors];
+        const [moved] = newFlavors.splice(touchStartIdx, 1);
+        newFlavors.splice(targetIdx, 0, moved);
+        set(ref(db,"flavors"), newFlavors);
+      }
+    }, {passive:true});
+
+    list.appendChild(row);
+  });
+}
+
+window.addFlavor = async () => {
+  const emoji = document.getElementById("newEmoji").value.trim() || "🍪";
+  const name  = document.getElementById("newName").value.trim();
+  const cat   = document.getElementById("newCat").value;
+  if (!name) { toast("Escreve o nome do sabor"); return; }
+  if (flavors.find(c => c.name.toLowerCase()===name.toLowerCase())) { toast("Esse sabor já existe"); return; }
+  const newFlavors = [...flavors, {name,emoji,cat}];
+  await set(ref(db,"flavors"), newFlavors);
+  await set(ref(db,"stock/"+name.replace(/[.#$\[\]]/g,"_")), 0);
+  document.getElementById("newEmoji").value="";
+  document.getElementById("newName").value="";
+  toast("Sabor adicionado: "+name);
+};
+
+window.removeFlavor = async i => {
+  const c = flavors[i];
+  if (!confirm("Remover \""+c.name+"\"? O histórico é preservado.")) return;
+  const newFlavors = flavors.filter((_,idx)=>idx!==i);
+  await set(ref(db,"flavors"), newFlavors);
+  toast(c.name+" removido");
+};
+
+// ── BOXES ─────────────────────────────────────────────────────────────────────
+function renderBoxList() {
+  const list = document.getElementById("boxList");
+  list.innerHTML = boxes.map((b,i) =>
+    '<div class="box-row">'
+    +'<div class="box-info">'
+      +'<div class="box-name">'+b.name+'</div>'
+      +'<div class="box-meta">'+b.size+' cookies · '+fmt(b.price)+' base · +'+fmt(b.specialExtra)+'/especial</div>'
+    +'</div>'
+    +'<button class="btn-remove" onclick="removeBox('+i+')">✕</button>'
     +'</div>'
   ).join("");
 }
 
-window.addFlavor = async function() {
-  const emoji = document.getElementById("newEmoji").value.trim() || "🍪";
-  const name  = document.getElementById("newName").value.trim();
-  if (!name) { toast("Escreve o nome do sabor"); return; }
-  if (flavors.find(c => c.name.toLowerCase() === name.toLowerCase())) { toast("Esse sabor já existe"); return; }
-  const newFlavors = [...flavors, {name, emoji}];
-  await set(ref(db, "flavors"), Object.fromEntries(newFlavors.map((f,i) => [i,f])));
-  await set(ref(db, "stock/"+name), 0);
-  document.getElementById("newEmoji").value = "";
-  document.getElementById("newName").value = "";
-  toast("Sabor adicionado: " + name);
+window.addBox = async () => {
+  const name = document.getElementById("boxName").value.trim();
+  const size = parseInt(document.getElementById("boxSize").value);
+  const price = parseFloat(document.getElementById("boxPrice").value);
+  const specialExtra = parseFloat(document.getElementById("boxSpecialExtra").value||"0");
+  if (!name || !size || isNaN(price)) { toast("Preenche todos os campos da caixa"); return; }
+  const newBoxes = [...boxes, {name,size,price,specialExtra}];
+  await set(ref(db,"boxes"), newBoxes);
+  ["boxName","boxSize","boxPrice","boxSpecialExtra"].forEach(id => document.getElementById(id).value="");
+  toast("Caixa adicionada: "+name);
 };
 
-window.removeFlavor = async function(i) {
-  const c = flavors[i];
-  if (!confirm("Remover \""+c.name+"\"? O histórico é preservado.")) return;
-  const newFlavors = flavors.filter((_,idx) => idx !== i);
-  await set(ref(db, "flavors"), Object.fromEntries(newFlavors.map((f,idx) => [idx,f])));
-  toast(c.name + " removido");
+window.removeBox = async i => {
+  if (!confirm("Remover esta caixa?")) return;
+  const newBoxes = boxes.filter((_,idx)=>idx!==i);
+  await set(ref(db,"boxes"), newBoxes);
+};
+
+// ── PRICES ────────────────────────────────────────────────────────────────────
+window.savePrices = async () => {
+  const s = parseFloat(document.getElementById("priceSimples").value);
+  const r = parseFloat(document.getElementById("priceRecheada").value);
+  const e = parseFloat(document.getElementById("priceEspecial").value);
+  if (isNaN(s)||isNaN(r)||isNaN(e)) { toast("Preços inválidos"); return; }
+  await set(ref(db,"prices"), {simples:s,recheada:r,especial:e});
+  toast("Preços guardados");
+};
+
+window.saveMin = () => {
+  const v = parseInt(document.getElementById("minInput").value)||12;
+  minStock = v; localStorage.setItem("cookie_min_v1",String(v));
+  render(); toast("Mínimo: "+v+" unidades");
 };
 
 // ── MODAL ─────────────────────────────────────────────────────────────────────
-window.openModal = function(mode) {
-  modalMode = mode; modalSel = {};
-  const isE = mode === "entrada";
-  document.getElementById("modalTitle").textContent    = isE ? "📦 Entrada — produção" : "🛍️ Saída — encomenda";
-  document.getElementById("modalSubtitle").textContent = isE ? "Quantas cookies entram em stock?" : "Quantas cookies saem para entrega?";
+window.openModal = mode => {
+  modalMode = mode; modalSel = {}; modalBox = null;
+  const titles = {entrada:"📦 Entrada — produção",saida:"🛍️ Venda avulso",caixa:"🎁 Venda de caixa",oferta:"🎀 Oferta — cookie gratuita"};
+  const subs = {entrada:"Quantas cookies entram em stock?",saida:"Quantas cookies vendes?",caixa:"Escolhe a caixa e as cookies.",oferta:"Regista a oferta e o motivo."};
+  document.getElementById("modalTitle").textContent = titles[mode];
+  document.getElementById("modalSubtitle").textContent = subs[mode];
   const btn = document.getElementById("btnConfirm");
-  btn.className = "btn-confirm " + mode; btn.disabled = true;
+  btn.className = "btn-confirm "+mode; btn.disabled = true; btn.textContent = "Confirmar";
+  const totalBar = document.getElementById("modalTotalBar");
+  totalBar.style.display = (mode==="saida"||mode==="caixa") ? "flex" : "none";
   renderModalBody();
   document.getElementById("modalBackdrop").classList.add("open");
 };
 
+function calcTotal() {
+  if (modalMode === "saida") {
+    return flavors.reduce((sum,c) => sum + (modalSel[c.name]||0) * catPrice(c.cat), 0);
+  }
+  if (modalMode === "caixa" && modalBox) {
+    const specials = flavors.filter(c=>c.cat==="especial").reduce((s,c)=>s+(modalSel[c.name]||0),0);
+    return modalBox.price + specials * modalBox.specialExtra;
+  }
+  return 0;
+}
+
+function updateTotalBar() {
+  if (modalMode !== "saida" && modalMode !== "caixa") return;
+  document.getElementById("modalTotalVal").textContent = fmt(calcTotal());
+}
+
+function boxCookieCount() {
+  return Object.values(modalSel).reduce((s,v)=>s+v,0);
+}
+
 function renderModalBody() {
-  const isSaida = modalMode === "saida";
-  const rows = flavors.map(c => {
-    const q = modalSel[c.name] || 0;
-    const id = "cv_" + c.name.replace(/\W/g, "_");
+  if (modalMode === "caixa") {
+    renderCaixaBody();
+  } else {
+    renderCookieBody();
+  }
+  updateTotalBar();
+}
+
+function renderCaixaBody() {
+  const boxOptions = boxes.map((b,i) =>
+    '<div class="box-option'+(modalBox&&modalBox===b?" selected":"")+'" onclick="selectBox('+i+')">'
+    +'<div class="box-option-name">'+b.name+'</div>'
+    +'<div class="box-option-meta">'+b.size+' cookies · '+fmt(b.price)+' base · +'+fmt(b.specialExtra)+'/especial</div>'
+    +'</div>'
+  ).join("");
+
+  const selected = modalBox;
+  const count = boxCookieCount();
+  const max = selected ? selected.size : 0;
+  const counterClass = count === max ? "full" : count > max ? "over" : "";
+
+  const cookieRows = flavors.map(c => {
+    const q = modalSel[c.name]||0;
+    const id = "cv_"+c.name.replace(/\W/g,"_");
+    const stockN = stock[c.name]||0;
     return '<div class="modal-cookie-item">'
       +'<div class="modal-cookie-emoji">'+c.emoji+'</div>'
       +'<div class="modal-cookie-info">'
-      +'<div class="modal-cookie-name">'+c.name+'</div>'
-      +'<div class="modal-cookie-stock">Stock: '+(stock[c.name]||0)+' un.</div></div>'
+        +'<div class="modal-cookie-name">'+c.name+'</div>'
+        +'<div class="modal-cookie-sub">'+catLabel(c.cat)+(c.cat==="especial"?" · +"+fmt(modalBox?modalBox.specialExtra:0):"")+'  ·  stock: '+stockN+'</div>'
+      +'</div>'
       +'<div class="modal-cookie-ctrl">'
-      +'<button class="ctrl-btn minus" onclick="mAdj(\''+c.name+'\',-1)">−</button>'
-      +'<div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div>'
-      +'<button class="ctrl-btn plus" onclick="mAdj(\''+c.name+'\',+1)">+</button>'
-      +'</div></div>';
+        +'<button class="ctrl-btn minus" onclick="mAdj(\''+c.name+'\',-1)">−</button>'
+        +'<div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div>'
+        +'<button class="ctrl-btn plus" onclick="mAdj(\''+c.name+'\',+1)">+</button>'
+      +'</div>'
+      +'</div>';
   }).join("");
-  const noteSection = isSaida
-    ? '<div class="note-section"><div class="note-label">📝 Nota da venda (opcional)</div>'
-      +'<textarea class="note-textarea" id="saleNote" rows="3" placeholder="Ex: Maria Santos — encomenda de aniversário"></textarea></div>'
+
+  document.getElementById("modalBody").innerHTML =
+    '<div class="box-picker">'
+      +'<div class="box-picker-label">Escolhe a caixa</div>'
+      +'<div class="box-options">'+boxOptions+'</div>'
+      +(selected ? '<div class="box-counter"><span class="box-counter-label">Cookies selecionadas</span><span class="box-counter-val '+counterClass+'">'+count+' / '+max+'</span></div>' : '')
+    +'</div>'
+    +(selected ? cookieRows : '')
+    +'<div class="note-section"><div class="note-label">📝 Nota (opcional)</div><textarea class="note-textarea" id="saleNote" rows="2" placeholder="Ex: Maria Santos"></textarea></div>';
+}
+
+function renderCookieBody() {
+  const isSaida = modalMode === "saida";
+  const isOferta = modalMode === "oferta";
+  const rows = flavors.map(c => {
+    const q = modalSel[c.name]||0;
+    const id = "cv_"+c.name.replace(/\W/g,"_");
+    const stockN = stock[c.name]||0;
+    const sub = isSaida ? catLabel(c.cat)+" · "+fmt(catPrice(c.cat)) : "Stock: "+stockN+" un.";
+    return '<div class="modal-cookie-item">'
+      +'<div class="modal-cookie-emoji">'+c.emoji+'</div>'
+      +'<div class="modal-cookie-info">'
+        +'<div class="modal-cookie-name">'+c.name+'</div>'
+        +'<div class="modal-cookie-sub">'+sub+'</div>'
+      +'</div>'
+      +'<div class="modal-cookie-ctrl">'
+        +'<button class="ctrl-btn minus" onclick="mAdj(\''+c.name+'\',-1)">−</button>'
+        +'<div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div>'
+        +'<button class="ctrl-btn plus" onclick="mAdj(\''+c.name+'\',+1)">+</button>'
+      +'</div>'
+      +'</div>';
+  }).join("");
+
+  const noteLabel = isOferta ? "📝 Motivo da oferta (obrigatório)" : "📝 Nota (opcional)";
+  const notePlaceholder = isOferta ? "Ex: Amostra para cliente, brinde de aniversário..." : "Ex: Maria Santos — encomenda especial";
+  const noteSection = (isSaida||isOferta)
+    ? '<div class="note-section"><div class="note-label">'+noteLabel+'</div><textarea class="note-textarea" id="saleNote" rows="2" placeholder="'+notePlaceholder+'"></textarea></div>'
     : "";
   document.getElementById("modalBody").innerHTML = rows + noteSection;
 }
 
-window.mAdj = function(name, delta) {
-  const next = (modalSel[name] || 0) + delta;
-  if (next < 0) return;
-  if (modalMode === "saida" && next > (stock[name] || 0)) { toast("Stock insuficiente para " + name); return; }
-  modalSel[name] = next;
-  const el = document.getElementById("cv_" + name.replace(/\W/g,"_"));
-  if (el) { el.textContent = next; el.className = "ctrl-val" + (next > 0 ? " active" : ""); }
-  document.getElementById("btnConfirm").disabled = !Object.values(modalSel).some(v => v > 0);
+window.selectBox = i => {
+  modalBox = boxes[i];
+  // Reset selections when switching box
+  modalSel = {};
+  renderCaixaBody();
+  document.getElementById("btnConfirm").disabled = true;
+  updateTotalBar();
 };
 
-window.closeModal = function() { document.getElementById("modalBackdrop").classList.remove("open"); };
-window.closeModalOutside = function(e) { if (e.target === document.getElementById("modalBackdrop")) closeModal(); };
+window.mAdj = (name, delta) => {
+  const next = (modalSel[name]||0) + delta;
+  if (next < 0) return;
 
-window.applyModal = async function() {
+  // For sales/offers: check stock
+  if ((modalMode==="saida"||modalMode==="caixa"||modalMode==="oferta") && next > (stock[name]||0)) {
+    toast("Stock insuficiente para "+name); return;
+  }
+
+  // For caixa: enforce max size
+  if (modalMode==="caixa" && modalBox) {
+    const currentTotal = boxCookieCount();
+    if (delta > 0 && currentTotal >= modalBox.size) {
+      toast("Caixa cheia — máximo "+modalBox.size+" cookies"); return;
+    }
+  }
+
+  modalSel[name] = next;
+
+  const el = document.getElementById("cv_"+name.replace(/\W/g,"_"));
+  if (el) { el.textContent = next; el.className = "ctrl-val"+(next>0?" active":""); }
+
+  // Update counter for caixa
+  if (modalMode==="caixa" && modalBox) {
+    const count = boxCookieCount();
+    const counterEl = document.querySelector(".box-counter-val");
+    if (counterEl) {
+      counterEl.textContent = count+" / "+modalBox.size;
+      counterEl.className = "box-counter-val"+(count===modalBox.size?" full":count>modalBox.size?" over":"");
+    }
+  }
+
+  const anySelected = Object.values(modalSel).some(v=>v>0);
+  const caixaReady = modalMode==="caixa" && modalBox && boxCookieCount()===modalBox.size;
+  document.getElementById("btnConfirm").disabled = modalMode==="caixa" ? !caixaReady : !anySelected;
+  updateTotalBar();
+};
+
+window.closeModal = () => document.getElementById("modalBackdrop").classList.remove("open");
+window.closeModalOutside = e => { if (e.target===document.getElementById("modalBackdrop")) closeModal(); };
+
+window.applyModal = async () => {
   const noteEl = document.getElementById("saleNote");
   const note = noteEl ? noteEl.value.trim() : "";
-  const btn = document.getElementById("btnConfirm");
-  btn.disabled = true;
-  btn.textContent = "A guardar...";
 
-  // Snapshot selections before closing modal
+  // Oferta requires a note
+  if (modalMode==="oferta" && !note) { toast("Escreve o motivo da oferta"); return; }
+
+  const btn = document.getElementById("btnConfirm");
+  btn.disabled = true; btn.textContent = "A guardar...";
+
   const selections = {...modalSel};
   const mode = modalMode;
+  const box = modalBox;
+  const totalValue = calcTotal();
 
   closeModal();
 
   try {
-    // For each cookie with a quantity, use a transaction to atomically update
-    // This reads the LATEST value from Firebase at confirm time, preventing conflicts
+    // Atomically update stock for each flavour
     for (const [name, qty] of Object.entries(selections)) {
       if (!qty) continue;
-      await runTransaction(ref(db, "stock/" + name), current => {
-        const cur = current || 0;
-        if (mode === "saida") return Math.max(0, cur - qty);
-        else return cur + qty;
+      const key = name.replace(/[.#$\[\]]/g,"_");
+      await runTransaction(ref(db,"stock/"+key), cur => {
+        const c = cur||0;
+        return mode==="entrada" ? c+qty : Math.max(0, c-qty);
       });
     }
 
-    // Log movement to history
+    // Build history entry
     const now = new Date();
-    const dateStr = now.toLocaleDateString("pt-PT") + " " + now.toLocaleTimeString("pt-PT", {hour:"2-digit", minute:"2-digit"});
+    const dateStr = now.toLocaleDateString("pt-PT")+" "+now.toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"});
     const movement = {
       id: Date.now(),
       date: dateStr,
       type: mode,
-      items: Object.fromEntries(Object.entries(selections).filter(([,v]) => v > 0)),
-      note: note
+      items: Object.fromEntries(Object.entries(selections).filter(([,v])=>v>0)),
+      note,
+      value: mode==="entrada"||mode==="oferta" ? 0 : totalValue,
+      ...(box ? {boxName:box.name, boxSize:box.size} : {})
     };
-    await push(ref(db, "history"), movement);
+    await push(ref(db,"history"), movement);
 
-    const count = Object.values(selections).reduce((s,v) => s+v, 0);
-    toast(mode === "saida" ? count + " cookies removidas" : count + " cookies adicionadas");
+    const count = Object.values(selections).reduce((s,v)=>s+v,0);
+    const msgs = {entrada:count+" cookies adicionadas",saida:count+" cookies vendidas · "+fmt(totalValue),caixa:box.name+" vendida · "+fmt(totalValue),oferta:count+" cookies oferecidas"};
+    toast(msgs[mode]);
   } catch(e) {
-    toast("Erro ao guardar. Tenta novamente.");
-    console.error(e);
+    toast("Erro ao guardar. Tenta novamente."); console.error(e);
   }
 };
 
-// ── CONFIG ────────────────────────────────────────────────────────────────────
-window.saveMin = function() {
-  const v = parseInt(document.getElementById("minInput").value) || 12;
-  minStock = v;
-  localStorage.setItem(MIN_KEY, String(v));
-  render();
-  toast("Mínimo: " + v + " unidades");
-};
-
 // ── EXPORT CSV ────────────────────────────────────────────────────────────────
-window.exportCSV = function() {
+window.exportCSV = () => {
   if (!history.length) { toast("Não há movimentos para exportar"); return; }
-  const rows = [["Data","Tipo","Sabor","Quantidade","Total da venda","Nota"]];
+  const rows = [["Data","Tipo","Caixa","Sabor","Quantidade","Total cookies","Valor (€)","Nota"]];
   history.forEach(m => {
-    const total = Object.values(m.items).reduce((s,v) => s+v, 0);
-    Object.keys(m.items).forEach((sabor, i) => {
+    const total = Object.values(m.items||{}).reduce((s,v)=>s+v,0);
+    const entries = Object.entries(m.items||{});
+    if (!entries.length) return;
+    entries.forEach(([sabor,qty],i) => {
       rows.push([
-        i===0 ? m.date : "",
-        i===0 ? (m.type==="saida" ? "Saída" : "Entrada") : "",
-        sabor, m.items[sabor],
-        i===0 ? total : "",
-        i===0 ? (m.note||"") : ""
+        i===0?m.date:"",
+        i===0?({entrada:"Entrada",saida:"Venda",caixa:"Caixa",oferta:"Oferta"}[m.type]||m.type):"",
+        i===0?(m.boxName||""):"",
+        sabor, qty,
+        i===0?total:"",
+        i===0?(m.value!=null?m.value.toFixed(2):""):"",
+        i===0?(m.note||""):""
       ]);
     });
   });
-  const csv = rows.map(r => r.map(v => '"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\n");
-  const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8"});
+
+  // Summary rows
+  rows.push([]);
+  rows.push(["RESUMO",""]);
+  const vendas = history.filter(m=>m.type==="saida"||m.type==="caixa");
+  const totalVendas = vendas.reduce((s,m)=>s+(m.value||0),0);
+  const totalCookiesVendidas = vendas.reduce((s,m)=>s+Object.values(m.items||{}).reduce((a,b)=>a+b,0),0);
+  const totalOfertas = history.filter(m=>m.type==="oferta").reduce((s,m)=>s+Object.values(m.items||{}).reduce((a,b)=>a+b,0),0);
+  rows.push(["Total vendas (€)", totalVendas.toFixed(2)]);
+  rows.push(["Total cookies vendidas", totalCookiesVendidas]);
+  rows.push(["Total cookies oferecidas", totalOfertas]);
+  rows.push(["Nº vendas avulso", history.filter(m=>m.type==="saida").length]);
+  rows.push(["Nº caixas vendidas", history.filter(m=>m.type==="caixa").length]);
+
+  const csv = rows.map(r=>r.map(v=>'"'+String(v||"").replace(/"/g,'""')+'"').join(",")).join("\n");
+  const blob = new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; a.download = "vendas_cookies_" + new Date().toISOString().slice(0,10) + ".csv";
+  a.href=url; a.download="cookies_"+new Date().toISOString().slice(0,10)+".csv";
   a.click(); URL.revokeObjectURL(url);
   toast("CSV exportado");
 };
 
-// ── NOTIFICATIONS (real-time cross-device alerts) ────────────────────────────
-let notifTimer;
-let lastFlavourCount = null;
-let lastFlavourNames = null;
-let isFirstFlavourLoad = true;
-
-window.closeNotif = function() {
+// ── NOTIFICATIONS ─────────────────────────────────────────────────────────────
+window.closeNotif = () => {
   document.getElementById("notifBanner").classList.remove("show");
   clearTimeout(notifTimer);
 };
 
 function showNotif(icon, title, msg, type, duration) {
-  const banner = document.getElementById("notifBanner");
+  const b = document.getElementById("notifBanner");
   document.getElementById("notifIcon").textContent = icon;
   document.getElementById("notifTitle").textContent = title;
   document.getElementById("notifMsg").textContent = msg;
-  banner.className = "notif-banner " + (type||"flavour") + " show";
+  b.className = "notif-banner "+(type||"flavour")+" show";
   clearTimeout(notifTimer);
-  notifTimer = setTimeout(() => banner.classList.remove("show"), duration || 6000);
+  notifTimer = setTimeout(()=>b.classList.remove("show"), duration||6000);
 }
-
-// Watch for flavour changes from OTHER devices and notify
-onValue(ref(db, "flavors"), snap => {
-  const data = snap.val();
-  if (!data) return;
-  const names = Object.values(data).map(f => f.name);
-  const count = names.length;
-
-  if (isFirstFlavourLoad) {
-    // Just record the baseline, don't notify on first load
-    lastFlavourCount = count;
-    lastFlavourNames = names;
-    isFirstFlavourLoad = false;
-    return;
-  }
-
-  if (lastFlavourNames !== null) {
-    // Find added flavours
-    const added = names.filter(n => !lastFlavourNames.includes(n));
-    // Find removed flavours
-    const removed = lastFlavourNames.filter(n => !names.includes(n));
-
-    added.forEach(name => {
-      const f = Object.values(data).find(f => f.name === name);
-      showNotif(
-        f ? f.emoji : "🍪",
-        "Novo sabor adicionado",
-        name + " foi adicionado ao stock.",
-        "flavour",
-        7000
-      );
-    });
-
-    removed.forEach(name => {
-      showNotif("🗑️", "Sabor removido", name + " foi removido da lista.", "flavour", 7000);
-    });
-  }
-
-  lastFlavourCount = count;
-  lastFlavourNames = names;
-});
-
-// Watch for stock changes from OTHER devices — subtle update (no banner, just render)
-// The onValue on stock already handles this via the existing listener above.
-// We add a separate watcher only to detect large unexpected drops (e.g. concurrent sale)
-let lastStockSnapshot = null;
-onValue(ref(db, "stock"), snap => {
-  const data = snap.val() || {};
-  if (lastStockSnapshot !== null) {
-    // Check if any item hit zero that wasn't zero before
-    Object.entries(data).forEach(([name, qty]) => {
-      if (qty === 0 && lastStockSnapshot[name] > 0) {
-        showNotif("⚠️", "Stock esgotado", name + " chegou a zero.", "stock-update", 8000);
-      }
-    });
-  }
-  lastStockSnapshot = {...data};
-});
 
 // ── TOAST ─────────────────────────────────────────────────────────────────────
 let toastTimer;
-window.toast = function(msg) {
+window.toast = msg => {
   const t = document.getElementById("toast");
-  t.textContent = msg; t.classList.add("show");
+  t.textContent=msg; t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 2700);
+  toastTimer = setTimeout(()=>t.classList.remove("show"), 2700);
 };
 </script>
 </body>
