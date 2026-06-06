@@ -30,43 +30,42 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
 .header-title h1{font-size:17px;font-weight:600;color:var(--brown)}
 .sync-pill{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:3px 10px;font-size:11px;color:var(--text-muted);flex-shrink:0}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted)}
-.sync-dot.ok{background:var(--green)}.sync-dot.err{background:var(--red)}.sync-dot.live{background:var(--green);animation:pulse .8s infinite}
+.sync-dot.live{background:var(--green);animation:pulse .8s infinite}
+.sync-dot.err{background:var(--red)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .total-row{display:flex;align-items:center;justify-content:space-between;background:var(--accent-light);border-radius:var(--radius-sm);padding:8px 14px}
 .total-label{font-size:12px;color:var(--accent);font-weight:500}
-.total-val{font-size:17px;font-weight:600;color:var(--brown);font-variant-numeric:tabular-nums}
+.total-val{font-size:17px;font-weight:600;color:var(--brown)}
 .page{display:none;flex:1;overflow-y:auto;padding:1rem 1.25rem 5.5rem}
 .page.active{display:block}
 
-/* STOCK PAGE */
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:.75rem}
-.actions-bottom{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem}
+/* STOCK */
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem}
 .action-card{border-radius:var(--radius);padding:.875rem;cursor:pointer;border:none;font-family:var(--font);text-align:left;transition:transform .1s;display:flex;flex-direction:column;gap:3px}
 .action-card:active{transform:scale(.97)}
 .action-card.entrada{background:var(--green-light);border:1px solid #B8D8B8}
 .action-card.saida{background:var(--red-light);border:1px solid #EBBBB8}
-.action-card.caixa{background:var(--blue-light);border:1px solid #B8CFF0}
-.action-card.oferta{background:var(--purple-light);border:1px solid #D0B8F0}
+.action-card.mista{background:var(--accent-light);border:1px solid #DDB88A;grid-column:1/-1}
+.action-card.entrada2{background:var(--green-light);border:1px solid #B8D8B8}
 .action-icon{font-size:20px;margin-bottom:2px}
 .action-label{font-size:13px;font-weight:600}
-.action-card.entrada .action-label{color:var(--green)}
+.action-card.entrada .action-label,.action-card.entrada2 .action-label{color:var(--green)}
 .action-card.saida .action-label{color:var(--red)}
-.action-card.caixa .action-label{color:var(--blue)}
-.action-card.oferta .action-label{color:var(--purple)}
+.action-card.mista .action-label{color:var(--accent)}
 .action-sub{font-size:11px;color:var(--text-muted)}
 .section-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
 .cookie-list{display:flex;flex-direction:column;gap:8px}
-.cookie-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:12px;transition:border-color .3s,background .3s}
+.cookie-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:12px;transition:all .3s}
 .cookie-card.low{border-color:#D4AA50;background:var(--warn-light)}
 .cookie-card.empty{border-color:#D4756E;background:var(--red-light)}
 .cookie-emoji{font-size:22px;flex-shrink:0}
 .cookie-info{flex:1;min-width:0}
 .cookie-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cookie-meta{font-size:11px;margin-top:2px;display:flex;gap:6px;align-items:center}
-.cookie-status{font-size:11px}
 .status-ok{color:var(--green)}.status-low{color:var(--warn)}.status-empty{color:var(--red)}
 .price-badge{font-size:10px;font-weight:600;padding:1px 6px;border-radius:99px;background:var(--accent-light);color:var(--accent)}
 .price-badge.especial{background:var(--purple-light);color:var(--purple)}
+.price-badge.custom{background:#E8F0FB;color:var(--blue)}
 .stock-num{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--brown);min-width:40px;text-align:center}
 .cookie-card.empty .stock-num{color:var(--red)}.cookie-card.low .stock-num{color:var(--warn)}
 
@@ -76,125 +75,122 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
 .filter-row{display:flex;gap:6px;margin-bottom:1rem;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
 .filter-chip{padding:5px 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;color:var(--text-mid);cursor:pointer;white-space:nowrap;flex-shrink:0}
 .filter-chip.active{background:var(--brown);color:#fff;border-color:var(--brown)}
-.export-btn{padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--accent);background:var(--accent-light);color:var(--accent);font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap}
+.export-btn{padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--accent);background:var(--accent-light);color:var(--accent);font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer}
 .movement-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:8px}
 .movement-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;gap:8px}
 .movement-type{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap;flex-shrink:0}
 .movement-type.entrada{background:var(--green-light);color:var(--green)}
 .movement-type.saida{background:var(--red-light);color:var(--red)}
-.movement-type.caixa{background:var(--blue-light);color:var(--blue)}
+.movement-type.mista{background:var(--accent-light);color:var(--accent)}
 .movement-type.oferta{background:var(--purple-light);color:var(--purple)}
 .movement-date{font-size:11px;color:var(--text-muted);font-family:var(--mono);text-align:right}
-.movement-items{font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:4px}
-.movement-footer{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
-.movement-total{font-size:12px;font-weight:600;color:var(--brown)}
-.movement-value{font-size:14px;font-weight:600;color:var(--green);font-family:var(--mono)}
-.movement-value.zero{color:var(--purple)}
+.movement-section{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin:6px 0 2px}
+.movement-items{font-size:13px;color:var(--text-mid);line-height:1.7}
+.movement-footer{display:flex;justify-content:space-between;align-items:center;margin-top:6px;border-top:1px solid var(--border);padding-top:6px}
+.movement-total{font-size:12px;color:var(--text-muted)}
+.movement-value{font-size:15px;font-weight:600;color:var(--green);font-family:var(--mono)}
 .movement-note{font-size:12px;color:var(--text-muted);background:var(--surface2);border-radius:6px;padding:6px 10px;margin-top:6px;font-style:italic;border-left:3px solid var(--accent-light)}
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--text-muted)}
 .empty-state .icon{font-size:40px;margin-bottom:.75rem}
-.empty-state p{font-size:14px}
 
 /* FLAVORS */
-.flavor-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
-.flavor-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:grab;touch-action:none;user-select:none}
-.flavor-row.dragging{opacity:.5;border-style:dashed}
-.flavor-row.drag-over{border-color:var(--accent);background:var(--accent-light)}
-.drag-handle{font-size:16px;color:var(--text-muted);flex-shrink:0;cursor:grab;padding:0 4px}
+.flavor-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem;position:relative}
+.flavor-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;display:flex;align-items:center;gap:8px;touch-action:none;user-select:none;transition:box-shadow .15s,opacity .15s}
+.flavor-row.dragging{opacity:.4}
+.flavor-row.drag-placeholder{border:2px dashed var(--accent);background:var(--accent-light);opacity:1}
+.flavor-ghost{position:fixed;pointer-events:none;z-index:1000;border-radius:var(--radius);box-shadow:0 8px 30px rgba(61,43,31,.25);opacity:.95;background:var(--surface);border:1.5px solid var(--accent);padding:10px 12px;display:flex;align-items:center;gap:8px}
+.drag-handle{font-size:18px;color:var(--text-muted);flex-shrink:0;cursor:grab;padding:0 2px;line-height:1}
 .flavor-emoji-big{font-size:22px;flex-shrink:0}
 .flavor-name{flex:1;font-size:14px;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.flavor-cat-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;flex-shrink:0}
-.cat-simples{background:var(--accent-light);color:var(--accent)}
-.cat-recheada{background:var(--green-light);color:var(--green)}
-.cat-especial{background:var(--purple-light);color:var(--purple)}
-.flavor-stock-num{font-family:var(--mono);font-size:13px;color:var(--text-muted);min-width:32px;text-align:right;flex-shrink:0}
-.btn-remove{width:28px;height:28px;border-radius:50%;border:1px solid #EBBBB8;background:var(--red-light);color:var(--red);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.flavor-cat-sel{font-size:12px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px 6px;background:var(--surface2);color:var(--text);font-family:var(--font);outline:none;flex-shrink:0}
+.flavor-price-input{width:62px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px 6px;background:var(--surface2);color:var(--text);font-family:var(--mono);outline:none;text-align:center;flex-shrink:0}
+.flavor-price-input:focus,.flavor-cat-sel:focus{border-color:var(--accent)}
+.btn-remove{width:26px;height:26px;border-radius:50%;border:1px solid #EBBBB8;background:var(--red-light);color:var(--red);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .add-flavor-card{background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.25rem}
 .add-flavor-card h3{font-size:14px;font-weight:600;color:var(--brown);margin-bottom:.75rem}
-.add-flavor-row{display:flex;gap:8px;margin-bottom:.75rem;flex-wrap:wrap}
-.add-input{flex:1;min-width:80px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:var(--font);font-size:14px;color:var(--text);outline:none}
+.add-flavor-row{display:flex;gap:6px;margin-bottom:.5rem;flex-wrap:wrap}
+.add-input{flex:1;min-width:70px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;font-family:var(--font);font-size:13px;color:var(--text);outline:none}
 .add-input:focus{border-color:var(--accent)}
-.emoji-input{width:50px;min-width:50px;flex:none;text-align:center;font-size:20px}
-.cat-select{flex:1;min-width:100px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:var(--font);font-size:13px;color:var(--text);outline:none;appearance:none}
-.btn-add{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 14px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+.emoji-input{width:46px;min-width:46px;flex:none;text-align:center;font-size:18px}
+.cat-select{flex:1;min-width:90px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;font-family:var(--font);font-size:12px;color:var(--text);outline:none}
+.btn-add{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 14px;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer}
 .flavor-hint{font-size:11px;color:var(--text-muted);line-height:1.5}
 
-/* BOXES CONFIG */
-.boxes-section{margin-top:1rem}
+/* BOXES */
+.boxes-section{margin-top:.5rem}
 .box-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem}
-.box-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:10px}
+.box-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px}
+.box-row-top{display:flex;align-items:center;gap:10px}
 .box-info{flex:1;min-width:0}
 .box-name{font-size:14px;font-weight:500;color:var(--text)}
 .box-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
+.box-edit-area{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:none}
+.box-edit-area.open{display:block}
+.box-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.small-label{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;display:block}
+.small-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;font-family:var(--font);font-size:13px;color:var(--text);outline:none;text-align:center}
+.small-input:focus{border-color:var(--accent)}
+.btn-edit{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--text-mid);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-save-box{width:100%;padding:8px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer;margin-top:4px}
 .add-box-card{background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--radius);padding:1rem 1.25rem}
 .add-box-card h3{font-size:14px;font-weight:600;color:var(--brown);margin-bottom:.75rem}
-.add-box-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:.75rem}
-.small-input{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 10px;font-family:var(--font);font-size:13px;color:var(--text);outline:none;width:100%;text-align:center}
-.small-input:focus{border-color:var(--accent)}
-.small-label{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
-.btn-add-box{width:100%;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer}
+.add-box-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:.75rem}
+.btn-add-box{width:100%;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer}
 
 /* CONFIG */
 .config-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem}
 .config-card h3{font-size:14px;font-weight:500;color:var(--brown);margin-bottom:.5rem}
 .config-card p{font-size:13px;color:var(--text-muted);margin-bottom:.75rem;line-height:1.5}
 .price-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.price-item{text-align:center}
-.price-item .small-label{display:block;margin-bottom:4px}
 
 /* MODAL */
 .modal-backdrop{position:fixed;inset:0;background:rgba(26,15,10,.5);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .2s;pointer-events:none}
 .modal-backdrop.open{opacity:1;pointer-events:all}
-.modal-sheet{background:var(--surface);border-radius:24px 24px 0 0;width:100%;max-width:480px;padding:0 0 env(safe-area-inset-bottom,16px);transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);max-height:92vh;display:flex;flex-direction:column}
+.modal-sheet{background:var(--surface);border-radius:24px 24px 0 0;width:100%;max-width:480px;padding:0 0 env(safe-area-inset-bottom,16px);transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);max-height:93vh;display:flex;flex-direction:column}
 .modal-backdrop.open .modal-sheet{transform:translateY(0)}
 .modal-handle{width:36px;height:4px;border-radius:2px;background:var(--border);margin:12px auto 0;flex-shrink:0}
-.modal-header{padding:14px 20px 10px;flex-shrink:0}
+.modal-header{padding:12px 20px 8px;flex-shrink:0}
 .modal-title{font-size:17px;font-weight:600;color:var(--brown)}
 .modal-subtitle{font-size:13px;color:var(--text-muted);margin-top:2px}
-.modal-body{overflow-y:auto;padding:0 16px;flex:1;-webkit-overflow-scrolling:touch}
-.modal-cookie-item{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
+.modal-body{overflow-y:auto;padding:0 16px 4px;flex:1;-webkit-overflow-scrolling:touch}
+.modal-section-head{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;padding:10px 0 4px;border-top:1px solid var(--border);margin-top:4px}
+.modal-section-head:first-child{border-top:none;padding-top:6px}
+.modal-cookie-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
 .modal-cookie-item:last-of-type{border-bottom:none}
-.modal-cookie-emoji{font-size:20px;flex-shrink:0}
+.modal-cookie-emoji{font-size:19px;flex-shrink:0}
 .modal-cookie-info{flex:1;min-width:0}
 .modal-cookie-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .modal-cookie-sub{font-size:11px;color:var(--text-muted);margin-top:1px}
-.modal-cookie-ctrl{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.ctrl-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:var(--surface2);font-size:18px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ctrl-btn:active{transform:scale(.93)}
+.modal-cookie-ctrl{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.ctrl-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:var(--surface2);font-size:17px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ctrl-btn:active{transform:scale(.92)}
 .ctrl-btn.plus{border-color:var(--green);color:var(--green)}
 .ctrl-btn.minus{border-color:var(--red);color:var(--red)}
-.ctrl-val{font-family:var(--mono);font-size:17px;font-weight:500;min-width:26px;text-align:center;color:var(--brown)}
+.ctrl-val{font-family:var(--mono);font-size:16px;font-weight:500;min-width:24px;text-align:center;color:var(--brown)}
 .ctrl-val.active{color:var(--accent)}
-.modal-total-bar{background:var(--accent-light);border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0 4px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+
+/* Box selector inside modal */
+.box-chips{display:flex;gap:6px;flex-wrap:wrap;padding:6px 0 10px}
+.box-chip{padding:6px 12px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface2);font-size:12px;font-weight:500;color:var(--text-mid);cursor:pointer}
+.box-chip.selected{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.box-progress{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border-radius:var(--radius-sm);padding:7px 12px;margin-bottom:4px}
+.box-progress-label{font-size:12px;color:var(--text-mid)}
+.box-progress-val{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--brown)}
+.box-progress-val.full{color:var(--green)}.box-progress-val.over{color:var(--red)}
+
+.modal-total-bar{background:var(--accent-light);border-radius:var(--radius-sm);padding:10px 14px;margin:6px 16px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .modal-total-label{font-size:12px;color:var(--accent);font-weight:500}
 .modal-total-val{font-size:18px;font-weight:600;color:var(--brown);font-family:var(--mono)}
-.note-section{padding:10px 0 2px;border-top:1px solid var(--border);margin-top:4px}
-.note-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-.note-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:var(--font);font-size:13px;color:var(--text);resize:none;outline:none;line-height:1.5}
+.note-section{padding:8px 0 2px;border-top:1px solid var(--border);margin-top:4px}
+.note-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.note-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;font-family:var(--font);font-size:13px;color:var(--text);resize:none;outline:none;line-height:1.5}
 .note-textarea:focus{border-color:var(--accent)}
 .modal-footer{padding:10px 16px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
 .btn-cancel{flex:1;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--font);font-size:14px;color:var(--text-mid);cursor:pointer}
-.btn-confirm{flex:2;padding:12px;border:none;border-radius:var(--radius-sm);font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer}
-.btn-confirm.entrada{background:var(--green);color:#fff}
-.btn-confirm.saida{background:var(--red);color:#fff}
-.btn-confirm.caixa{background:var(--blue);color:#fff}
-.btn-confirm.oferta{background:var(--purple);color:#fff}
+.btn-confirm{flex:2;padding:12px;border:none;border-radius:var(--radius-sm);font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;background:var(--accent);color:#fff}
 .btn-confirm:disabled{background:var(--border);color:var(--text-muted);cursor:default}
 
-/* BOX PICKER */
-.box-picker{padding:12px 0 4px}
-.box-picker-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
-.box-options{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.box-option{padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;background:var(--surface2);transition:border-color .15s,background .15s}
-.box-option.selected{border-color:var(--blue);background:var(--blue-light)}
-.box-option-name{font-size:13px;font-weight:500;color:var(--text)}
-.box-option-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
-.box-counter{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border-radius:var(--radius-sm);padding:8px 12px;margin-bottom:8px}
-.box-counter-label{font-size:13px;color:var(--text-mid)}
-.box-counter-val{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--brown)}
-.box-counter-val.full{color:var(--green)}.box-counter-val.over{color:var(--red)}
-
-/* NOTIFICATION */
+/* NOTIF */
 .notif-banner{position:fixed;top:0;left:0;right:0;z-index:400;padding:14px 20px;display:flex;align-items:center;gap:12px;transform:translateY(-100%);transition:transform .35s cubic-bezier(.32,.72,0,1);box-shadow:0 4px 20px var(--shadow)}
 .notif-banner.show{transform:translateY(0)}
 .notif-banner.flavour{background:#3D2B1F;color:#fff}
@@ -203,7 +199,6 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
 .notif-text{flex:1;font-size:13px;line-height:1.4}
 .notif-text strong{display:block;font-size:14px;margin-bottom:2px}
 .notif-close{font-size:18px;cursor:pointer;opacity:.7;flex-shrink:0;background:none;border:none;color:inherit;padding:0}
-
 .toast{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);background:var(--brown);color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;z-index:300;box-shadow:0 4px 20px var(--shadow)}
 .toast.show{opacity:1}
 </style>
@@ -211,51 +206,23 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
 <body>
 
 <div class="loading-screen" id="loadingScreen">
-  <div class="logo">🍪</div>
-  <div class="spinner"></div>
-  <p>A ligar ao stock...</p>
+  <div class="logo">🍪</div><div class="spinner"></div><p>A ligar ao stock...</p>
 </div>
 
 <div class="app" id="appMain">
   <header>
     <div class="header-top">
       <div class="header-title"><span>🍪</span><h1>Stock Cookies</h1></div>
-      <div class="sync-pill">
-        <div class="sync-dot live" id="syncDot"></div>
-        <span id="syncLabel">Em direto</span>
-      </div>
+      <div class="sync-pill"><div class="sync-dot live" id="syncDot"></div><span id="syncLabel">Em direto</span></div>
     </div>
-    <div class="total-row">
-      <span class="total-label">Total em stock</span>
-      <span class="total-val" id="grandTotal">— unidades</span>
-    </div>
+    <div class="total-row"><span class="total-label">Total em stock</span><span class="total-val" id="grandTotal">—</span></div>
   </header>
 
   <!-- STOCK PAGE -->
   <div class="page active" id="pageStock">
     <div class="actions">
-      <button class="action-card entrada" onclick="openModal('entrada')">
-        <div class="action-icon">📦</div>
-        <div class="action-label">Entrada</div>
-        <div class="action-sub">Produção / compra</div>
-      </button>
-      <button class="action-card saida" onclick="openModal('saida')">
-        <div class="action-icon">🛍️</div>
-        <div class="action-label">Saída</div>
-        <div class="action-sub">Venda avulso</div>
-      </button>
-    </div>
-    <div class="actions-bottom">
-      <button class="action-card caixa" onclick="openModal('caixa')">
-        <div class="action-icon">🎁</div>
-        <div class="action-label">Caixa</div>
-        <div class="action-sub">Venda de caixa</div>
-      </button>
-      <button class="action-card oferta" onclick="openModal('oferta')">
-        <div class="action-icon">🎀</div>
-        <div class="action-label">Oferta</div>
-        <div class="action-sub">Cookie gratuita</div>
-      </button>
+      <button class="action-card entrada" onclick="openModal('entrada')"><div class="action-icon">📦</div><div class="action-label">Entrada</div><div class="action-sub">Produção</div></button>
+      <button class="action-card saida" onclick="openModal('mista')"><div class="action-icon">🛍️</div><div class="action-label">Venda</div><div class="action-sub">Avulso, caixa ou mista</div></button>
     </div>
     <div class="section-label">Stock atual</div>
     <div class="cookie-list" id="cookieList"></div>
@@ -263,14 +230,10 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
 
   <!-- HISTORY PAGE -->
   <div class="page" id="pageHistory">
-    <div class="history-header">
-      <div class="history-title">Registo</div>
-      <button class="export-btn" onclick="exportCSV()">⬇ CSV</button>
-    </div>
+    <div class="history-header"><div class="history-title">Registo</div><button class="export-btn" onclick="exportCSV()">⬇ CSV</button></div>
     <div class="filter-row">
       <button class="filter-chip active" onclick="setFilter('all',this)">Todos</button>
-      <button class="filter-chip" onclick="setFilter('saida',this)">Vendas</button>
-      <button class="filter-chip" onclick="setFilter('caixa',this)">Caixas</button>
+      <button class="filter-chip" onclick="setFilter('mista',this)">Vendas</button>
       <button class="filter-chip" onclick="setFilter('entrada',this)">Entradas</button>
       <button class="filter-chip" onclick="setFilter('oferta',this)">Ofertas</button>
     </div>
@@ -279,7 +242,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
 
   <!-- FLAVORS PAGE -->
   <div class="page" id="pageFlavors">
-    <div class="section-label" style="margin-bottom:1rem">Sabores — arrasta para reordenar</div>
+    <div class="section-label" style="margin-bottom:.75rem">Sabores — arrasta ⠿ para reordenar</div>
     <div class="flavor-list" id="flavorList"></div>
     <div class="add-flavor-card">
       <h3>Adicionar sabor</h3>
@@ -287,37 +250,25 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
         <input class="add-input emoji-input" id="newEmoji" type="text" placeholder="🍪" maxlength="2">
         <input class="add-input" id="newName" type="text" placeholder="Nome">
         <select class="cat-select" id="newCat">
-          <option value="simples">Simples 1,50€</option>
-          <option value="recheada">Recheada 1,80€</option>
-          <option value="especial">Especial 2,30€</option>
+          <option value="simples">Simples</option>
+          <option value="recheada">Recheada</option>
+          <option value="especial">Especial</option>
         </select>
         <button class="btn-add" onclick="addFlavor()">+</button>
       </div>
-      <p class="flavor-hint">O histórico é preservado ao remover um sabor.</p>
+      <p class="flavor-hint">Categoria define o preço base. Podes definir um preço personalizado em cada sabor.<br>Arrasta ⠿ para reordenar. O histórico é preservado ao remover.</p>
     </div>
 
     <div class="boxes-section">
-      <div class="section-label" style="margin-bottom:1rem">Caixas configuradas</div>
+      <div class="section-label" style="margin-bottom:.75rem">Caixas</div>
       <div class="box-list" id="boxList"></div>
       <div class="add-box-card">
         <h3>Adicionar caixa</h3>
-        <div class="add-box-row">
-          <div>
-            <div class="small-label">Nome</div>
-            <input class="small-input" id="boxName" type="text" placeholder="Caixa 6">
-          </div>
-          <div>
-            <div class="small-label">Nº cookies</div>
-            <input class="small-input" id="boxSize" type="number" min="1" placeholder="6">
-          </div>
-          <div>
-            <div class="small-label">Preço base</div>
-            <input class="small-input" id="boxPrice" type="number" step="0.01" min="0" placeholder="10.00">
-          </div>
-        </div>
-        <div style="margin-bottom:.75rem">
-          <div class="small-label" style="margin-bottom:4px">Acréscimo por especial (€)</div>
-          <input class="small-input" id="boxSpecialExtra" type="number" step="0.01" min="0" placeholder="0.50" style="width:100%">
+        <div class="add-box-grid">
+          <div><span class="small-label">Nome</span><input class="small-input" id="boxName" type="text" placeholder="Caixa 6"></div>
+          <div><span class="small-label">Nº cookies</span><input class="small-input" id="boxSize" type="number" min="1" placeholder="6"></div>
+          <div><span class="small-label">Preço base (€)</span><input class="small-input" id="boxPrice" type="number" step="0.01" min="0" placeholder="10.00"></div>
+          <div><span class="small-label">Extra/especial (€)</span><input class="small-input" id="boxSpecialExtra" type="number" step="0.01" min="0" placeholder="0.50"></div>
         </div>
         <button class="btn-add-box" onclick="addBox()">+ Adicionar caixa</button>
       </div>
@@ -328,24 +279,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
   <div class="page" id="pageConfig">
     <div class="section-label" style="margin-bottom:1rem">Configurações</div>
     <div class="config-card">
-      <h3>Preços por categoria</h3>
-      <p>Editáveis aqui. Aplicam-se a todas as vendas futuras.</p>
+      <h3>Preços base por categoria</h3>
+      <p>Usados quando um sabor não tem preço personalizado.</p>
       <div class="price-grid">
-        <div class="price-item">
-          <span class="small-label">Simples</span>
-          <input class="small-input" id="priceSimples" type="number" step="0.01" min="0" placeholder="1.50">
-          <div style="font-size:10px;color:var(--text-muted);margin-top:3px">€ / cookie</div>
-        </div>
-        <div class="price-item">
-          <span class="small-label">Recheada</span>
-          <input class="small-input" id="priceRecheada" type="number" step="0.01" min="0" placeholder="1.80">
-          <div style="font-size:10px;color:var(--text-muted);margin-top:3px">€ / cookie</div>
-        </div>
-        <div class="price-item">
-          <span class="small-label">Especial</span>
-          <input class="small-input" id="priceEspecial" type="number" step="0.01" min="0" placeholder="2.30">
-          <div style="font-size:10px;color:var(--text-muted);margin-top:3px">€ / cookie</div>
-        </div>
+        <div><span class="small-label">Simples</span><input class="small-input" id="priceSimples" type="number" step="0.01" min="0" placeholder="1.50"></div>
+        <div><span class="small-label">Recheada</span><input class="small-input" id="priceRecheada" type="number" step="0.01" min="0" placeholder="1.80"></div>
+        <div><span class="small-label">Especial</span><input class="small-input" id="priceEspecial" type="number" step="0.01" min="0" placeholder="2.30"></div>
       </div>
       <button onclick="savePrices()" style="margin-top:1rem;width:100%;padding:10px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer">Guardar preços</button>
     </div>
@@ -353,15 +292,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
       <h3>Alerta de stock mínimo</h3>
       <p>Aviso quando o stock desce abaixo de:</p>
       <div style="display:flex;align-items:center;gap:10px">
-        <input type="number" id="minInput" min="0" max="999" style="width:70px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--mono);font-size:16px;color:var(--brown);outline:none;text-align:center">
+        <input type="number" id="minInput" min="0" style="width:70px;padding:8px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);font-family:var(--mono);font-size:16px;color:var(--brown);outline:none;text-align:center">
         <span style="font-size:13px;color:var(--text-muted)">unidades</span>
-        <button onclick="saveMin()" style="padding:8px 16px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer">Guardar</button>
+        <button onclick="saveMin()" style="padding:8px 14px;border:none;border-radius:var(--radius-sm);background:var(--brown);color:#fff;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer">Guardar</button>
       </div>
     </div>
-    <div class="config-card">
-      <h3>Estado da ligação</h3>
-      <p>Firebase ligado em tempo real. Todas as alterações sincronizam automaticamente.</p>
-    </div>
+    <div class="config-card"><h3>Ligação</h3><p>Firebase ligado em tempo real. Stock sincronizado automaticamente entre todos os dispositivos.</p></div>
   </div>
 
   <nav class="tab-nav">
@@ -376,12 +312,9 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
 <div class="modal-backdrop" id="modalBackdrop" onclick="closeModalOutside(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
-    <div class="modal-header">
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-subtitle" id="modalSubtitle"></div>
-    </div>
+    <div class="modal-header"><div class="modal-title" id="modalTitle"></div><div class="modal-subtitle" id="modalSubtitle"></div></div>
     <div class="modal-body" id="modalBody"></div>
-    <div class="modal-total-bar" id="modalTotalBar" style="margin:0 16px;display:none">
+    <div class="modal-total-bar" id="modalTotalBar" style="display:none">
       <span class="modal-total-label">Total da venda</span>
       <span class="modal-total-val" id="modalTotalVal">0,00 €</span>
     </div>
@@ -416,7 +349,6 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const db = getDatabase(fbApp);
 
-// ── DEFAULT DATA ──────────────────────────────────────────────────────────────
 const DEFAULT_FLAVORS = [
   {name:"Chocolate Chip",emoji:"🍫",cat:"recheada"},
   {name:"Double Chocolate",emoji:"🍫",cat:"recheada"},
@@ -429,601 +361,732 @@ const DEFAULT_FLAVORS = [
   {name:"Aveia & Passas",emoji:"🌾",cat:"simples"}
 ];
 const DEFAULT_PRICES = {simples:1.50, recheada:1.80, especial:2.30};
-const DEFAULT_BOXES = [
-  {name:"Caixa 6",size:6,price:10.00,specialExtra:0.50},
-  {name:"Caixa 12",size:12,price:18.00,specialExtra:0.50}
-];
+const DEFAULT_BOXES = [{name:"Caixa 6",size:6,price:10.00,specialExtra:0.50},{name:"Caixa 12",size:12,price:18.00,specialExtra:0.50}];
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let flavors = [];
-let stock = {};
-let history = [];
-let boxes = [];
-let prices = {...DEFAULT_PRICES};
-let minStock = parseInt(localStorage.getItem("cookie_min_v1") || "12");
+let flavors=[], stock={}, history=[], boxes=[], prices={...DEFAULT_PRICES};
+let minStock = parseInt(localStorage.getItem("cookie_min_v1")||"12");
+
+// Modal state for mixed sale
 let modalMode = null;
-let modalSel = {};
-let modalBox = null; // selected box for caixa mode
+// sel: {cookieName: {avulso: n, caixa: n, oferta: n}}
+let sel = {};
+let selectedBox = null;
 let histFilter = "all";
 let isFirstFlavourLoad = true;
 let lastFlavourNames = null;
 let lastStockSnapshot = null;
-let notifTimer;
+let notifTimer, toastTimer;
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+const fmt = v => v.toFixed(2).replace(".",",")+" €";
+const catLabel = c => ({simples:"Simples",recheada:"Recheada",especial:"Especial"}[c]||c);
+
+function flavorPrice(f) {
+  if (f.customPrice != null && !isNaN(f.customPrice)) return parseFloat(f.customPrice);
+  return prices[f.cat] ?? prices.simples ?? 1.50;
+}
+
+function statusOf(n) {
+  if (n===0) return {cls:"empty",label:"Sem stock",lCls:"status-empty"};
+  if (n<minStock) return {cls:"low",label:"Stock baixo",lCls:"status-low"};
+  return {cls:"",label:"Disponível",lCls:"status-ok"};
+}
+
+function getSelCount(name, type) { return (sel[name]&&sel[name][type])||0; }
+function getTotalForName(name) { return getSelCount(name,"avulso")+getSelCount(name,"caixa")+getSelCount(name,"oferta"); }
+
+function boxCookieCount() {
+  return flavors.reduce((s,f)=>s+getSelCount(f.name,"caixa"),0);
+}
+
+function calcTotal() {
+  let total = 0;
+  // avulso sales
+  flavors.forEach(f => {
+    total += getSelCount(f.name,"avulso") * flavorPrice(f);
+  });
+  // box
+  if (selectedBox) {
+    const specials = flavors.filter(f=>f.cat==="especial").reduce((s,f)=>s+getSelCount(f.name,"caixa"),0);
+    total += selectedBox.price + specials * selectedBox.specialExtra;
+  }
+  return total;
+}
 
 // ── FIREBASE LISTENERS ────────────────────────────────────────────────────────
 onValue(ref(db,"flavors"), snap => {
   const data = snap.val();
-  if (data) {
-    flavors = Array.isArray(data) ? data : Object.values(data);
-  } else {
-    flavors = DEFAULT_FLAVORS;
-    set(ref(db,"flavors"), DEFAULT_FLAVORS);
-  }
-  renderFlavors();
-  render();
-
-  // Cross-device notifications for flavour changes
-  const names = flavors.map(f => f.name);
+  flavors = data ? (Array.isArray(data)?data:Object.values(data)) : DEFAULT_FLAVORS;
+  if (!data) set(ref(db,"flavors"), DEFAULT_FLAVORS);
+  renderFlavors(); render();
+  const names = flavors.map(f=>f.name);
   if (!isFirstFlavourLoad && lastFlavourNames) {
-    const added = names.filter(n => !lastFlavourNames.includes(n));
-    const removed = lastFlavourNames.filter(n => !names.includes(n));
-    added.forEach(n => {
-      const f = flavors.find(f => f.name === n);
-      showNotif(f ? f.emoji : "🍪", "Novo sabor adicionado", n + " foi adicionado ao stock.", "flavour");
+    names.filter(n=>!lastFlavourNames.includes(n)).forEach(n=>{
+      const f=flavors.find(f=>f.name===n);
+      showNotif(f?f.emoji:"🍪","Novo sabor adicionado",n+" foi adicionado.","flavour");
     });
-    removed.forEach(n => showNotif("🗑️","Sabor removido", n + " foi removido.", "flavour"));
+    lastFlavourNames.filter(n=>!names.includes(n)).forEach(n=>showNotif("🗑️","Sabor removido",n+" foi removido.","flavour"));
   }
-  isFirstFlavourLoad = false;
-  lastFlavourNames = names;
+  isFirstFlavourLoad=false; lastFlavourNames=names;
 });
 
 onValue(ref(db,"stock"), snap => {
-  const data = snap.val() || {};
-  stock = data;
+  stock = snap.val()||{};
   render();
-  document.getElementById("loadingScreen").style.display = "none";
-  document.getElementById("appMain").style.display = "flex";
-  document.getElementById("minInput").value = minStock;
-
-  // Alert when a flavour hits zero
+  document.getElementById("loadingScreen").style.display="none";
+  document.getElementById("appMain").style.display="flex";
+  document.getElementById("minInput").value=minStock;
   if (lastStockSnapshot) {
-    Object.entries(data).forEach(([name, qty]) => {
-      if (qty === 0 && (lastStockSnapshot[name] || 0) > 0) {
-        showNotif("⚠️","Stock esgotado", name + " chegou a zero.", "stock-update");
-      }
+    Object.entries(stock).forEach(([n,q])=>{
+      if (q===0&&(lastStockSnapshot[n]||0)>0) showNotif("⚠️","Stock esgotado",n+" chegou a zero.","stock-update");
     });
   }
-  lastStockSnapshot = {...data};
+  lastStockSnapshot={...stock};
 });
 
 onValue(ref(db,"history"), snap => {
-  const data = snap.val();
-  history = data ? Object.values(data).sort((a,b) => a.id - b.id) : [];
+  const data=snap.val();
+  history=data?Object.values(data).sort((a,b)=>a.id-b.id):[];
   renderHistory();
 });
 
 onValue(ref(db,"boxes"), snap => {
-  const data = snap.val();
-  if (data) {
-    boxes = Array.isArray(data) ? data : Object.values(data);
-  } else {
-    boxes = DEFAULT_BOXES;
-    set(ref(db,"boxes"), DEFAULT_BOXES);
-  }
+  const data=snap.val();
+  boxes=data?(Array.isArray(data)?data:Object.values(data)):DEFAULT_BOXES;
+  if (!data) set(ref(db,"boxes"),DEFAULT_BOXES);
   renderBoxList();
 });
 
 onValue(ref(db,"prices"), snap => {
-  const data = snap.val();
-  prices = data ? {...DEFAULT_PRICES, ...data} : DEFAULT_PRICES;
-  document.getElementById("priceSimples").value = prices.simples.toFixed(2);
-  document.getElementById("priceRecheada").value = prices.recheada.toFixed(2);
-  document.getElementById("priceEspecial").value = prices.especial.toFixed(2);
+  const data=snap.val();
+  prices=data?{...DEFAULT_PRICES,...data}:{...DEFAULT_PRICES};
+  document.getElementById("priceSimples").value=prices.simples.toFixed(2);
+  document.getElementById("priceRecheada").value=prices.recheada.toFixed(2);
+  document.getElementById("priceEspecial").value=prices.especial.toFixed(2);
   render();
 });
 
-// ── HELPERS ───────────────────────────────────────────────────────────────────
-function catLabel(cat) {
-  return {simples:"Simples",recheada:"Recheada",especial:"Especial"}[cat] || cat;
-}
-function catPrice(cat) {
-  return prices[cat] || prices.simples;
-}
-function fmt(v) {
-  return v.toFixed(2).replace(".",",") + " €";
-}
-function statusOf(n) {
-  if (n === 0) return {cls:"empty",label:"Sem stock",lCls:"status-empty"};
-  if (n < minStock) return {cls:"low",label:"Stock baixo",lCls:"status-low"};
-  return {cls:"",label:"Disponível",lCls:"status-ok"};
-}
-
 // ── TABS ──────────────────────────────────────────────────────────────────────
 window.switchTab = t => {
-  ["Stock","History","Flavors","Config"].forEach(p => {
-    document.getElementById("page"+p).classList.toggle("active", p===t);
-    document.getElementById("tab"+t) && document.getElementById("tab"+p).classList.toggle("active", p===t);
+  ["Stock","History","Flavors","Config"].forEach(p=>{
+    document.getElementById("page"+p).classList.toggle("active",p===t);
+    document.getElementById("tab"+p).classList.toggle("active",p===t);
   });
 };
 
 // ── RENDER STOCK ──────────────────────────────────────────────────────────────
 function render() {
-  let total = 0;
-  flavors.forEach(c => total += (stock[c.name]||0));
-  document.getElementById("grandTotal").textContent = total + " unidades";
-  const list = document.getElementById("cookieList");
-  list.innerHTML = "";
-  flavors.forEach(c => {
-    const n = stock[c.name]||0;
-    const s = statusOf(n);
-    const isSpecial = c.cat === "especial";
-    const div = document.createElement("div");
-    div.className = "cookie-card " + s.cls;
-    div.innerHTML =
-      '<div class="cookie-emoji">'+c.emoji+'</div>'
-      +'<div class="cookie-info">'
-        +'<div class="cookie-name">'+c.name+'</div>'
-        +'<div class="cookie-meta">'
-          +'<span class="cookie-status '+s.lCls+'">'+s.label+'</span>'
-          +'<span class="price-badge'+(isSpecial?" especial":"")+'">'+fmt(catPrice(c.cat))+'</span>'
-        +'</div>'
-      +'</div>'
+  let total=0; flavors.forEach(c=>total+=(stock[c.name]||0));
+  document.getElementById("grandTotal").textContent=total+" unidades";
+  const list=document.getElementById("cookieList"); list.innerHTML="";
+  flavors.forEach(c=>{
+    const n=stock[c.name]||0, s=statusOf(n);
+    const p=flavorPrice(c);
+    const hasCustom=c.customPrice!=null&&!isNaN(c.customPrice);
+    const badgeCls=hasCustom?"custom":(c.cat==="especial"?"especial":"");
+    const div=document.createElement("div");
+    div.className="cookie-card "+s.cls;
+    div.innerHTML='<div class="cookie-emoji">'+c.emoji+'</div>'
+      +'<div class="cookie-info"><div class="cookie-name">'+c.name+'</div>'
+      +'<div class="cookie-meta"><span class="'+s.lCls+'">'+s.label+'</span>'
+      +'<span class="price-badge '+badgeCls+'">'+fmt(p)+(hasCustom?" ✎":"")+'</span></div></div>'
       +'<div class="stock-num">'+n+'</div>';
     list.appendChild(div);
   });
 }
 
 // ── RENDER HISTORY ────────────────────────────────────────────────────────────
-window.setFilter = (f, el) => {
-  histFilter = f;
-  document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
-  el.classList.add("active");
-  renderHistory();
+window.setFilter=(f,el)=>{
+  histFilter=f;
+  document.querySelectorAll(".filter-chip").forEach(c=>c.classList.remove("active"));
+  el.classList.add("active"); renderHistory();
 };
 
-function typeLabel(t) {
-  return {entrada:"📦 Entrada",saida:"🛍️ Venda",caixa:"🎁 Caixa",oferta:"🎀 Oferta"}[t] || t;
-}
-
 function renderHistory() {
-  const list = document.getElementById("historyList");
-  const filtered = histFilter === "all" ? history : history.filter(m => m.type === histFilter);
-  const sorted = [...filtered].reverse();
-  if (!sorted.length) {
-    list.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>Ainda não há movimentos registados.</p></div>';
-    return;
-  }
-  list.innerHTML = sorted.map(m => {
-    const items = Object.entries(m.items||{}).map(([k,v]) => k+": <strong>"+v+"</strong>").join("<br>");
-    const total = Object.values(m.items||{}).reduce((s,v)=>s+v,0);
-    const val = m.value != null ? m.value : 0;
-    const isOferta = m.type === "oferta";
-    const noteHtml = m.note ? '<div class="movement-note">📝 '+m.note+'</div>' : "";
-    const boxHtml = m.boxName ? '<div style="font-size:11px;color:var(--blue);margin-bottom:2px">🎁 '+m.boxName+'</div>' : "";
+  const list=document.getElementById("historyList");
+  const filtered=histFilter==="all"?history:history.filter(m=>m.type===histFilter);
+  if (!filtered.length){list.innerHTML='<div class="empty-state"><div class="icon">📭</div><p>Ainda não há movimentos.</p></div>';return;}
+  list.innerHTML=[...filtered].reverse().map(m=>{
+    const typeLabels={entrada:"📦 Entrada",mista:"🛍️ Venda",oferta:"🎀 Oferta"};
+    const sections=[];
+    if (m.caixaItems&&Object.keys(m.caixaItems).length) {
+      const items=Object.entries(m.caixaItems).map(([k,v])=>k+": <strong>"+v+"</strong>").join(" · ");
+      sections.push('<div class="movement-section">🎁 '+(m.boxName||"Caixa")+'</div><div class="movement-items">'+items+'</div>');
+    }
+    if (m.avulsoItems&&Object.keys(m.avulsoItems).length) {
+      const items=Object.entries(m.avulsoItems).map(([k,v])=>k+": <strong>"+v+"</strong>").join(" · ");
+      sections.push('<div class="movement-section">🛍️ Avulso</div><div class="movement-items">'+items+'</div>');
+    }
+    if (m.ofertaItems&&Object.keys(m.ofertaItems).length) {
+      const items=Object.entries(m.ofertaItems).map(([k,v])=>k+": <strong>"+v+"</strong>").join(" · ");
+      sections.push('<div class="movement-section">🎀 Oferta</div><div class="movement-items">'+items+'</div>');
+    }
+    // fallback for old records
+    if (!sections.length&&m.items) {
+      const items=Object.entries(m.items).map(([k,v])=>k+": <strong>"+v+"</strong>").join(" · ");
+      sections.push('<div class="movement-items">'+items+'</div>');
+    }
+    const total=Object.values(m.items||{}).reduce((s,v)=>s+v,0)
+      ||(Object.values(m.avulsoItems||{}).reduce((s,v)=>s+v,0)+Object.values(m.caixaItems||{}).reduce((s,v)=>s+v,0)+Object.values(m.ofertaItems||{}).reduce((s,v)=>s+v,0));
+    const noteHtml=m.note?'<div class="movement-note">📝 '+m.note+'</div>':"";
     return '<div class="movement-card">'
-      +'<div class="movement-top">'
-        +'<span class="movement-type '+m.type+'">'+typeLabel(m.type)+'</span>'
-        +'<span class="movement-date">'+m.date+'</span>'
-      +'</div>'
-      +boxHtml
-      +'<div class="movement-items">'+items+'</div>'
-      +'<div class="movement-footer">'
-        +'<span class="movement-total">'+total+' un.</span>'
-        +(m.type !== "entrada" ? '<span class="movement-value'+(isOferta?" zero":"")+'">'+( isOferta?"Oferta":fmt(val))+'</span>' : '')
-      +'</div>'
-      +noteHtml
-      +'</div>';
+      +'<div class="movement-top"><span class="movement-type '+(m.type||"mista")+'">'+(typeLabels[m.type]||"🛍️ Venda")+'</span><span class="movement-date">'+m.date+'</span></div>'
+      +sections.join("")
+      +'<div class="movement-footer"><span class="movement-total">'+total+' un.</span>'
+      +(m.type!=="entrada"?'<span class="movement-value">'+((m.value||0)>0?fmt(m.value||0):"Oferta")+'</span>':"")
+      +'</div>'+noteHtml+'</div>';
   }).join("");
 }
 
-// ── RENDER FLAVORS (with drag to reorder) ─────────────────────────────────────
-let dragSrcIdx = null;
-
+// ── RENDER FLAVORS (drag to reorder with live ghost) ──────────────────────────
 function renderFlavors() {
-  const list = document.getElementById("flavorList");
-  list.innerHTML = "";
-  flavors.forEach((c,i) => {
-    const row = document.createElement("div");
-    row.className = "flavor-row";
-    row.draggable = true;
-    row.dataset.idx = i;
-    row.innerHTML =
-      '<div class="drag-handle">⠿</div>'
+  const list=document.getElementById("flavorList");
+  list.innerHTML="";
+  flavors.forEach((c,i)=>{
+    const row=document.createElement("div");
+    row.className="flavor-row"; row.dataset.idx=i;
+    const hasCustom=c.customPrice!=null&&!isNaN(c.customPrice);
+    row.innerHTML='<div class="drag-handle">⠿</div>'
       +'<div class="flavor-emoji-big">'+c.emoji+'</div>'
       +'<div class="flavor-name">'+c.name+'</div>'
-      +'<span class="flavor-cat-badge cat-'+c.cat+'">'+catLabel(c.cat)+'</span>'
-      +'<div class="flavor-stock-num">'+(stock[c.name]||0)+' un.</div>'
+      +'<select class="flavor-cat-sel" onchange="updateFlavorCat('+i+',this.value)">'
+        +'<option value="simples"'+(c.cat==="simples"?" selected":"")+'>Simples</option>'
+        +'<option value="recheada"'+(c.cat==="recheada"?" selected":"")+'>Recheada</option>'
+        +'<option value="especial"'+(c.cat==="especial"?" selected":"")+'>Especial</option>'
+      +'</select>'
+      +'<input class="flavor-price-input" type="number" step="0.01" min="0" placeholder="Custom" '
+        +'value="'+(hasCustom?parseFloat(c.customPrice).toFixed(2):"")+'" '
+        +'title="Preço personalizado (deixa vazio para usar o da categoria)" '
+        +'onchange="updateFlavorPrice('+i+',this.value)">'
       +'<button class="btn-remove" onclick="removeFlavor('+i+')">✕</button>';
+    list.appendChild(row);
+  });
 
-    row.addEventListener("dragstart", e => { dragSrcIdx = i; row.classList.add("dragging"); e.dataTransfer.effectAllowed="move"; });
-    row.addEventListener("dragend", () => { row.classList.remove("dragging"); document.querySelectorAll(".flavor-row").forEach(r=>r.classList.remove("drag-over")); });
-    row.addEventListener("dragover", e => { e.preventDefault(); row.classList.add("drag-over"); });
-    row.addEventListener("dragleave", () => row.classList.remove("drag-over"));
-    row.addEventListener("drop", e => {
+  // ── DRAG-TO-REORDER with live ghost ──
+  let ghost=null, dragIdx=null, placeholder=null;
+
+  function getRowAt(y) {
+    const rows=[...list.querySelectorAll(".flavor-row:not(.drag-placeholder)")];
+    for (const r of rows) {
+      const rect=r.getBoundingClientRect();
+      if (y>=rect.top&&y<=rect.bottom) return r;
+    }
+    return null;
+  }
+
+  function cleanup() {
+    if (ghost) { ghost.remove(); ghost=null; }
+    if (placeholder) { placeholder.remove(); placeholder=null; }
+    list.querySelectorAll(".flavor-row").forEach(r=>r.classList.remove("dragging"));
+    dragIdx=null;
+  }
+
+  list.querySelectorAll(".flavor-row").forEach((row,i)=>{
+    const handle=row.querySelector(".drag-handle");
+
+    // Mouse
+    handle.addEventListener("mousedown", e=>{
       e.preventDefault();
-      if (dragSrcIdx === null || dragSrcIdx === i) return;
-      const newFlavors = [...flavors];
-      const [moved] = newFlavors.splice(dragSrcIdx, 1);
-      newFlavors.splice(i, 0, moved);
-      set(ref(db,"flavors"), newFlavors);
-      dragSrcIdx = null;
+      dragIdx=i;
+      const rect=row.getBoundingClientRect();
+      row.classList.add("dragging");
+      placeholder=document.createElement("div");
+      placeholder.className="flavor-row drag-placeholder";
+      placeholder.style.height=rect.height+"px";
+      row.parentNode.insertBefore(placeholder,row.nextSibling);
+
+      ghost=document.createElement("div");
+      ghost.className="flavor-ghost";
+      ghost.style.width=rect.width+"px";
+      ghost.style.left=rect.left+"px";
+      ghost.style.top=rect.top+"px";
+      ghost.innerHTML=row.innerHTML;
+      document.body.appendChild(ghost);
+
+      const onMove=e=>{
+        ghost.style.top=(e.clientY-rect.height/2)+"px";
+        const target=getRowAt(e.clientY);
+        if (target&&target!==row&&target!==placeholder) {
+          const targetRect=target.getBoundingClientRect();
+          if (e.clientY<targetRect.top+targetRect.height/2) list.insertBefore(placeholder,target);
+          else list.insertBefore(placeholder,target.nextSibling);
+        }
+      };
+      const onUp=async()=>{
+        document.removeEventListener("mousemove",onMove);
+        document.removeEventListener("mouseup",onUp);
+        const rows=[...list.querySelectorAll(".flavor-row:not(.drag-placeholder)")];
+        const newOrder=rows.map(r=>flavors[parseInt(r.dataset.idx)]);
+        const phIdx=[...list.children].indexOf(placeholder);
+        const finalOrder=[...newOrder];
+        finalOrder.splice(phIdx,0,...finalOrder.splice(dragIdx,1));
+        cleanup();
+        if (JSON.stringify(finalOrder.map(f=>f.name))!==JSON.stringify(flavors.map(f=>f.name))) {
+          await set(ref(db,"flavors"),finalOrder);
+        }
+      };
+      document.addEventListener("mousemove",onMove);
+      document.addEventListener("mouseup",onUp);
     });
 
-    // Touch drag support
-    let touchStartY = 0, touchStartIdx = 0;
-    row.addEventListener("touchstart", e => { touchStartY = e.touches[0].clientY; touchStartIdx = i; }, {passive:true});
-    row.addEventListener("touchend", e => {
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      if (Math.abs(dy) < 10) return;
-      const rows = [...document.querySelectorAll(".flavor-row")];
-      const targetRow = rows.find(r => {
-        const rect = r.getBoundingClientRect();
-        return e.changedTouches[0].clientY >= rect.top && e.changedTouches[0].clientY <= rect.bottom;
-      });
-      if (targetRow && targetRow !== row) {
-        const targetIdx = parseInt(targetRow.dataset.idx);
-        const newFlavors = [...flavors];
-        const [moved] = newFlavors.splice(touchStartIdx, 1);
-        newFlavors.splice(targetIdx, 0, moved);
-        set(ref(db,"flavors"), newFlavors);
-      }
-    }, {passive:true});
+    // Touch
+    handle.addEventListener("touchstart", e=>{
+      e.preventDefault();
+      dragIdx=i;
+      const rect=row.getBoundingClientRect();
+      const touch=e.touches[0];
+      row.classList.add("dragging");
+      placeholder=document.createElement("div");
+      placeholder.className="flavor-row drag-placeholder";
+      placeholder.style.height=rect.height+"px";
+      row.parentNode.insertBefore(placeholder,row.nextSibling);
 
-    list.appendChild(row);
+      ghost=document.createElement("div");
+      ghost.className="flavor-ghost";
+      ghost.style.width=rect.width+"px";
+      ghost.style.left=rect.left+"px";
+      ghost.style.top=rect.top+"px";
+      ghost.innerHTML=row.innerHTML;
+      document.body.appendChild(ghost);
+
+      const onMove=e=>{
+        const t=e.touches[0];
+        ghost.style.top=(t.clientY-rect.height/2)+"px";
+        const target=getRowAt(t.clientY);
+        if (target&&target!==row&&target!==placeholder) {
+          const tRect=target.getBoundingClientRect();
+          if (t.clientY<tRect.top+tRect.height/2) list.insertBefore(placeholder,target);
+          else list.insertBefore(placeholder,target.nextSibling);
+        }
+      };
+      const onEnd=async()=>{
+        handle.removeEventListener("touchmove",onMove);
+        handle.removeEventListener("touchend",onEnd);
+        const rows=[...list.querySelectorAll(".flavor-row:not(.drag-placeholder)")];
+        const phIdx=[...list.children].indexOf(placeholder);
+        const newFlavors=[...flavors];
+        const [moved]=newFlavors.splice(dragIdx,1);
+        // find placeholder position among non-placeholder rows
+        const nonPh=[...list.children].filter(c=>!c.classList.contains("drag-placeholder"));
+        let insertAt=phIdx; // approximate
+        cleanup();
+        newFlavors.splice(Math.max(0,insertAt-1),0,moved);
+        if (JSON.stringify(newFlavors.map(f=>f.name))!==JSON.stringify(flavors.map(f=>f.name))) {
+          await set(ref(db,"flavors"),newFlavors);
+        }
+      };
+      handle.addEventListener("touchmove",onMove,{passive:false});
+      handle.addEventListener("touchend",onEnd);
+    },{passive:false});
   });
 }
 
+window.updateFlavorCat = async (i, cat) => {
+  const newFlavors=[...flavors];
+  newFlavors[i]={...newFlavors[i],cat};
+  await set(ref(db,"flavors"),newFlavors);
+};
+
+window.updateFlavorPrice = async (i, val) => {
+  const newFlavors=[...flavors];
+  const parsed=parseFloat(val);
+  if (val===""||isNaN(parsed)) {
+    const {customPrice,...rest}=newFlavors[i];
+    newFlavors[i]=rest;
+  } else {
+    newFlavors[i]={...newFlavors[i],customPrice:parsed};
+  }
+  await set(ref(db,"flavors"),newFlavors);
+  toast("Preço guardado");
+};
+
 window.addFlavor = async () => {
-  const emoji = document.getElementById("newEmoji").value.trim() || "🍪";
-  const name  = document.getElementById("newName").value.trim();
-  const cat   = document.getElementById("newCat").value;
-  if (!name) { toast("Escreve o nome do sabor"); return; }
-  if (flavors.find(c => c.name.toLowerCase()===name.toLowerCase())) { toast("Esse sabor já existe"); return; }
-  const newFlavors = [...flavors, {name,emoji,cat}];
-  await set(ref(db,"flavors"), newFlavors);
-  await set(ref(db,"stock/"+name.replace(/[.#$\[\]]/g,"_")), 0);
+  const emoji=document.getElementById("newEmoji").value.trim()||"🍪";
+  const name=document.getElementById("newName").value.trim();
+  const cat=document.getElementById("newCat").value;
+  if (!name){toast("Escreve o nome do sabor");return;}
+  if (flavors.find(c=>c.name.toLowerCase()===name.toLowerCase())){toast("Esse sabor já existe");return;}
+  await set(ref(db,"flavors"),[...flavors,{name,emoji,cat}]);
+  await set(ref(db,"stock/"+name.replace(/[.#$\[\]]/g,"_")),0);
   document.getElementById("newEmoji").value="";
   document.getElementById("newName").value="";
   toast("Sabor adicionado: "+name);
 };
 
 window.removeFlavor = async i => {
-  const c = flavors[i];
-  if (!confirm("Remover \""+c.name+"\"? O histórico é preservado.")) return;
-  const newFlavors = flavors.filter((_,idx)=>idx!==i);
-  await set(ref(db,"flavors"), newFlavors);
+  const c=flavors[i];
+  if (!confirm("Remover \""+c.name+"\"?")) return;
+  await set(ref(db,"flavors"),flavors.filter((_,idx)=>idx!==i));
   toast(c.name+" removido");
 };
 
 // ── BOXES ─────────────────────────────────────────────────────────────────────
 function renderBoxList() {
-  const list = document.getElementById("boxList");
-  list.innerHTML = boxes.map((b,i) =>
-    '<div class="box-row">'
-    +'<div class="box-info">'
-      +'<div class="box-name">'+b.name+'</div>'
-      +'<div class="box-meta">'+b.size+' cookies · '+fmt(b.price)+' base · +'+fmt(b.specialExtra)+'/especial</div>'
-    +'</div>'
-    +'<button class="btn-remove" onclick="removeBox('+i+')">✕</button>'
-    +'</div>'
-  ).join("");
+  const list=document.getElementById("boxList");
+  list.innerHTML=boxes.map((b,i)=>`
+    <div class="box-row" id="boxrow_${i}">
+      <div class="box-row-top">
+        <div class="box-info">
+          <div class="box-name">${b.name}</div>
+          <div class="box-meta">${b.size} cookies · ${fmt(b.price)} base · +${fmt(b.specialExtra)}/especial</div>
+        </div>
+        <button class="btn-edit" onclick="toggleBoxEdit(${i})">✎</button>
+        <button class="btn-remove" onclick="removeBox(${i})">✕</button>
+      </div>
+      <div class="box-edit-area" id="boxedit_${i}">
+        <div class="add-box-grid" style="margin-bottom:.5rem">
+          <div><span class="small-label">Nome</span><input class="small-input" id="be_name_${i}" value="${b.name}"></div>
+          <div><span class="small-label">Nº cookies</span><input class="small-input" type="number" id="be_size_${i}" value="${b.size}"></div>
+          <div><span class="small-label">Preço base</span><input class="small-input" type="number" step="0.01" id="be_price_${i}" value="${b.price.toFixed(2)}"></div>
+          <div><span class="small-label">Extra/especial</span><input class="small-input" type="number" step="0.01" id="be_extra_${i}" value="${b.specialExtra.toFixed(2)}"></div>
+        </div>
+        <button class="btn-save-box" onclick="saveBox(${i})">Guardar alterações</button>
+      </div>
+    </div>`).join("");
 }
 
+window.toggleBoxEdit = i => {
+  const el=document.getElementById("boxedit_"+i);
+  el.classList.toggle("open");
+};
+
+window.saveBox = async i => {
+  const name=document.getElementById("be_name_"+i).value.trim();
+  const size=parseInt(document.getElementById("be_size_"+i).value);
+  const price=parseFloat(document.getElementById("be_price_"+i).value);
+  const specialExtra=parseFloat(document.getElementById("be_extra_"+i).value||"0");
+  if (!name||!size||isNaN(price)){toast("Preenche todos os campos");return;}
+  const newBoxes=[...boxes];
+  newBoxes[i]={name,size,price,specialExtra};
+  await set(ref(db,"boxes"),newBoxes);
+  toast("Caixa actualizada");
+};
+
 window.addBox = async () => {
-  const name = document.getElementById("boxName").value.trim();
-  const size = parseInt(document.getElementById("boxSize").value);
-  const price = parseFloat(document.getElementById("boxPrice").value);
-  const specialExtra = parseFloat(document.getElementById("boxSpecialExtra").value||"0");
-  if (!name || !size || isNaN(price)) { toast("Preenche todos os campos da caixa"); return; }
-  const newBoxes = [...boxes, {name,size,price,specialExtra}];
-  await set(ref(db,"boxes"), newBoxes);
-  ["boxName","boxSize","boxPrice","boxSpecialExtra"].forEach(id => document.getElementById(id).value="");
+  const name=document.getElementById("boxName").value.trim();
+  const size=parseInt(document.getElementById("boxSize").value);
+  const price=parseFloat(document.getElementById("boxPrice").value);
+  const specialExtra=parseFloat(document.getElementById("boxSpecialExtra").value||"0");
+  if (!name||!size||isNaN(price)){toast("Preenche todos os campos da caixa");return;}
+  await set(ref(db,"boxes"),[...boxes,{name,size,price,specialExtra}]);
+  ["boxName","boxSize","boxPrice","boxSpecialExtra"].forEach(id=>document.getElementById(id).value="");
   toast("Caixa adicionada: "+name);
 };
 
 window.removeBox = async i => {
   if (!confirm("Remover esta caixa?")) return;
-  const newBoxes = boxes.filter((_,idx)=>idx!==i);
-  await set(ref(db,"boxes"), newBoxes);
+  await set(ref(db,"boxes"),boxes.filter((_,idx)=>idx!==i));
 };
 
 // ── PRICES ────────────────────────────────────────────────────────────────────
 window.savePrices = async () => {
-  const s = parseFloat(document.getElementById("priceSimples").value);
-  const r = parseFloat(document.getElementById("priceRecheada").value);
-  const e = parseFloat(document.getElementById("priceEspecial").value);
-  if (isNaN(s)||isNaN(r)||isNaN(e)) { toast("Preços inválidos"); return; }
-  await set(ref(db,"prices"), {simples:s,recheada:r,especial:e});
+  const s=parseFloat(document.getElementById("priceSimples").value);
+  const r=parseFloat(document.getElementById("priceRecheada").value);
+  const e=parseFloat(document.getElementById("priceEspecial").value);
+  if (isNaN(s)||isNaN(r)||isNaN(e)){toast("Preços inválidos");return;}
+  await set(ref(db,"prices"),{simples:s,recheada:r,especial:e});
   toast("Preços guardados");
 };
 
 window.saveMin = () => {
-  const v = parseInt(document.getElementById("minInput").value)||12;
-  minStock = v; localStorage.setItem("cookie_min_v1",String(v));
+  const v=parseInt(document.getElementById("minInput").value)||12;
+  minStock=v; localStorage.setItem("cookie_min_v1",String(v));
   render(); toast("Mínimo: "+v+" unidades");
 };
 
-// ── MODAL ─────────────────────────────────────────────────────────────────────
+// ── MODAL — MIXED SALE ────────────────────────────────────────────────────────
 window.openModal = mode => {
-  modalMode = mode; modalSel = {}; modalBox = null;
-  const titles = {entrada:"📦 Entrada — produção",saida:"🛍️ Venda avulso",caixa:"🎁 Venda de caixa",oferta:"🎀 Oferta — cookie gratuita"};
-  const subs = {entrada:"Quantas cookies entram em stock?",saida:"Quantas cookies vendes?",caixa:"Escolhe a caixa e as cookies.",oferta:"Regista a oferta e o motivo."};
-  document.getElementById("modalTitle").textContent = titles[mode];
-  document.getElementById("modalSubtitle").textContent = subs[mode];
-  const btn = document.getElementById("btnConfirm");
-  btn.className = "btn-confirm "+mode; btn.disabled = true; btn.textContent = "Confirmar";
-  const totalBar = document.getElementById("modalTotalBar");
-  totalBar.style.display = (mode==="saida"||mode==="caixa") ? "flex" : "none";
+  modalMode=mode; sel={}; selectedBox=null;
+  flavors.forEach(f=>sel[f.name]={avulso:0,caixa:0,oferta:0});
+  if (mode==="entrada") {
+    document.getElementById("modalTitle").textContent="📦 Entrada — produção";
+    document.getElementById("modalSubtitle").textContent="Quantas cookies entram em stock?";
+    document.getElementById("modalTotalBar").style.display="none";
+  } else {
+    document.getElementById("modalTitle").textContent="🛍️ Venda";
+    document.getElementById("modalSubtitle").textContent="Combina caixa, avulso e ofertas numa só venda.";
+    document.getElementById("modalTotalBar").style.display="flex";
+  }
+  const btn=document.getElementById("btnConfirm");
+  btn.disabled=true; btn.textContent="Confirmar";
   renderModalBody();
   document.getElementById("modalBackdrop").classList.add("open");
 };
 
-function calcTotal() {
-  if (modalMode === "saida") {
-    return flavors.reduce((sum,c) => sum + (modalSel[c.name]||0) * catPrice(c.cat), 0);
-  }
-  if (modalMode === "caixa" && modalBox) {
-    const specials = flavors.filter(c=>c.cat==="especial").reduce((s,c)=>s+(modalSel[c.name]||0),0);
-    return modalBox.price + specials * modalBox.specialExtra;
-  }
-  return 0;
-}
-
-function updateTotalBar() {
-  if (modalMode !== "saida" && modalMode !== "caixa") return;
-  document.getElementById("modalTotalVal").textContent = fmt(calcTotal());
-}
-
-function boxCookieCount() {
-  return Object.values(modalSel).reduce((s,v)=>s+v,0);
-}
-
 function renderModalBody() {
-  if (modalMode === "caixa") {
-    renderCaixaBody();
-  } else {
-    renderCookieBody();
-  }
+  if (modalMode==="entrada") { renderEntradaBody(); return; }
+  renderMistaBody();
+}
+
+function renderEntradaBody() {
+  document.getElementById("modalBody").innerHTML=
+    '<div class="modal-section-head">Quantidades a adicionar</div>'
+    +flavors.map(c=>{
+      const q=getSelCount(c.name,"avulso");
+      const id="cv_"+c.name.replace(/\W/g,"_")+"_e";
+      return '<div class="modal-cookie-item">'
+        +'<div class="modal-cookie-emoji">'+c.emoji+'</div>'
+        +'<div class="modal-cookie-info"><div class="modal-cookie-name">'+c.name+'</div>'
+        +'<div class="modal-cookie-sub">Stock atual: '+(stock[c.name]||0)+'</div></div>'
+        +'<div class="modal-cookie-ctrl">'
+        +'<button class="ctrl-btn minus" onclick="madj(\''+c.name+'\',\'avulso\',-1)">−</button>'
+        +'<div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div>'
+        +'<button class="ctrl-btn plus" onclick="madj(\''+c.name+'\',\'avulso\',1)">+</button>'
+        +'</div></div>';
+    }).join("");
+}
+
+function renderMistaBody() {
+  const boxCount=boxCookieCount();
+  const boxMax=selectedBox?selectedBox.size:0;
+  const boxCountClass=boxCount===boxMax&&boxMax>0?"full":boxCount>boxMax?"over":"";
+
+  const boxSection='<div class="modal-section-head">🎁 Caixa (opcional)</div>'
+    +'<div class="box-chips">'
+    +(boxes.length?boxes.map((b,i)=>'<div class="box-chip'+(selectedBox===b?" selected":"")+'" onclick="selectBox('+i+')">'+b.name+'</div>').join(""):'<span style="font-size:13px;color:var(--text-muted)">Sem caixas configuradas</span>')
+    +'</div>'
+    +(selectedBox?'<div class="box-progress"><span class="box-progress-label">Cookies para a caixa</span><span class="box-progress-val '+boxCountClass+'">'+boxCount+' / '+boxMax+'</span></div>':'');
+
+  const cookieRows=flavors.map(c=>{
+    const qa=getSelCount(c.name,"avulso");
+    const qc=getSelCount(c.name,"caixa");
+    const qo=getSelCount(c.name,"oferta");
+    const stockN=stock[c.name]||0;
+    const totalSel=qa+qc+qo;
+    return '<div class="modal-cookie-item">'
+      +'<div class="modal-cookie-emoji">'+c.emoji+'</div>'
+      +'<div class="modal-cookie-info">'
+        +'<div class="modal-cookie-name">'+c.name+'</div>'
+        +'<div class="modal-cookie-sub">'+fmt(flavorPrice(c))+' · stock: '+stockN+'</div>'
+      +'</div>'
+      +'<div style="display:flex;flex-direction:column;gap:3px;flex-shrink:0">'
+        // avulso row
+        +(selectedBox||true?'<div style="display:flex;align-items:center;gap:4px">'
+          +'<span style="font-size:9px;color:var(--text-muted);width:38px;text-align:right">avulso</span>'
+          +'<button class="ctrl-btn minus" onclick="madj(\''+c.name+'\',\'avulso\',-1)">−</button>'
+          +'<div class="ctrl-val'+(qa>0?" active":"")+ '" id="cv_'+c.name.replace(/\W/g,"_")+'_a">'+qa+'</div>'
+          +'<button class="ctrl-btn plus" onclick="madj(\''+c.name+'\',\'avulso\',1)">+</button>'
+          +'</div>':"")
+        // caixa row (only if box selected)
+        +(selectedBox?'<div style="display:flex;align-items:center;gap:4px">'
+          +'<span style="font-size:9px;color:var(--blue);width:38px;text-align:right">caixa</span>'
+          +'<button class="ctrl-btn minus" onclick="madj(\''+c.name+'\',\'caixa\',-1)" style="border-color:var(--blue);color:var(--blue)">−</button>'
+          +'<div class="ctrl-val'+(qc>0?" active":"")+ '" id="cv_'+c.name.replace(/\W/g,"_")+'_c">'+qc+'</div>'
+          +'<button class="ctrl-btn plus" onclick="madj(\''+c.name+'\',\'caixa\',1)" style="border-color:var(--blue);color:var(--blue)">+</button>'
+          +'</div>':"")
+        // oferta row
+        +'<div style="display:flex;align-items:center;gap:4px">'
+          +'<span style="font-size:9px;color:var(--purple);width:38px;text-align:right">oferta</span>'
+          +'<button class="ctrl-btn minus" onclick="madj(\''+c.name+'\',\'oferta\',-1)" style="border-color:var(--purple);color:var(--purple)">−</button>'
+          +'<div class="ctrl-val'+(qo>0?" active":"")+ '" id="cv_'+c.name.replace(/\W/g,"_")+'_o">'+qo+'</div>'
+          +'<button class="ctrl-btn plus" onclick="madj(\''+c.name+'\',\'oferta\',1)" style="border-color:var(--purple);color:var(--purple)">+</button>'
+          +'</div>'
+      +'</div>'
+      +'</div>';
+  }).join("");
+
+  const ofertaNote=Object.values(sel).some(s=>s.oferta>0)
+    ?'<div class="note-section"><div class="note-label">📝 Motivo da oferta</div><textarea class="note-textarea" id="ofertaNote" rows="2" placeholder="Ex: Amostra, brinde..."></textarea></div>':"";
+  const saleNote='<div class="note-section"><div class="note-label">📝 Nota da venda (opcional)</div><textarea class="note-textarea" id="saleNote" rows="2" placeholder="Ex: Maria Santos"></textarea></div>';
+
+  document.getElementById("modalBody").innerHTML=boxSection+cookieRows+ofertaNote+saleNote;
   updateTotalBar();
-}
-
-function renderCaixaBody() {
-  const boxOptions = boxes.map((b,i) =>
-    '<div class="box-option'+(modalBox&&modalBox===b?" selected":"")+'" onclick="selectBox('+i+')">'
-    +'<div class="box-option-name">'+b.name+'</div>'
-    +'<div class="box-option-meta">'+b.size+' cookies · '+fmt(b.price)+' base · +'+fmt(b.specialExtra)+'/especial</div>'
-    +'</div>'
-  ).join("");
-
-  const selected = modalBox;
-  const count = boxCookieCount();
-  const max = selected ? selected.size : 0;
-  const counterClass = count === max ? "full" : count > max ? "over" : "";
-
-  const cookieRows = flavors.map(c => {
-    const q = modalSel[c.name]||0;
-    const id = "cv_"+c.name.replace(/\W/g,"_");
-    const stockN = stock[c.name]||0;
-    return '<div class="modal-cookie-item">'
-      +'<div class="modal-cookie-emoji">'+c.emoji+'</div>'
-      +'<div class="modal-cookie-info">'
-        +'<div class="modal-cookie-name">'+c.name+'</div>'
-        +'<div class="modal-cookie-sub">'+catLabel(c.cat)+(c.cat==="especial"?" · +"+fmt(modalBox?modalBox.specialExtra:0):"")+'  ·  stock: '+stockN+'</div>'
-      +'</div>'
-      +'<div class="modal-cookie-ctrl">'
-        +'<button class="ctrl-btn minus" onclick="mAdj(\''+c.name+'\',-1)">−</button>'
-        +'<div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div>'
-        +'<button class="ctrl-btn plus" onclick="mAdj(\''+c.name+'\',+1)">+</button>'
-      +'</div>'
-      +'</div>';
-  }).join("");
-
-  document.getElementById("modalBody").innerHTML =
-    '<div class="box-picker">'
-      +'<div class="box-picker-label">Escolhe a caixa</div>'
-      +'<div class="box-options">'+boxOptions+'</div>'
-      +(selected ? '<div class="box-counter"><span class="box-counter-label">Cookies selecionadas</span><span class="box-counter-val '+counterClass+'">'+count+' / '+max+'</span></div>' : '')
-    +'</div>'
-    +(selected ? cookieRows : '')
-    +'<div class="note-section"><div class="note-label">📝 Nota (opcional)</div><textarea class="note-textarea" id="saleNote" rows="2" placeholder="Ex: Maria Santos"></textarea></div>';
-}
-
-function renderCookieBody() {
-  const isSaida = modalMode === "saida";
-  const isOferta = modalMode === "oferta";
-  const rows = flavors.map(c => {
-    const q = modalSel[c.name]||0;
-    const id = "cv_"+c.name.replace(/\W/g,"_");
-    const stockN = stock[c.name]||0;
-    const sub = isSaida ? catLabel(c.cat)+" · "+fmt(catPrice(c.cat)) : "Stock: "+stockN+" un.";
-    return '<div class="modal-cookie-item">'
-      +'<div class="modal-cookie-emoji">'+c.emoji+'</div>'
-      +'<div class="modal-cookie-info">'
-        +'<div class="modal-cookie-name">'+c.name+'</div>'
-        +'<div class="modal-cookie-sub">'+sub+'</div>'
-      +'</div>'
-      +'<div class="modal-cookie-ctrl">'
-        +'<button class="ctrl-btn minus" onclick="mAdj(\''+c.name+'\',-1)">−</button>'
-        +'<div class="ctrl-val'+(q>0?" active":"")+ '" id="'+id+'">'+q+'</div>'
-        +'<button class="ctrl-btn plus" onclick="mAdj(\''+c.name+'\',+1)">+</button>'
-      +'</div>'
-      +'</div>';
-  }).join("");
-
-  const noteLabel = isOferta ? "📝 Motivo da oferta (obrigatório)" : "📝 Nota (opcional)";
-  const notePlaceholder = isOferta ? "Ex: Amostra para cliente, brinde de aniversário..." : "Ex: Maria Santos — encomenda especial";
-  const noteSection = (isSaida||isOferta)
-    ? '<div class="note-section"><div class="note-label">'+noteLabel+'</div><textarea class="note-textarea" id="saleNote" rows="2" placeholder="'+notePlaceholder+'"></textarea></div>'
-    : "";
-  document.getElementById("modalBody").innerHTML = rows + noteSection;
 }
 
 window.selectBox = i => {
-  modalBox = boxes[i];
-  // Reset selections when switching box
-  modalSel = {};
-  renderCaixaBody();
-  document.getElementById("btnConfirm").disabled = true;
-  updateTotalBar();
+  selectedBox=boxes[i];
+  // Reset caixa selections
+  flavors.forEach(f=>{if(sel[f.name])sel[f.name].caixa=0;});
+  renderMistaBody();
+  updateConfirmBtn();
 };
 
-window.mAdj = (name, delta) => {
-  const next = (modalSel[name]||0) + delta;
-  if (next < 0) return;
+window.madj = (name, type, delta) => {
+  if (!sel[name]) sel[name]={avulso:0,caixa:0,oferta:0};
+  const next=(sel[name][type]||0)+delta;
+  if (next<0) return;
 
-  // For sales/offers: check stock
-  if ((modalMode==="saida"||modalMode==="caixa"||modalMode==="oferta") && next > (stock[name]||0)) {
-    toast("Stock insuficiente para "+name); return;
+  // Check stock
+  const totalAfter=getTotalForName(name)-sel[name][type]+next;
+  if (delta>0&&totalAfter>(stock[name]||0)){toast("Stock insuficiente para "+name);return;}
+
+  // Box limit
+  if (type==="caixa"&&selectedBox&&delta>0&&boxCookieCount()>=selectedBox.size){
+    toast("Caixa cheia — máximo "+selectedBox.size+" cookies");return;
   }
 
-  // For caixa: enforce max size
-  if (modalMode==="caixa" && modalBox) {
-    const currentTotal = boxCookieCount();
-    if (delta > 0 && currentTotal >= modalBox.size) {
-      toast("Caixa cheia — máximo "+modalBox.size+" cookies"); return;
+  sel[name][type]=next;
+
+  const idMap={avulso:"_a",caixa:"_c",oferta:"_o",entrada:"_e"};
+  const suffix=type==="avulso"&&modalMode==="entrada"?"_e":idMap[type];
+  const el=document.getElementById("cv_"+name.replace(/\W/g,"_")+suffix);
+  if (el){el.textContent=next;el.className="ctrl-val"+(next>0?" active":"");}
+
+  // Update box counter
+  if (type==="caixa"&&selectedBox) {
+    const cnt=boxCookieCount();
+    const cntEl=document.querySelector(".box-progress-val");
+    if (cntEl){
+      cntEl.textContent=cnt+" / "+selectedBox.size;
+      cntEl.className="box-progress-val"+(cnt===selectedBox.size?" full":cnt>selectedBox.size?" over":"");
     }
   }
 
-  modalSel[name] = next;
-
-  const el = document.getElementById("cv_"+name.replace(/\W/g,"_"));
-  if (el) { el.textContent = next; el.className = "ctrl-val"+(next>0?" active":""); }
-
-  // Update counter for caixa
-  if (modalMode==="caixa" && modalBox) {
-    const count = boxCookieCount();
-    const counterEl = document.querySelector(".box-counter-val");
-    if (counterEl) {
-      counterEl.textContent = count+" / "+modalBox.size;
-      counterEl.className = "box-counter-val"+(count===modalBox.size?" full":count>modalBox.size?" over":"");
+  // Re-render oferta note if needed
+  if (type==="oferta") {
+    const hasOferta=Object.values(sel).some(s=>s.oferta>0);
+    const existing=document.getElementById("ofertaNote");
+    const saleNote=document.getElementById("saleNote");
+    const bodyEl=document.getElementById("modalBody");
+    if (hasOferta&&!existing) {
+      const div=document.createElement("div");
+      div.className="note-section";
+      div.innerHTML='<div class="note-label">📝 Motivo da oferta</div><textarea class="note-textarea" id="ofertaNote" rows="2" placeholder="Ex: Amostra, brinde..."></textarea>';
+      if (saleNote) bodyEl.insertBefore(div,saleNote.parentElement||saleNote);
+      else bodyEl.appendChild(div);
+    } else if (!hasOferta&&existing) {
+      existing.closest(".note-section").remove();
     }
   }
 
-  const anySelected = Object.values(modalSel).some(v=>v>0);
-  const caixaReady = modalMode==="caixa" && modalBox && boxCookieCount()===modalBox.size;
-  document.getElementById("btnConfirm").disabled = modalMode==="caixa" ? !caixaReady : !anySelected;
+  updateConfirmBtn();
   updateTotalBar();
 };
 
-window.closeModal = () => document.getElementById("modalBackdrop").classList.remove("open");
-window.closeModalOutside = e => { if (e.target===document.getElementById("modalBackdrop")) closeModal(); };
+function updateTotalBar() {
+  if (modalMode!=="entrada") {
+    document.getElementById("modalTotalVal").textContent=fmt(calcTotal());
+  }
+}
+
+function updateConfirmBtn() {
+  const btn=document.getElementById("btnConfirm");
+  if (modalMode==="entrada") {
+    btn.disabled=!flavors.some(f=>(sel[f.name]?.avulso||0)>0);
+    return;
+  }
+  const hasAvulso=flavors.some(f=>(sel[f.name]?.avulso||0)>0);
+  const hasCaixa=selectedBox&&boxCookieCount()===selectedBox.size;
+  const hasOferta=flavors.some(f=>(sel[f.name]?.oferta||0)>0);
+  btn.disabled=!(hasAvulso||hasCaixa||hasOferta);
+}
+
+window.closeModal=()=>document.getElementById("modalBackdrop").classList.remove("open");
+window.closeModalOutside=e=>{if(e.target===document.getElementById("modalBackdrop"))closeModal();};
 
 window.applyModal = async () => {
-  const noteEl = document.getElementById("saleNote");
-  const note = noteEl ? noteEl.value.trim() : "";
+  const saleNote=(document.getElementById("saleNote")||{}).value?.trim()||"";
+  const ofertaNote=(document.getElementById("ofertaNote")||{}).value?.trim()||"";
+  if (Object.values(sel).some(s=>s.oferta>0)&&!ofertaNote){toast("Escreve o motivo da oferta");return;}
 
-  // Oferta requires a note
-  if (modalMode==="oferta" && !note) { toast("Escreve o motivo da oferta"); return; }
-
-  const btn = document.getElementById("btnConfirm");
-  btn.disabled = true; btn.textContent = "A guardar...";
-
-  const selections = {...modalSel};
-  const mode = modalMode;
-  const box = modalBox;
-  const totalValue = calcTotal();
-
+  const btn=document.getElementById("btnConfirm");
+  btn.disabled=true; btn.textContent="A guardar...";
+  const snapSel=JSON.parse(JSON.stringify(sel));
+  const snapBox=selectedBox;
+  const snapMode=modalMode;
+  const totalValue=calcTotal();
   closeModal();
 
   try {
-    // Atomically update stock for each flavour
-    for (const [name, qty] of Object.entries(selections)) {
-      if (!qty) continue;
-      const key = name.replace(/[.#$\[\]]/g,"_");
+    // Atomically update stock for all cookies
+    for (const f of flavors) {
+      const total=( snapSel[f.name]?.avulso||0)+(snapSel[f.name]?.caixa||0)+(snapSel[f.name]?.oferta||0);
+      if (!total) continue;
+      const key=f.name.replace(/[.#$\[\]]/g,"_");
       await runTransaction(ref(db,"stock/"+key), cur => {
-        const c = cur||0;
-        return mode==="entrada" ? c+qty : Math.max(0, c-qty);
+        const c=cur||0;
+        return snapMode==="entrada" ? c+total : Math.max(0,c-total);
       });
     }
 
-    // Build history entry
-    const now = new Date();
-    const dateStr = now.toLocaleDateString("pt-PT")+" "+now.toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"});
-    const movement = {
-      id: Date.now(),
-      date: dateStr,
-      type: mode,
-      items: Object.fromEntries(Object.entries(selections).filter(([,v])=>v>0)),
-      note,
-      value: mode==="entrada"||mode==="oferta" ? 0 : totalValue,
-      ...(box ? {boxName:box.name, boxSize:box.size} : {})
-    };
-    await push(ref(db,"history"), movement);
+    const now=new Date();
+    const dateStr=now.toLocaleDateString("pt-PT")+" "+now.toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"});
 
-    const count = Object.values(selections).reduce((s,v)=>s+v,0);
-    const msgs = {entrada:count+" cookies adicionadas",saida:count+" cookies vendidas · "+fmt(totalValue),caixa:box.name+" vendida · "+fmt(totalValue),oferta:count+" cookies oferecidas"};
-    toast(msgs[mode]);
-  } catch(e) {
-    toast("Erro ao guardar. Tenta novamente."); console.error(e);
-  }
+    if (snapMode==="entrada") {
+      const items=Object.fromEntries(flavors.filter(f=>(snapSel[f.name]?.avulso||0)>0).map(f=>[f.name,snapSel[f.name].avulso]));
+      await push(ref(db,"history"),{id:Date.now(),date:dateStr,type:"entrada",items,value:0,note:saleNote});
+      const count=Object.values(items).reduce((s,v)=>s+v,0);
+      toast(count+" cookies adicionadas");
+    } else {
+      const avulsoItems=Object.fromEntries(flavors.filter(f=>(snapSel[f.name]?.avulso||0)>0).map(f=>[f.name,snapSel[f.name].avulso]));
+      const caixaItems=Object.fromEntries(flavors.filter(f=>(snapSel[f.name]?.caixa||0)>0).map(f=>[f.name,snapSel[f.name].caixa]));
+      const ofertaItems=Object.fromEntries(flavors.filter(f=>(snapSel[f.name]?.oferta||0)>0).map(f=>[f.name,snapSel[f.name].oferta]));
+      const allItems={};
+      [...Object.entries(avulsoItems),...Object.entries(caixaItems),...Object.entries(ofertaItems)].forEach(([k,v])=>allItems[k]=(allItems[k]||0)+v);
+      await push(ref(db,"history"),{
+        id:Date.now(),date:dateStr,type:"mista",
+        items:allItems,avulsoItems,caixaItems,ofertaItems,
+        value:totalValue,
+        boxName:snapBox?snapBox.name:null,
+        boxSize:snapBox?snapBox.size:null,
+        note:saleNote,ofertaNote
+      });
+      const count=Object.values(allItems).reduce((s,v)=>s+v,0);
+      toast(count+" cookies · "+fmt(totalValue));
+    }
+  } catch(e) { toast("Erro ao guardar. Tenta novamente."); console.error(e); }
 };
 
 // ── EXPORT CSV ────────────────────────────────────────────────────────────────
 window.exportCSV = () => {
-  if (!history.length) { toast("Não há movimentos para exportar"); return; }
-  const rows = [["Data","Tipo","Caixa","Sabor","Quantidade","Total cookies","Valor (€)","Nota"]];
-  history.forEach(m => {
-    const total = Object.values(m.items||{}).reduce((s,v)=>s+v,0);
-    const entries = Object.entries(m.items||{});
+  if (!history.length){toast("Não há movimentos");return;}
+  const rows=[["Data","Tipo","Caixa","Sabor","Avulso","Caixa","Oferta","Total cookies","Valor (€)","Nota","Motivo oferta"]];
+  history.forEach(m=>{
+    const allNames=new Set([...Object.keys(m.items||{}),...Object.keys(m.avulsoItems||{}),...Object.keys(m.caixaItems||{}),...Object.keys(m.ofertaItems||{})]);
+    const entries=[...allNames];
     if (!entries.length) return;
-    entries.forEach(([sabor,qty],i) => {
+    const total=Object.values(m.items||{}).reduce((s,v)=>s+v,0)||entries.reduce((s,n)=>s+((m.avulsoItems||{})[n]||0)+((m.caixaItems||{})[n]||0)+((m.ofertaItems||{})[n]||0),0);
+    entries.forEach((name,i)=>{
       rows.push([
         i===0?m.date:"",
-        i===0?({entrada:"Entrada",saida:"Venda",caixa:"Caixa",oferta:"Oferta"}[m.type]||m.type):"",
+        i===0?({entrada:"Entrada",mista:"Venda",oferta:"Oferta"}[m.type]||m.type):"",
         i===0?(m.boxName||""):"",
-        sabor, qty,
+        name,
+        (m.avulsoItems||{})[name]||"",
+        (m.caixaItems||{})[name]||"",
+        (m.ofertaItems||{})[name]||"",
         i===0?total:"",
         i===0?(m.value!=null?m.value.toFixed(2):""):"",
-        i===0?(m.note||""):""
+        i===0?(m.note||""):"",
+        i===0?(m.ofertaNote||""):""
       ]);
     });
   });
+  const vendas=history.filter(m=>m.type==="mista"||m.type==="saida");
+  rows.push([],[" RESUMO"]);
+  rows.push(["Total receita (€)",vendas.reduce((s,m)=>s+(m.value||0),0).toFixed(2)]);
+  rows.push(["Cookies vendidas",vendas.reduce((s,m)=>s+Object.values(m.items||{}).reduce((a,b)=>a+b,0),0)]);
+  rows.push(["Cookies oferecidas",history.filter(m=>m.type==="oferta"||Object.values(m.ofertaItems||{}).some(v=>v>0)).reduce((s,m)=>s+Object.values(m.ofertaItems||m.items||{}).reduce((a,b)=>a+b,0),0)]);
+  rows.push(["Nº vendas",vendas.length]);
+  rows.push(["Caixas vendidas",history.filter(m=>m.boxName).length]);
 
-  // Summary rows
-  rows.push([]);
-  rows.push(["RESUMO",""]);
-  const vendas = history.filter(m=>m.type==="saida"||m.type==="caixa");
-  const totalVendas = vendas.reduce((s,m)=>s+(m.value||0),0);
-  const totalCookiesVendidas = vendas.reduce((s,m)=>s+Object.values(m.items||{}).reduce((a,b)=>a+b,0),0);
-  const totalOfertas = history.filter(m=>m.type==="oferta").reduce((s,m)=>s+Object.values(m.items||{}).reduce((a,b)=>a+b,0),0);
-  rows.push(["Total vendas (€)", totalVendas.toFixed(2)]);
-  rows.push(["Total cookies vendidas", totalCookiesVendidas]);
-  rows.push(["Total cookies oferecidas", totalOfertas]);
-  rows.push(["Nº vendas avulso", history.filter(m=>m.type==="saida").length]);
-  rows.push(["Nº caixas vendidas", history.filter(m=>m.type==="caixa").length]);
-
-  const csv = rows.map(r=>r.map(v=>'"'+String(v||"").replace(/"/g,'""')+'"').join(",")).join("\n");
-  const blob = new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const csv=rows.map(r=>r.map(v=>'"'+String(v||"").replace(/"/g,'""')+'"').join(",")).join("\n");
+  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
   a.href=url; a.download="cookies_"+new Date().toISOString().slice(0,10)+".csv";
   a.click(); URL.revokeObjectURL(url);
   toast("CSV exportado");
 };
 
 // ── NOTIFICATIONS ─────────────────────────────────────────────────────────────
-window.closeNotif = () => {
-  document.getElementById("notifBanner").classList.remove("show");
+window.closeNotif=()=>{document.getElementById("notifBanner").classList.remove("show");clearTimeout(notifTimer);};
+function showNotif(icon,title,msg,type,dur){
+  const b=document.getElementById("notifBanner");
+  document.getElementById("notifIcon").textContent=icon;
+  document.getElementById("notifTitle").textContent=title;
+  document.getElementById("notifMsg").textContent=msg;
+  b.className="notif-banner "+(type||"flavour")+" show";
   clearTimeout(notifTimer);
-};
-
-function showNotif(icon, title, msg, type, duration) {
-  const b = document.getElementById("notifBanner");
-  document.getElementById("notifIcon").textContent = icon;
-  document.getElementById("notifTitle").textContent = title;
-  document.getElementById("notifMsg").textContent = msg;
-  b.className = "notif-banner "+(type||"flavour")+" show";
-  clearTimeout(notifTimer);
-  notifTimer = setTimeout(()=>b.classList.remove("show"), duration||6000);
+  notifTimer=setTimeout(()=>b.classList.remove("show"),dur||6000);
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────────────
-let toastTimer;
-window.toast = msg => {
-  const t = document.getElementById("toast");
+window.toast=msg=>{
+  const t=document.getElementById("toast");
   t.textContent=msg; t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove("show"), 2700);
+  toastTimer=setTimeout(()=>t.classList.remove("show"),2700);
 };
 </script>
 </body>
