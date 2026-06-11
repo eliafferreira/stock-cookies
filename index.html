@@ -315,8 +315,16 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:.
     <div class="modal-header"><div class="modal-title" id="modalTitle"></div><div class="modal-subtitle" id="modalSubtitle"></div></div>
     <div class="modal-body" id="modalBody"></div>
     <div class="modal-total-bar" id="modalTotalBar" style="display:none">
-      <span class="modal-total-label">Total da venda</span>
-      <span class="modal-total-val" id="modalTotalVal">0,00 €</span>
+      <div>
+        <div class="modal-total-label">Total da venda</div>
+        <div style="font-size:10px;color:var(--accent);margin-top:1px">Editável — aplica desconto se quiseres</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <input type="number" step="0.01" min="0" id="modalTotalVal"
+          style="width:90px;font-family:var(--mono);font-size:18px;font-weight:600;color:var(--brown);background:transparent;border:none;border-bottom:2px solid var(--accent);outline:none;text-align:right;padding:2px 4px"
+          oninput="manualTotalEdited=true">
+        <span style="font-size:14px;font-weight:600;color:var(--brown)">€</span>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
@@ -372,6 +380,7 @@ let modalMode = null;
 let sel = {};
 let selectedBox = null;
 let histFilter = "all";
+let manualTotalEdited = false;
 let isFirstFlavourLoad = true;
 let lastFlavourNames = null;
 let lastStockSnapshot = null;
@@ -759,6 +768,7 @@ window.saveBox = async i => {
   const newBoxes=[...boxes];
   newBoxes[i]={name,size,price,specialExtra};
   await set(ref(db,"boxes"),newBoxes);
+  document.getElementById("boxedit_"+i).classList.remove("open");
   toast("Caixa actualizada");
 };
 
@@ -773,9 +783,10 @@ window.addBox = async () => {
   toast("Caixa adicionada: "+name);
 };
 
-window.removeBox = async i => {
+window.removeBox = async (i) => {
   if (!confirm("Remover esta caixa?")) return;
-  await set(ref(db,"boxes"),boxes.filter((_,idx)=>idx!==i));
+  const newBoxes = boxes.filter((_,idx)=>idx!==parseInt(i));
+  await set(ref(db,"boxes"), newBoxes.length ? newBoxes : []);
 };
 
 // ── PRICES ────────────────────────────────────────────────────────────────────
@@ -796,7 +807,7 @@ window.saveMin = () => {
 
 // ── MODAL — MIXED SALE ────────────────────────────────────────────────────────
 window.openModal = mode => {
-  modalMode=mode; sel={}; selectedBox=null;
+  modalMode=mode; sel={}; selectedBox=null; manualTotalEdited=false;
   flavors.forEach(f=>sel[f.name]={avulso:0,caixa:0,oferta:0});
   if (mode==="entrada") {
     document.getElementById("modalTitle").textContent="📦 Entrada — produção";
@@ -954,8 +965,8 @@ window.madj = (name, type, delta) => {
 };
 
 function updateTotalBar() {
-  if (modalMode!=="entrada") {
-    document.getElementById("modalTotalVal").textContent=fmt(calcTotal());
+  if (modalMode!=="entrada"&&!manualTotalEdited) {
+    document.getElementById("modalTotalVal").value=calcTotal().toFixed(2);
   }
 }
 
@@ -984,7 +995,8 @@ window.applyModal = async () => {
   const snapSel=JSON.parse(JSON.stringify(sel));
   const snapBox=selectedBox;
   const snapMode=modalMode;
-  const totalValue=calcTotal();
+  const totalInputEl=document.getElementById("modalTotalVal");
+  const totalValue=totalInputEl?parseFloat(totalInputEl.value)||0:calcTotal();
   closeModal();
 
   try {
