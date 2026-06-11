@@ -855,6 +855,7 @@ function renderMistaBody() {
   const boxSection='<div class="modal-section-head">🎁 Caixa (opcional)</div>'
     +'<div class="box-chips">'
     +(boxes.length?boxes.map((b,i)=>'<div class="box-chip'+(selectedBox===b?" selected":"")+'" onclick="selectBox('+i+')">'+b.name+'</div>').join(""):'<span style="font-size:13px;color:var(--text-muted)">Sem caixas configuradas</span>')
+    +(selectedBox?'<div class="box-chip" onclick="deselectBox()" style="border-color:var(--red);color:var(--red);background:var(--red-light)">✕ sem caixa</div>':"")
     +'</div>'
     +(selectedBox?'<div class="box-progress"><span class="box-progress-label">Cookies para a caixa</span><span class="box-progress-val '+boxCountClass+'">'+boxCount+' / '+boxMax+'</span></div>':'');
 
@@ -903,6 +904,14 @@ function renderMistaBody() {
   document.getElementById("modalBody").innerHTML=boxSection+cookieRows+ofertaNote+saleNote;
   updateTotalBar();
 }
+
+window.deselectBox = () => {
+  selectedBox = null;
+  flavors.forEach(f => { if (sel[f.name]) sel[f.name].caixa = 0; });
+  renderMistaBody();
+  updateConfirmBtn();
+  updateTotalBar();
+};
 
 window.selectBox = i => {
   selectedBox=boxes[i];
